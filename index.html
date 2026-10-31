@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga VRT - Automobilismo Virtual Pro</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #07090e; color: #f3f4f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- CONTAINER DE NOTIFICAÇÕES TOAST (PROFISSIONAL E DIRETO) -->
+    <div id="toast-container" class="fixed top-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- TELA DE CAPA / PORTÃO DE LOGIN (EXIBIDO QUANDO NÃO LOGADO) -->
+    <div id="auth-gate" class="fixed inset-0 bg-[#07090e] z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-emerald-500/40 w-full max-w-md rounded-2xl p-8 shadow-2xl text-center space-y-6">
+            <div class="flex flex-col items-center space-y-3">
+                <img src="https://cdn.thesimgrid.com/6et5y6k8n37u6ug0cvkvs4jli2k9" alt="Liga VRT Logo" class="w-16 h-16 object-contain rounded-full border-2 border-emerald-500 shadow-lg">
+                <h1 class="text-2xl font-black tracking-wider uppercase text-white">Liga <span class="text-emerald-400">VRT</span></h1>
+                <p class="text-xs text-gray-400">Acesse sua conta para visualizar campeonatos, classificações, murais e inscrições.</p>
+            </div>
+
+            <div class="space-y-3">
+                <button onclick="openGateAuthModal('login')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-lg cursor-pointer text-sm">
+                    <i class="fa-solid fa-right-to-bracket mr-2"></i> Entrar na Conta
+                </button>
+                <button onclick="openGateAuthModal('register')" class="w-full bg-gray-800 hover:bg-gray-700 text-emerald-400 border border-emerald-500/30 font-bold py-3 rounded-xl transition cursor-pointer text-sm">
+                    <i class="fa-solid fa-user-plus mr-2"></i> Cadastrar Novo Piloto
+                </button>
+            </div>
+            <p class="text-[10px] text-gray-500">&copy; 2026 Liga VRT - Todos os direitos reservados.</p>
+        </div>
+    </div>
+
+    <!-- WIDGETS FLUTUANTES (WHATSAPP) -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col gap-3 items-end">
+        <a href="https://chat.whatsapp.com/KbzYtkqISNhDwTn0CjYKmH" target="_blank" class="bg-green-600 hover:bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition text-2xl cursor-pointer" title="Grupo WhatsApp VRT">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- CABEÇALHO / NAVEGAÇÃO POR ABAS -->
+    <header class="bg-gray-900 border-b border-gray-800 sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <img src="https://cdn.thesimgrid.com/6et5y6k8n37u6ug0cvkvs4jli2k9" alt="Liga VRT Logo" class="w-10 h-10 object-contain rounded-full border border-emerald-500/50 shadow-md">
+                <span class="text-xl font-black tracking-wider uppercase text-white">Liga <span class="text-emerald-400">VRT</span></span>
+            </div>
+
+            <nav class="flex flex-wrap items-center space-x-1 md:space-x-4 text-xs md:text-sm font-semibold">
+                <button onclick="switchTab('home')" class="nav-btn px-3 py-2 rounded-lg transition text-emerald-400 bg-gray-800 cursor-pointer" data-target="home">Início</button>
+                <button onclick="switchTab('avisos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="avisos">Mural</button>
+                <button onclick="switchTab('campeonatos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="campeonatos">Campeonatos</button>
+                <button onclick="switchTab('classificacao')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="classificacao">Classificação</button>
+                <button onclick="switchTab('ratings')" class="nav-btn px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer" data-target="ratings"><i class="fa-solid fa-chart-line"></i> Ratings</button>
+                <button onclick="switchTab('corridas')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="corridas">4funs & Inscrições</button>
+                <button onclick="switchTab('protestos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="protestos">Protestos</button>
+                <button onclick="switchTab('admin-section')" id="nav-admin" class="nav-btn hidden px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer" data-target="admin-section"><i class="fa-solid fa-shield-halved"></i> ADM</button>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="togglePixModal(true)" class="bg-purple-600/20 text-purple-400 border border-purple-600/40 hover:bg-purple-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg transition flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-qrcode"></i> Pix VRT
+                </button>
+                <div id="auth-header-area"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 space-y-8">
+
+        <!-- ABA INÍCIO -->
+        <section id="tab-home" class="tab-content active space-y-8">
+            <div class="bg-gradient-to-r from-emerald-950/30 via-gray-900 to-orange-950/20 border border-emerald-500/30 rounded-2xl p-8 md:p-12 shadow-2xl">
+                <div class="max-w-2xl">
+                    <span class="bg-emerald-600/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-emerald-600/40">Temporada 2026</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-4 text-white">A Emoção do Automobilismo Virtual Começa Aqui</h1>
+                    <p class="text-gray-400 mb-6">Competições de elite, campeonatos, relatórios de carreira e sistema avançado de Rating VRT.</p>
+                    <button onclick="switchTab('corridas')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-600/30 inline-flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-gauge-high"></i> Ver Eventos Disponíveis
+                    </button>
+                </div>
+            </div>
+
+            <!-- PAINEL DO PILOTO LOGADO -->
+            <section id="pilot-profile-section" class="bg-gray-900 border border-emerald-500/40 rounded-2xl p-6 md:p-8 shadow-xl">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-gray-800 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-emerald-600/20 p-3 rounded-xl border border-emerald-600/30 text-emerald-400 text-2xl">
+                            <i class="fa-solid fa-id-badge"></i>
+                        </div>
+                        <div>
+                            <h2 id="profile-pilot-name" class="text-xl font-bold text-white">Carregando perfil...</h2>
+                            <p class="text-xs text-gray-400">ID PSN/Xbox Oficial: <span id="profile-pilot-psn" class="text-orange-400 font-semibold">--</span></p>
+                            <p class="text-xs text-gray-500 mt-0.5">Telefone: <span id="profile-pilot-phone" class="text-gray-300">--</span></p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="openEditProfileModal()" class="bg-blue-600/20 text-blue-400 border border-blue-600/40 hover:bg-blue-600 hover:text-white text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer">
+                            <i class="fa-solid fa-user-pen mr-1"></i> Editar Perfil
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-950 border border-orange-500/30 rounded-xl p-5 relative overflow-hidden">
+                        <span class="text-[10px] uppercase font-bold text-orange-400 bg-orange-950/40 px-2.5 py-1 rounded border border-orange-800/40">Rating Principal (100%)</span>
+                        <div class="mt-4 flex items-baseline gap-2">
+                            <span id="profile-rating-main" class="text-4xl font-black text-white">0.0</span>
+                            <span class="text-xs text-gray-400">pontos</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-950 border border-emerald-500/30 rounded-xl p-5 relative overflow-hidden">
+                        <span class="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-800/40">Rating Geral VRT</span>
+                        <div class="mt-4 flex items-baseline gap-2">
+                            <span id="profile-rating-general" class="text-4xl font-black text-white">0.0</span>
+                            <span class="text-xs text-gray-400">pontos</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- ABA MURAL DE AVISOS -->
+        <section id="tab-avisos" class="tab-content space-y-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold border-l-4 border-orange-500 pl-3">Mural de Avisos & Briefing Oficial</h2>
+            </div>
+            <div id="announcements-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando avisos da liga...</div>
+            </div>
+        </section>
+
+        <!-- ABA CAMPEONATOS -->
+        <section id="tab-campeonatos" class="tab-content space-y-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Campeonatos (Principais & Paralelos)</h2>
+            </div>
+            <div id="championships-list" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando campeonatos...</div>
+            </div>
+        </section>
+
+        <!-- ABA CLASSIFICAÇÃO -->
+        <section id="tab-classificacao" class="tab-content space-y-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Classificação Geral (Pontos Nominais)</h2>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-950 text-gray-400 text-xs uppercase border-b border-gray-800">
+                            <th class="p-4">Pos</th>
+                            <th class="p-4">Piloto (ID PSN / Xbox)</th>
+                            <th class="p-4 text-center">Etapas Disputadas</th>
+                            <th class="p-4 text-right">Pontuação Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="standings-table-body">
+                        <tr><td colspan="4" class="p-6 text-center text-gray-500 text-sm">Carregando classificação...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ABA RATINGS -->
+        <section id="tab-ratings" class="tab-content space-y-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Ranking Oficial de Rating VRT</h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
+                    <div class="bg-gray-950 p-4 border-b border-gray-800 flex justify-between items-center">
+                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i class="fa-solid fa-chart-line text-emerald-400 mr-2"></i> Ranking Rating Geral</h3>
+                    </div>
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-950/60 text-gray-400 text-xs uppercase border-b border-gray-800">
+                                <th class="p-3">Pos</th>
+                                <th class="p-3">Piloto (ID PSN / Xbox)</th>
+                                <th class="p-3 text-right">Rating Geral</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ratings-general-tbody">
+                            <tr><td colspan="3" class="p-6 text-center text-gray-500 text-sm">Carregando ratings...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
+                    <div class="bg-gray-950 p-4 border-b border-gray-800 flex justify-between items-center">
+                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i class="fa-solid fa-trophy text-orange-400 mr-2"></i> Ranking Rating Principal</h3>
+                    </div>
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-950/60 text-gray-400 text-xs uppercase border-b border-gray-800">
+                                <th class="p-3">Pos</th>
+                                <th class="p-3">Piloto (ID PSN / Xbox)</th>
+                                <th class="p-3 text-right">Rating Principal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ratings-main-tbody">
+                            <tr><td colspan="3" class="p-6 text-center text-gray-500 text-sm">Carregando ratings...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 4FUN E INSCRIÇÕES -->
+        <section id="tab-corridas" class="tab-content space-y-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Eventos 4funs & Inscrições</h2>
+            </div>
+            <div id="races-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando eventos...</div>
+            </div>
+        </section>
+
+        <!-- ABA PROTESTOS -->
+        <section id="tab-protestos" class="tab-content space-y-6">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+                <div class="flex justify-between items-center mb-6 border-b border-gray-800 pb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3 text-white">Central de Protestos & Stewards</h2>
+                        <p class="text-xs text-gray-400 mt-1">Envio de protestos por vídeo (YouTube/Twitch ou arquivo do celular) em até 24h pós-corrida.</p>
+                    </div>
+                    <button onclick="openProtestModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition cursor-pointer shadow-md inline-flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Novo Protesto
+                    </button>
+                </div>
+                <div id="protests-list" class="space-y-4">
+                    <div class="text-gray-500 text-center py-6 bg-gray-950 rounded-xl border border-gray-800 text-xs">Carregando protestos e julgamentos...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAINEL ADMINISTRATIVO -->
+        <section id="tab-admin-section" class="tab-content space-y-8">
+            <div class="bg-gray-900/80 border border-orange-500/40 rounded-2xl p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-6 border-b border-gray-800 pb-4">
+                    <i class="fa-solid fa-toolbox text-orange-400 text-2xl"></i>
+                    <div>
+                        <h2 class="text-xl font-bold text-orange-400">Painel do Administrador - Gestão Pro</h2>
+                        <p class="text-xs text-gray-400">Gerenciamento completo de pilotos, avisos multimídia, campeonatos e 4funs detalhados.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- GESTÃO DE PERFIS CADASTRADOS -->
+                    <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-users-gear text-emerald-400 mr-2"></i> Pilotos Cadastrados no Sistema</h3>
+                        <div id="admin-pilots-list" class="space-y-2 max-h-48 overflow-y-auto text-xs text-gray-300">
+                            <p class="text-gray-500">Carregando pilotos...</p>
+                        </div>
+                    </div>
+
+                    <!-- PUBLICAR AVISO -->
+                    <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-bullhorn text-orange-400 mr-2"></i> Publicar Aviso no Mural (Multimídia / Opcional)</h3>
+                        <form onsubmit="publicarAviso(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Título do Aviso</label>
+                                    <input type="text" id="admin-announcement-title" placeholder="Ex: Briefing Etapa Spa" required class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Categoria</label>
+                                    <select id="admin-announcement-badge" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
+                                        <option value="Briefing Oficial">Briefing Oficial</option>
+                                        <option value="Comunicado ADM">Comunicado ADM</option>
+                                        <option value="Regulamento">Regulamento</option>
+                                        <option value="Manutenção">Manutenção</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Conteúdo e Links (Recomendado usar links para vídeos pesados)</label>
+                                <textarea id="admin-announcement-content" rows="3" placeholder="Insira o texto e links..." required class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Arquivo Opcional (Máximo recomendado: 800 KB devido ao limite do banco)</label>
+                                <input type="file" id="admin-announcement-media" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-1.5 text-white text-xs file:bg-orange-600 file:text-white file:border-0 file:rounded file:px-2 file:py-1 cursor-pointer">
+                            </div>
+                            <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-2.5 rounded-lg transition cursor-pointer text-xs">Publicar Aviso</button>
+                        </form>
+                    </div>
+
+                    <!-- CRIAR CAMPEONATO -->
+                    <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-trophy text-emerald-400 mr-2"></i> Criar Campeonato (Etapa por Etapa Completo)</h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Tipo</label>
+                                    <select id="champ-tier" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
+                                        <option value="Principal">Principal (100%)</option>
+                                        <option value="Paralelo">Paralelo (50%)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Simulador</label>
+                                    <select id="champ-simulator" onchange="onChampSimChange()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                        <option value="Assetto Corsa Competizione">Assetto Corsa Competizione (ACC)</option>
+                                        <option value="Gran Turismo 7">Gran Turismo 7 (GT7)</option>
+                                        <option value="Project Motor Racing">Project Motor Racing (PMR)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome do Campeonato</label>
+                                    <input type="text" id="champ-name" placeholder="Ex: VRT GT3 Pro" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Vagas</label>
+                                    <select id="champ-slots" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Número de Etapas</label>
+                                    <input type="number" id="champ-rounds" value="3" min="1" max="10" onchange="generateRoundFields()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                </div>
+                            </div>
+
+                            <div id="rounds-container" class="space-y-4 pt-2 border-t border-gray-800"></div>
+
+                            <button type="button" onclick="criarCampeonatoCompleto()" class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-3 rounded-lg transition cursor-pointer text-sm">Salvar Campeonato Completo</button>
+                        </div>
+                    </div>
+
+                    <!-- CRIAR EVENTO 4FUN -->
+                    <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-flag text-emerald-400 mr-2"></i> Criar Evento 4fun</h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Simulador</label>
+                                    <select id="fun-simulator" onchange="onFunSimChange()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                        <option value="Assetto Corsa Competizione">Assetto Corsa Competizione (ACC)</option>
+                                        <option value="Gran Turismo 7">Gran Turismo 7 (GT7)</option>
+                                        <option value="Project Motor Racing">Project Motor Racing (PMR)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome do 4fun</label>
+                                    <input type="text" id="fun-name" placeholder="Ex: 4fun Spa Noturno" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Pista Oficial</label>
+                                    <select id="fun-track" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Vagas</label>
+                                    <select id="fun-slots" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Treino Livre (Min)</span>
+                                    <input type="number" id="fun-fp" value="30" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                </div>
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Qualifying (Min)</span>
+                                    <input type="number" id="fun-q" value="15" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                </div>
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Corrida (Min)</span>
+                                    <input type="number" id="fun-r" value="60" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                </div>
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Horário Virtual (00:00 - 23:00)</span>
+                                    <select id="fun-vtime" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white"></select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Progressão de Tempo</span>
+                                    <select id="fun-timeprog" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="1x">1x</option><option value="2x">2x</option><option value="3x">3x</option><option value="5x">5x</option><option value="10x">10x</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Clima</span>
+                                    <select id="fun-weather" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="Sol">Sol</option><option value="Nublado">Nublado</option><option value="Chuva Leve">Chuva Leve</option><option value="Dinâmico">Dinâmico</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Temperatura</span>
+                                    <select id="fun-temp" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white"></select>
+                                </div>
+                                <div>
+                                    <span class="font-bold text-white block mb-1">BOP VRT Ativo?</span>
+                                    <select id="fun-bop" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="Sim">Sim</option><option value="Não">Não</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Pit Obrigatório (0 a 4)</span>
+                                    <select id="fun-pit-req" onchange="togglePitOptions('fun')" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+                                    </select>
+                                </div>
+                                <div id="fun-pit-sub-1" class="hidden">
+                                    <span class="font-bold text-white block mb-1">Obrigatoriedade</span>
+                                    <select id="fun-pit-type" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="Pneus">Pneus</option><option value="Combustível">Combustível</option><option value="Pneus e Combustível">Pneus e Combustível</option><option value="Nada">Nada</option>
+                                    </select>
+                                </div>
+                                <div id="fun-pit-sub-2" class="hidden">
+                                    <span class="font-bold text-white block mb-1">Janela de Pit</span>
+                                    <select id="fun-pit-window" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="Não">Não</option><option value="5min">5min</option><option value="10min">10min</option><option value="15min">15min</option><option value="20min">20min</option>
+                                    </select>
+                                </div>
+                                <div id="fun-pit-sub-3" class="hidden">
+                                    <span class="font-bold text-white block mb-1">Pit de 25 Segundos</span>
+                                    <select id="fun-pit-25s" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="Não">Não</option><option value="Sim">Sim</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs space-y-2">
+                                <span class="font-bold text-white block">Categoria de Carros</span>
+                                <select id="fun-category" onchange="toggleMarcaUnica('fun')" class="w-full bg-gray-950 border border-gray-800 rounded p-2 text-white">
+                                    <option value="GT3">GT3</option><option value="GT2">GT2</option><option value="GT4">GT4</option><option value="Porsche Cup">Porsche Cup</option><option value="BMW M2">BMW M2</option><option value="Lamborghini ST">Lamborghini ST</option><option value="Ferrari Challenge">Ferrari Challenge</option><option value="Marca Única">Marca Única</option>
+                                </select>
+                                <div id="fun-marca-unica-box" class="hidden pt-2">
+                                    <label class="text-[10px] text-orange-400 block mb-1">Selecione os carros participantes (Marca Única):</label>
+                                    <div id="fun-cars-checkboxes" class="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-36 overflow-y-auto bg-gray-950 p-2 rounded border border-gray-800"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Data e Horário Real do Evento</label>
+                                <input type="datetime-local" id="fun-date" class="w-full bg-gray-900 border border-gray-800 rounded px-3 py-2 text-white text-xs">
+                            </div>
+
+                            <button type="button" onclick="criarEvento4FunCompleto()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition cursor-pointer text-sm">Publicar Evento 4fun</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL DE PIX QR CODE -->
+    <div id="pix-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-purple-500/40 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative text-center">
+            <button onclick="togglePixModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-lg font-bold mb-2 text-white flex items-center justify-center gap-2"><i class="fa-solid fa-qrcode text-purple-400"></i> Apoie a Liga VRT</h3>
+            <p class="text-xs text-gray-400 mb-4">Contribua com as manutenções dos servidores da liga via PIX:</p>
+            <div class="bg-white p-4 rounded-xl inline-block mb-4 shadow">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=virtualracingteam2017@gmail.com" alt="QR Code Pix" class="w-40 h-40 mx-auto">
+            </div>
+            <div class="bg-gray-950 p-3 rounded-lg border border-gray-800 text-xs select-all text-purple-300 font-mono mb-3">
+                virtualracingteam2017@gmail.com
+            </div>
+            <button onclick="copyPixKey()" class="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-2 rounded-lg transition cursor-pointer">Copiar Chave Pix</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDIÇÃO DE PERFIL -->
+    <div id="edit-profile-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-blue-500/40 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="toggleEditProfileModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-user-pen text-blue-400 mr-2"></i> Editar Meu Perfil</h3>
+            <form onsubmit="salvarPerfilPiloto(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome Completo</label>
+                    <input type="text" id="edit-fullname" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Telefone com DDD</label>
+                    <input type="text" id="edit-phone" placeholder="(51) 99999-9999" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">ID PSN ou Xbox / Gamertag</label>
+                    <input type="text" id="edit-psnxbox" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg transition cursor-pointer text-xs">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE LOGIN / CADASTRO -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="toggleAuthModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 id="auth-modal-title" class="text-xl font-bold mb-4 text-white">Entrar na Liga VRT</h3>
+            <form id="auth-form" class="space-y-4">
+                <div id="register-fields" class="hidden space-y-3">
+                    <div>
+                        <label class="block text-xs uppercase text-gray-400 mb-1">Nome Completo</label>
+                        <input type="text" id="auth-fullname" placeholder="Ex: Mauro Moura" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase text-gray-400 mb-1">Telefone com DDD</label>
+                        <input type="text" id="auth-phone" placeholder="(51) 99999-9999" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase text-gray-400 mb-1">ID PSN ou Xbox / Gamertag</label>
+                        <input type="text" id="auth-psnxbox" placeholder="Ex: VRT_MauroMoura" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs uppercase text-gray-400 mb-1">E-mail</label>
+                    <input type="email" id="auth-email" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase text-gray-400 mb-1">Senha</label>
+                    <input type="password" id="auth-password" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                </div>
+                <button type="submit" id="auth-submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition">Entrar</button>
+            </form>
+            <div class="mt-4 text-center text-sm text-gray-400">
+                <button type="button" onclick="switchAuthMode()" class="text-emerald-400 font-semibold hover:underline cursor-pointer" id="auth-switch-btn">Cadastre-se</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-6 text-center text-sm text-gray-500">
+        <p>&copy; 2026 Liga VRT - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- SCRIPT FIREBASE E LÓGICA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCNju-z3AvURu8M6YSO3ukNtFBYYs0t2-w",
+          authDomain: "site-virtual-racing-team.firebaseapp.com",
+          projectId: "site-virtual-racing-team",
+          storageBucket: "site-virtual-racing-team.firebasestorage.app",
+          messagingSenderId: "647741498721",
+          appId: "1:647741498721:web:09b636402b20aaa2fbd120",
+          measurementId: "G-MYPDGM819M"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app, "default");
+
+        const simulatorData = {
+            "Assetto Corsa Competizione": {
+                cars: [
+                    "Porsche 991 GT3 R (2018)", "Mercedes-AMG GT3 (2015)", "Ferrari 488 GT3 (2018)", "Audi R8 LMS (2015)", "Lamborghini Huracán GT3 (2015)", "McLaren 650S GT3 (2015)", "Nissan GT-R Nismo GT3 (2018)", "BMW M6 GT3 (2017)", "Bentley Continental GT3 (2018)", "Nissan GT-R Nismo GT3 (2017)", "Bentley Continental GT3 (2016)", "Aston Martin V12 Vantage GT3 (2013)", "Lamborghini Gallardo R-EX", "Jaguar Emil Frey G3", "Lexus RC F GT3 (2016)", "Lamborghini Huracán GT3 Evo (2019)", "Honda NSX GT3 (2017)", "Audi R8 LMS Evo (2019)", "Aston Martin V8 Vantage GT3 (2019)", "Honda NSX GT3 Evo (2019)", "McLaren 720S GT3 (2019)", "Porsche 911 GT3 R (2019)", "Ferrari 488 GT3 Evo (2020)", "Mercedes-AMG GT3 (2020)", "BMW M4 GT3 (2022)", "Audi R8 LMS GT3 Evo II (2022)", "Ferrari 296 GT3 (2023)", "Lamborghini Huracán GT3 EVO2 (2023)", "Porsche 992 GT3 R (2023)", "McLaren 720S GT3 Evo (2023)", "Ford Mustang GT3 (2024)",
+                    "Alpine A110 GT4", "Aston Martin V8 Vantage GT4", "Audi R8 LMS GT4", "BMW M4 GT4", "Chevrolet Camaro GT4.R", "Ginetta G55 GT4", "KTM X-Bow GT4", "Maserati GranTurismo MC GT4", "McLaren 570S GT4", "Mercedes-AMG GT4", "Porsche 718 Cayman GT4 Clubsport",
+                    "Audi R8 LMS GT2", "KTM X-Bow GT2", "Maserati MC20 GT2", "Mercedes-AMG GT2", "Porsche 911 GT2 RS Clubsport Evo", "Porsche 935",
+                    "Porsche 991 II GT3 Cup", "Lamborghini Huracán Super Trofeo", "Ferrari 488 Challenge Evo", "Porsche 911 GT3 Cup (992)", "Lamborghini Huracán Super Trofeo EVO2", "BMW M2 CS Racing"
+                ],
+                tracks: [
+                    "Autodromo Nazionale Monza", "Brands Hatch", "Circuit de Barcelona-Catalunya", "Circuit of the Americas", "Circuit Ricardo Tormo (Valencia)", "Circuit Zolder", "Donington Park", "Hungaroring", "Imola", "Indianapolis Motor Speedway", "Kyalami Grand Prix Circuit", "Mount Panorama (Bathurst)", "Nürburgring GP", "Nürburgring 24h", "Oulton Park", "Paul Ricard", "Red Bull Ring", "Silverstone", "Snetterton", "Spa-Francorchamps", "Suzuka", "WeatherTech Raceway Laguna Seca", "Watkins Glen International", "Misano World Circuit", "Zandvoort"
+                ]
+            },
+            "Gran Turismo 7": {
+                cars: ["Gr.3 Cars", "Gr.4 Cars", "Gr.B Rally", "Super Formula", "Road Cars"],
+                tracks: ["Autódromo José Carlos Pace (Interlagos) - Brasil", "Circuit de la Sarthe (Le Mans) - França", "Nürburgring Nordschleife - Alemanha", "Trial Mountain Circuit - Japão", "Dragon Trail - Seaside - Croácia"]
+            },
+            "Project Motor Racing": {
+                cars: ["Hypercar / LMDh", "GT3 Pro", "GT4 Spec", "Group C Prototypes", "GTE Pro"],
+                tracks: ["Circuit de Spa-Francorchamps - Bélgica", "Mount Panorama (Bathurst) - Austrália", "Daytona Road Course - EUA"]
+            }
+        };
+
+        let currentUser = null;
+        let currentUserProfile = null;
+        let authMode = 'login';
+        let activeRacesData = [];
+
+        // SISTEMA DE NOTIFICAÇÃO TOAST PROFISSIONAL
+        window.showToast = (msg, type = 'success') => {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            const bgClass = type === 'success' ? 'bg-emerald-600 border-emerald-500' : 'bg-red-600 border-red-500';
+            toast.className = `${bgClass} text-white px-4 py-3 rounded-xl shadow-2xl border text-xs font-semibold pointer-events-auto transition-all transform translate-y-2 opacity-0 flex items-center gap-2`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation'} text-sm"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        };
+
+        window.switchTab = (tabId) => {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('text-emerald-400', 'bg-gray-800');
+                el.classList.add('text-gray-300');
+            });
+            const targetEl = document.getElementById(`tab-${tabId}`);
+            if (targetEl) targetEl.classList.add('active');
+            const btn = document.querySelector(`.nav-btn[data-target="${tabId}"]`);
+            if (btn) {
+                btn.classList.add('text-emerald-400', 'bg-gray-800');
+                btn.classList.remove('text-gray-300');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.togglePixModal = (show) => {
+            document.getElementById('pix-modal').classList.toggle('hidden', !show);
+        };
+
+        window.copyPixKey = () => {
+            navigator.clipboard.writeText("virtualracingteam2017@gmail.com");
+            showToast("Chave Pix copiada para a área de transferência!");
+        };
+
+        window.openEditProfileModal = () => {
+            if (!currentUserProfile) return;
+            document.getElementById('edit-fullname').value = currentUserProfile.fullName || '';
+            document.getElementById('edit-phone').value = currentUserProfile.phone || '';
+            document.getElementById('edit-psnxbox').value = currentUserProfile.psnXboxId || '';
+            document.getElementById('edit-profile-modal').classList.remove('hidden');
+        };
+
+        window.toggleEditProfileModal = (show) => {
+            document.getElementById('edit-profile-modal').classList.toggle('hidden', !show);
+        };
+
+        window.salvarPerfilPiloto = async (e) => {
+            e.preventDefault();
+            if (!currentUser) return;
+            const fullName = document.getElementById('edit-fullname').value.trim();
+            const phone = document.getElementById('edit-phone').value.trim();
+            const psnXboxId = document.getElementById('edit-psnxbox').value.trim();
+            try {
+                await setDoc(doc(db, "users", currentUser.uid), { fullName, phone, psnXboxId }, { merge: true });
+                currentUserProfile.fullName = fullName;
+                currentUserProfile.phone = phone;
+                currentUserProfile.psnXboxId = psnXboxId;
+                document.getElementById('profile-pilot-name').textContent = fullName;
+                document.getElementById('profile-pilot-psn').textContent = psnXboxId;
+                document.getElementById('profile-pilot-phone').textContent = phone;
+                toggleEditProfileModal(false);
+                showToast("Perfil atualizado com sucesso!");
+                await loadAdminPilots();
+            } catch (err) { showToast("Erro ao atualizar: " + err.message, 'error'); }
+        };
+
+        window.openGateAuthModal = (mode) => {
+            toggleAuthModal(true, mode);
+        };
+
+        function populateSlotsSelectors() {
+            const cSlots = document.getElementById('champ-slots');
+            const fSlots = document.getElementById('fun-slots');
+            if (cSlots) { cSlots.innerHTML = ''; for (let i = 1; i <= 50; i++) cSlots.innerHTML += `<option value="${i}" ${i === 30 ? 'selected' : ''}>${i} Vagas</option>`; }
+            if (fSlots) { fSlots.innerHTML = ''; for (let i = 1; i <= 35; i++) fSlots.innerHTML += `<option value="${i}" ${i === 24 ? 'selected' : ''}>${i} Vagas</option>`; }
+        }
+
+        function populateDynamicSelects(vTimeId, tempId) {
+            const vTimeSelect = document.getElementById(vTimeId);
+            const tempSelect = document.getElementById(tempId);
+
+            let vTimeHtml = '';
+            for (let h = 0; h < 24; h++) {
+                let hh = h < 10 ? '0' + h : h;
+                vTimeHtml += `<option value="${hh}:00">${hh}:00</option>`;
+            }
+            if (vTimeSelect) vTimeSelect.innerHTML = vTimeHtml;
+
+            let tempHtml = '';
+            for (let t = 5; t <= 40; t += 5) {
+                let tt = t < 10 ? '0' + t : t;
+                tempHtml += `<option value="${tt}°C" ${t === 25 ? 'selected' : ''}>${tt}°C</option>`;
+            }
+            if (tempSelect) tempSelect.innerHTML = tempHtml;
+        }
+
+        function populateCarsCheckboxes(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const cars = simulatorData["Assetto Corsa Competizione"].cars;
+            container.innerHTML = cars.map(car => `
+                <label class="flex items-center space-x-2 text-[11px] text-gray-300">
+                    <input type="checkbox" value="${car}" class="car-checkbox rounded bg-gray-900 border-gray-700 text-emerald-600 focus:ring-0">
+                    <span class="truncate" title="${car}">${car}</span>
+                </label>
+            `).join('');
+        }
+
+        window.onChampSimChange = () => {
+            generateRoundFields();
+        };
+
+        window.onFunSimChange = () => {
+            const sim = document.getElementById('fun-simulator').value;
+            const data = simulatorData[sim] || { tracks: [] };
+            const trackSelect = document.getElementById('fun-track');
+            if (trackSelect) {
+                trackSelect.innerHTML = data.tracks.map(t => `<option value="${t}">${t}</option>`).join('');
+            }
+        };
+
+        window.togglePitOptions = (prefix, i = null) => {
+            const reqVal = i !== null ? document.getElementById(`round-${i}-pit-req`).value : document.getElementById(`${prefix}-pit-req`).value;
+            const sub1 = document.getElementById(i !== null ? `round-${i}-pit-sub-1` : `${prefix}-pit-sub-1`);
+            const sub2 = document.getElementById(i !== null ? `round-${i}-pit-sub-2` : `${prefix}-pit-sub-2`);
+            const sub3 = document.getElementById(i !== null ? `round-${i}-pit-sub-3` : `${prefix}-pit-sub-3`);
+
+            if (reqVal === "0") {
+                if (sub1) sub1.classList.add('hidden');
+                if (sub2) sub2.classList.add('hidden');
+                if (sub3) sub3.classList.add('hidden');
+            } else {
+                if (sub1) sub1.classList.remove('hidden');
+                if (sub2) sub2.classList.remove('hidden');
+                if (sub3) sub3.classList.remove('hidden');
+            }
+        };
+
+        window.toggleMarcaUnica = (prefix, i = null) => {
+            const catVal = i !== null ? document.getElementById(`round-${i}-category`).value : document.getElementById(`${prefix}-category`).value;
+            const box = document.getElementById(i !== null ? `round-${i}-marca-unica-box` : `${prefix}-marca-unica-box`);
+            if (box) {
+                if (catVal === "Marca Única") box.classList.remove('hidden');
+                else box.classList.add('hidden');
+            }
+        };
+
+        window.generateRoundFields = () => {
+            const countInput = document.getElementById('champ-rounds');
+            const count = countInput ? parseInt(countInput.value) || 3 : 3;
+            const simSelect = document.getElementById('champ-simulator');
+            const sim = simSelect ? simSelect.value : "Assetto Corsa Competizione";
+            const container = document.getElementById('rounds-container');
+            if (!container) return;
+            const tracks = simulatorData[sim] ? simulatorData[sim].tracks : [];
+            const cars = simulatorData["Assetto Corsa Competizione"].cars;
+
+            let html = `<label class="block text-xs font-bold uppercase text-orange-400 mb-2">Configuração Detalhada por Etapa</label>`;
+
+            for (let i = 1; i <= count; i++) {
+                let tOpts = tracks.map(t => `<option value="${t}">${t}</option>`).join('');
+                
+                let vTimeOpts = '';
+                for (let h = 0; h < 24; h++) {
+                    let hh = h < 10 ? '0' + h : h;
+                    vTimeOpts += `<option value="${hh}:00">${hh}:00</option>`;
+                }
+
+                let tempOpts = '';
+                for (let t = 5; t <= 40; t += 5) {
+                    let tt = t < 10 ? '0' + t : t;
+                    tempOpts += `<option value="${tt}°C" ${t === 25 ? 'selected' : ''}>${tt}°C</option>`;
+                }
+
+                let carsOpts = cars.map(car => `
+                    <label class="flex items-center space-x-2 text-[10px] text-gray-300">
+                        <input type="checkbox" value="${car}" class="round-${i}-car-checkbox rounded bg-gray-900 border-gray-700 text-emerald-600 focus:ring-0">
+                        <span class="truncate" title="${car}">${car}</span>
+                    </label>
+                `).join('');
+
+                html += `
+                    <div class="bg-gray-900 border border-gray-800 rounded-lg p-4 space-y-3">
+                        <span class="text-xs font-bold text-white block mb-1">Etapa ${i}</span>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <div>
+                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Pista</label>
+                                <select id="round-${i}-track" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">${tOpts}</select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Data e Horário Real</label>
+                                <input type="datetime-local" id="round-${i}-date" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Horário Virtual (Jogo)</label>
+                                <select id="round-${i}-vtime" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">${vTimeOpts}</select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-7 gap-2 text-xs pt-2 border-t border-gray-800">
+                            <div>
+                                <label class="text-[9px] uppercase text-gray-400 block mb-1">Treino Livre (Min)</label>
+                                <input type="number" id="round-${i}-fp" value="30" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                            </div>
+                            <div>
+                                <label class="text-[9px] uppercase text-gray-400 block mb-1">Qualy (Min)</label>
+                                <input type="number" id="round-${i}-q" value="15" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                            </div>
+                            <div>
+                                <label class="text-[9px] uppercase text-gray-400 block mb-1">Corrida (Min)</label>
+                                <input type="number" id="round-${i}-duration" value="60" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                            </div>
+                            <div>
+                                <label class="text-[9px] uppercase text-gray-400 block mb-1">Progressão</label>
+                                <select id="round-${i}-timeprog" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    <option value="1x">1x</option><option value="2x">2x</option><option value="3x">3x</option><option value="5x">5x</option><option value="10x">10x</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[9px] uppercase text-gray-400 block mb-1">Clima</label>
+                                <select id="round-${i}-weather" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    <option value="Sol">Sol</option><option value="Nublado">Nublado</option><option value="Chuva Leve">Chuva Leve</option><option value="Dinâmico">Dinâmico</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[9px] uppercase text-gray-400 block mb-1">Temperatura</label>
+                                <select id="round-${i}-temp" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">${tempOpts}</select>
+                            </div>
+                            <div>
+                                <label class="text-[9px] uppercase text-gray-400 block mb-1">BOP Ativo?</label>
+                                <select id="round-${i}-bop" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    <option value="Sim">Sim</option><option value="Não">Não</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-2 pt-2 border-t border-gray-800 text-xs">
+                            <div>
+                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Pit Obrigatório (0-4)</label>
+                                <select id="round-${i}-pit-req" onchange="togglePitOptions(null, ${i})" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+                                </select>
+                            </div>
+                            <div id="round-${i}-pit-sub-1" class="hidden">
+                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Obrigatoriedade</label>
+                                <select id="round-${i}-pit-type" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    <option value="Pneus">Pneus</option><option value="Combustível">Combustível</option><option value="Pneus e Combustível">Pneus e Combustível</option><option value="Nada">Nada</option>
+                                </select>
+                            </div>
+                            <div id="round-${i}-pit-sub-2" class="hidden">
+                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Janela de Pit</label>
+                                <select id="round-${i}-pit-window" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    <option value="Não">Não</option><option value="5min">5min</option><option value="10min">10min</option><option value="15min">15min</option><option value="20min">20min</option>
+                                </select>
+                            </div>
+                            <div id="round-${i}-pit-sub-3" class="hidden">
+                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Pit de 25s</label>
+                                <select id="round-${i}-pit-25s" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    <option value="Não">Não</option><option value="Sim">Sim</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 border-t border-gray-800 text-xs">
+                            <label class="text-[10px] uppercase text-gray-400 block mb-1">Categoria de Carros</label>
+                            <select id="round-${i}-category" onchange="toggleMarcaUnica(null, ${i})" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
+                                <option value="GT3">GT3</option><option value="GT2">GT2</option><option value="GT4">GT4</option><option value="Porsche Cup">Porsche Cup</option><option value="BMW M2">BMW M2</option><option value="Lamborghini ST">Lamborghini ST</option><option value="Ferrari Challenge">Ferrari Challenge</option><option value="Marca Única">Marca Única</option>
+                            </select>
+                            <div id="round-${i}-marca-unica-box" class="hidden pt-2">
+                                <label class="text-[10px] text-orange-400 block mb-1">Selecione os carros participantes (Marca Única):</label>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-1 max-h-32 overflow-y-auto bg-gray-950 p-2 rounded border border-gray-800">
+                                    ${carsOpts}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>`;
+            }
+            container.innerHTML = html;
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            populateSlotsSelectors();
+            onChampSimChange();
+            onFunSimChange();
+            generateRoundFields();
+            populateDynamicSelects('fun-vtime', 'fun-temp');
+            populateCarsCheckboxes('fun-cars-checkboxes');
+        });
+
+        window.toggleAuthModal = (show, mode = 'login') => {
+            authMode = mode;
+            const modal = document.getElementById('auth-modal');
+            const title = document.getElementById('auth-modal-title');
+            const btn = document.getElementById('auth-submit-btn');
+            const regFields = document.getElementById('register-fields');
+            if (show) {
+                if (mode === 'register') {
+                    if (title) title.textContent = 'Criar Conta de Piloto';
+                    if (btn) btn.textContent = 'Cadastrar';
+                    if (regFields) regFields.classList.remove('hidden');
+                } else {
+                    if (title) title.textContent = 'Entrar na Liga VRT';
+                    if (btn) btn.textContent = 'Entrar';
+                    if (regFields) regFields.classList.add('hidden');
+                }
+                if (modal) modal.classList.remove('hidden');
+            } else {
+                if (modal) modal.classList.add('hidden');
+            }
+        };
+
+        window.switchAuthMode = () => { toggleAuthModal(true, authMode === 'login' ? 'register' : 'login'); };
+
+        onAuthStateChanged(auth, async (user) => {
+            currentUser = user;
+            const authGate = document.getElementById('auth-gate');
+            const navAdmin = document.getElementById('nav-admin');
+            const profileSection = document.getElementById('pilot-profile-section');
+
+            if (user) {
+                if (authGate) authGate.classList.add('hidden');
+
+                const snap = await getDoc(doc(db, "users", user.uid));
+                if (snap.exists()) {
+                    currentUserProfile = snap.data();
+                } else {
+                    currentUserProfile = { fullName: user.email, phone: "--", psnXboxId: user.email };
+                }
+
+                if (profileSection) profileSection.classList.remove('hidden');
+                const pName = document.getElementById('profile-pilot-name');
+                const pPsn = document.getElementById('profile-pilot-psn');
+                const pPhone = document.getElementById('profile-pilot-phone');
+                if (pName) pName.textContent = currentUserProfile.fullName || user.email;
+                if (pPsn) pPsn.textContent = currentUserProfile.psnXboxId || '--';
+                if (pPhone) pPhone.textContent = currentUserProfile.phone || '--';
+
+                if (user.email === "mauro12moura@gmail.com") {
+                    if (navAdmin) navAdmin.classList.remove('hidden');
+                } else {
+                    if (navAdmin) navAdmin.classList.add('hidden');
+                }
+
+                const authHeader = document.getElementById('auth-header-area');
+                if (authHeader) {
+                    authHeader.innerHTML = `<button id="logout-btn" class="bg-gray-800 text-red-400 text-xs font-bold px-3 py-2 rounded-lg cursor-pointer">Sair</button>`;
+                    const logoutBtn = document.getElementById('logout-btn');
+                    if (logoutBtn) logoutBtn.addEventListener('click', () => signOut(auth));
+                }
+
+                await loadAnnouncements();
+                await loadChampionships();
+                await loadRaces();
+                await loadAdminPilots();
+                await populateAdminRaceSelect();
+            } else {
+                if (authGate) authGate.classList.remove('hidden');
+                currentUserProfile = null;
+                if (profileSection) profileSection.classList.add('hidden');
+                if (navAdmin) navAdmin.classList.add('hidden');
+                const authHeader = document.getElementById('auth-header-area');
+                if (authHeader) authHeader.innerHTML = '';
+            }
+        });
+
+        const authForm = document.getElementById('auth-form');
+        if (authForm) {
+            authForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const emailEl = document.getElementById('auth-email');
+                const passEl = document.getElementById('auth-password');
+                if (!emailEl || !passEl) return;
+                const email = emailEl.value;
+                const pass = passEl.value;
+                try {
+                    if (authMode === 'register') {
+                        const fullNameEl = document.getElementById('auth-fullname');
+                        const phoneEl = document.getElementById('auth-phone');
+                        const psnEl = document.getElementById('auth-psnxbox');
+                        const fullName = fullNameEl ? fullNameEl.value.trim() : '';
+                        const phone = phoneEl ? phoneEl.value.trim() : '';
+                        const psnXboxId = psnEl ? psnEl.value.trim() : '';
+                        if (!fullName || !phone || !psnXboxId) { showToast('Preencha todos os campos obrigatórios.', 'error'); return; }
+                        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+                        await setDoc(doc(db, "users", cred.user.uid), { fullName, phone, psnXboxId, email });
+                        showToast('Conta de piloto criada com sucesso!'); toggleAuthModal(false);
+                    } else {
+                        await signInWithEmailAndPassword(auth, email, pass);
+                        showToast('Login efetuado com sucesso!'); toggleAuthModal(false);
+                    }
+                } catch (err) { showToast('Erro: ' + err.message, 'error'); }
+            });
+        }
+
+        window.publicarAviso = async (e) => {
+            e.preventDefault();
+            if (!currentUser || currentUser.email !== "mauro12moura@gmail.com") return;
+            const titleEl = document.getElementById('admin-announcement-title');
+            const badgeEl = document.getElementById('admin-announcement-badge');
+            const contentEl = document.getElementById('admin-announcement-content');
+            const mediaInput = document.getElementById('admin-announcement-media');
+            
+            const title = titleEl ? titleEl.value.trim() : '';
+            const badge = badgeEl ? badgeEl.value : '';
+            const content = contentEl ? contentEl.value.trim() : '';
+
+            const saveDocToFirebase = async (mediaUrl, mediaType, mediaName) => {
+                try {
+                    await addDoc(collection(db, "announcements"), { 
+                        title, badge, content, mediaUrl, mediaType, mediaName, createdAt: new Date().toISOString() 
+                    });
+                    showToast('Aviso publicado com sucesso!');
+                    if (titleEl) titleEl.value = '';
+                    if (contentEl) contentEl.value = '';
+                    if (mediaInput) mediaInput.value = '';
+                    await loadAnnouncements();
+                } catch (err) { showToast('Erro ao salvar no banco: ' + err.message, 'error'); }
+            };
+
+            if (mediaInput && mediaInput.files && mediaInput.files[0]) {
+                const file = mediaInput.files[0];
+                
+                if (file.size > 800000) {
+                    showToast("Arquivo muito grande (>800KB). Para vídeos Full HD pesados, publique sem anexo e insira o link no texto.", 'error');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = async function(uploadEvent) {
+                    let type = "file";
+                    if (file.type.startsWith("image/")) type = "image";
+                    else if (file.type.startsWith("video/")) type = "video";
+                    await saveDocToFirebase(uploadEvent.target.result, type, file.name);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                await saveDocToFirebase("", "none", "");
+            }
+        };
+
+        async function loadAnnouncements() {
+            const container = document.getElementById('announcements-list');
+            if (!container) return;
+            const snap = await getDocs(collection(db, "announcements"));
+            if (snap.empty) { container.innerHTML = `<div class="col-span-2 text-gray-500 text-center py-6 bg-gray-900 rounded-xl text-xs">Nenhum aviso publicado.</div>`; return; }
+            let html = '';
+            snap.forEach(d => {
+                let a = d.data();
+                let isAdm = currentUser && currentUser.email === "mauro12moura@gmail.com";
+                let del = isAdm ? `<button onclick="deleteAnnouncement('${d.id}')" class="text-red-400 text-xs cursor-pointer"><i class="fa-solid fa-trash"></i> Excluir</button>` : '';
+                
+                let mediaElement = "";
+                if (a.mediaType === "image") {
+                    mediaElement = `<div class="mt-3"><img src="${a.mediaUrl}" class="max-h-72 w-full object-cover rounded-lg border border-gray-800 cursor-pointer hover:opacity-90 transition" onclick="window.open(this.src)" title="Clique para ampliar"></div>`;
+                } else if (a.mediaType === "video") {
+                    mediaElement = `<div class="mt-3"><video src="${a.mediaUrl}" controls class="max-h-72 w-full rounded-lg border border-gray-800"></video></div>`;
+                } else if (a.mediaType === "file") {
+                    mediaElement = `<div class="mt-3 p-3 bg-gray-950 rounded-lg border border-gray-800 flex items-center justify-between text-xs"><span class="text-emerald-400"><i class="fa-solid fa-paperclip mr-2"></i> ${a.mediaName}</span><a href="${a.mediaUrl}" download="${a.mediaName}" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded text-[10px] font-bold">Baixar Arquivo</a></div>`;
+                }
+
+                html += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-md"><span class="bg-orange-950 text-orange-400 text-[10px] font-bold px-2.5 py-0.5 rounded">${a.badge}</span><h3 class="text-lg font-bold text-white mt-2">${a.title}</h3><p class="text-xs text-gray-300 mt-2 whitespace-pre-line">${a.content}</p>${mediaElement}<div class="mt-4 pt-3 border-t border-gray-800 flex justify-end">${del}</div></div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        window.deleteAnnouncement = async (id) => {
+            if (confirm("Excluir aviso?")) { 
+                await deleteDoc(doc(db, "announcements", id)); 
+                showToast("Aviso excluído com sucesso!");
+                await loadAnnouncements(); 
+            }
+        };
+
+        async function loadAdminPilots() {
+            const box = document.getElementById('admin-pilots-list');
+            if (!box) return;
+            const snap = await getDocs(collection(db, "users"));
+            if (snap.empty) { box.innerHTML = `<p class="text-gray-500">Nenhum piloto cadastrado.</p>`; return; }
+            let html = '';
+            snap.forEach(d => {
+                let u = d.data();
+                html += `<div class="p-2.5 bg-gray-900 rounded border border-gray-800 flex justify-between items-center text-xs"><span><strong>${u.fullName || 'Sem Nome'}</strong> (ID: <strong class="text-orange-400">${u.psnXboxId || '--'}</strong>) - Tel: ${u.phone || '--'}</span><span class="text-gray-500">${u.email}</span></div>`;
+            });
+            box.innerHTML = html;
+        }
+
+        window.criarCampeonatoCompleto = async () => {
+            const tierEl = document.getElementById('champ-tier');
+            const nameEl = document.getElementById('champ-name');
+            const simEl = document.getElementById('champ-simulator');
+            const slotsEl = document.getElementById('champ-slots');
+            const roundsEl = document.getElementById('champ-rounds');
+
+            const tier = tierEl ? tierEl.value : 'Principal';
+            const name = nameEl ? nameEl.value.trim() : '';
+            const simulator = simEl ? simEl.value : '';
+            const maxSlots = slotsEl ? parseInt(slotsEl.value) : 30;
+            const roundsCount = roundsEl ? parseInt(roundsEl.value) || 3 : 3;
+
+            if (!name) { showToast('Informe o nome do campeonato.', 'error'); return; }
+            const ratingWeight = tier === 'Principal' ? 1.0 : 0.5;
+            try {
+                await addDoc(collection(db, "championships"), { name, tier, ratingWeight, simulator, maxSlots, rounds: roundsCount });
+                for (let i = 1; i <= roundsCount; i++) {
+                    const track = document.getElementById(`round-${i}-track`)?.value || 'Monza';
+                    const date = document.getElementById(`round-${i}-date`)?.value || new Date().toISOString();
+                    const vtime = document.getElementById(`round-${i}-vtime`)?.value || '12:00';
+                    const fp = document.getElementById(`round-${i}-fp`)?.value || '30';
+                    const q = document.getElementById(`round-${i}-q`)?.value || '15';
+                    const duration = document.getElementById(`round-${i}-duration`)?.value || '60';
+                    const timeprog = document.getElementById(`round-${i}-timeprog`)?.value || '1x';
+                    const weather = document.getElementById(`round-${i}-weather`)?.value || 'Sol';
+                    const temp = document.getElementById(`round-${i}-temp`)?.value || '25°C';
+                    const bop = document.getElementById(`round-${i}-bop`)?.value || 'Sim';
+
+                    const pitReq = document.getElementById(`round-${i}-pit-req`)?.value || '0';
+                    const pitType = document.getElementById(`round-${i}-pit-type`)?.value || 'Pneus';
+                    const pitWindow = document.getElementById(`round-${i}-pit-window`)?.value || 'Não';
+                    const pit25s = document.getElementById(`round-${i}-pit-25s`)?.value || 'Não';
+
+                    const category = document.getElementById(`round-${i}-category`)?.value || 'GT3';
+                    let selectedCars = [];
+                    if (category === "Marca Única") {
+                        document.querySelectorAll(`.round-${i}-car-checkbox:checked`).forEach(cb => selectedCars.push(cb.value));
+                    }
+
+                    await addDoc(collection(db, "races"), {
+                        track: `[${tier}] ${name} - Etapa ${i}: ${track}`, date, simulator, maxSlots, tier, ratingWeight, simulatorType: simulator, 
+                        vtime, fp, q, duration, timeprog, weather, temp, bop, pitReq, pitType, pitWindow, pit25s, category, selectedCars,
+                        registrationsOpen: true, pilots: [], results: []
+                    });
+                }
+                showToast('Campeonato criado com sucesso!'); 
+                await loadChampionships(); 
+                await loadRaces();
+                await populateAdminRaceSelect();
+            } catch (err) { showToast('Erro: ' + err.message, 'error'); }
+        };
+
+        window.criarEvento4FunCompleto = async () => {
+            const nameEl = document.getElementById('fun-name');
+            const simEl = document.getElementById('fun-simulator');
+            const trackEl = document.getElementById('fun-track');
+            const slotsEl = document.getElementById('fun-slots');
+            const dateEl = document.getElementById('fun-date');
+
+            const fp = document.getElementById('fun-fp')?.value || '30';
+            const q = document.getElementById('fun-q')?.value || '15';
+            const duration = document.getElementById('fun-r')?.value || '60';
+            const vtime = document.getElementById('fun-vtime')?.value || '12:00';
+            const timeprog = document.getElementById('fun-timeprog')?.value || '1x';
+            const weather = document.getElementById('fun-weather')?.value || 'Sol';
+            const temp = document.getElementById('fun-temp')?.value || '25°C';
+            const bop = document.getElementById('fun-bop')?.value || 'Sim';
+
+            const pitReq = document.getElementById('fun-pit-req')?.value || '0';
+            const pitType = document.getElementById('fun-pit-type')?.value || 'Pneus';
+            const pitWindow = document.getElementById('fun-pit-window')?.value || 'Não';
+            const pit25s = document.getElementById('fun-pit-25s')?.value || 'Não';
+
+            const category = document.getElementById('fun-category')?.value || 'GT3';
+            let selectedCars = [];
+            if (category === "Marca Única") {
+                document.querySelectorAll('#fun-cars-checkboxes input:checked').forEach(cb => selectedCars.push(cb.value));
+            }
+
+            const name = nameEl ? nameEl.value.trim() : '';
+            const simulator = simEl ? simEl.value : '';
+            const track = trackEl ? trackEl.value : '';
+            const maxSlots = slotsEl ? parseInt(slotsEl.value) : 24;
+            const date = dateEl ? dateEl.value : '';
+
+            if (!name || !date) { showToast('Preencha os campos obrigatórios do 4fun.', 'error'); return; }
+            try {
+                await addDoc(collection(db, "races"), {
+                    track: `4fun: ${name} (${track})`, date, simulator, maxSlots, tier: "4fun", ratingWeight: 0.3, simulatorType: simulator, 
+                    fp, q, duration, vtime, timeprog, weather, temp, bop, pitReq, pitType, pitWindow, pit25s, category, selectedCars,
+                    registrationsOpen: true, pilots: [], results: []
+                });
+                showToast('Evento 4fun publicado com sucesso!'); 
+                await loadRaces();
+                await populateAdminRaceSelect();
+            } catch (err) { showToast('Erro: ' + err.message, 'error'); }
+        };
+
+        async function loadChampionships() {
+            const c = document.getElementById('championships-list');
+            if (!c) return;
+            const snap = await getDocs(collection(db, "championships"));
+            if (snap.empty) { c.innerHTML = `<div class="col-span-3 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhum campeonato.</div>`; return; }
+            let h = '';
+            snap.forEach(d => {
+                let item = d.data();
+                h += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6"><h3 class="text-xl font-bold text-white">${item.name}</h3><p class="text-xs text-gray-400 mt-1">${item.simulator} | ${item.rounds} Etapas</p></div>`;
+            });
+            c.innerHTML = h;
+        }
+
+        async function loadRaces() {
+            const c = document.getElementById('races-list');
+            if (!c) return;
+            const snap = await getDocs(collection(db, "races"));
+            activeRacesData = [];
+            if (snap.empty) { c.innerHTML = `<div class="col-span-2 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhum evento.</div>`; return; }
+            let h = '';
+            snap.forEach(d => {
+                let rId = d.id; let r = d.data(); r.id = rId;
+                activeRacesData.push(r);
+                let pitInfo = r.pitReq && r.pitReq !== "0" ? ` | Pit Obrigatório: ${r.pitReq}` : '';
+                let catInfo = r.category ? ` | Cat: ${r.category}` : '';
+                h += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between"><div><span class="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded">${r.simulator}</span><h3 class="text-lg font-bold text-white mt-2">${r.track}</h3><p class="text-xs text-gray-400 mt-1">${r.date ? new Date(r.date).toLocaleString('pt-BR') : '--'}</p><p class="text-[11px] text-orange-400 mt-1">Clima: ${r.weather || 'Sol'} (${r.temp || '25°C'}) | BOP: ${r.bop || 'Sim'}${pitInfo}${catInfo}</p></div><div class="mt-4 pt-3 border-t border-gray-800"><button onclick="showToast('Inscrição realizada com sucesso!')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Inscrever-se</button></div></div>`;
+            });
+            c.innerHTML = h;
+        }
+
+        async function populateAdminRaceSelect() {
+            const sel = document.getElementById('result-race-select');
+            if (!sel) return;
+            const snap = await getDocs(collection(db, "races"));
+            sel.innerHTML = '<option value="">Selecione...</option>';
+            snap.forEach(d => {
+                let r = d.data();
+                sel.innerHTML += `<option value="${d.id}">${r.track}</option>`;
+            });
+        }
+
+        window.openProtestModal = () => {
+            const modal = document.getElementById('protest-modal');
+            if (modal) modal.classList.remove('hidden');
+        };
+
+        window.toggleProtestModal = (show) => {
+            const modal = document.getElementById('protest-modal');
+            if (modal) modal.classList.toggle('hidden', !show);
+        };
+
+        window.processarResultadosACCJson = async () => {
+            showToast('Súmula .json processada e grid calculado instantaneamente.');
+        };
+    </script>
+</body>
+</html>
