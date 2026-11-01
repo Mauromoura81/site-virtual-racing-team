@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,30 +8,47 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #07090e; color: #f3f4f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        body {
+            background-color: #07090e;
+            color: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col justify-between">
 
-    <!-- CONTAINER DE NOTIFICAÇÕES TOAST (PROFISSIONAL E DIRETO) -->
+    <!-- CONTAINER DE NOTIFICAÇÕES TOAST -->
     <div id="toast-container" class="fixed top-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- TELA DE CAPA / PORTÃO DE LOGIN (EXIBIDO QUANDO NÃO LOGADO) -->
+    <!-- TELA DE CAPA / PORTÃO DE LOGIN -->
     <div id="auth-gate" class="fixed inset-0 bg-[#07090e] z-50 flex items-center justify-center p-4">
-        <div class="bg-gray-900 border border-emerald-500/40 w-full max-w-md rounded-2xl p-8 shadow-2xl text-center space-y-6">
+        <div
+            class="bg-gray-900 border border-emerald-500/40 w-full max-w-md rounded-2xl p-8 shadow-2xl text-center space-y-6">
             <div class="flex flex-col items-center space-y-3">
-                <img src="https://cdn.thesimgrid.com/6et5y6k8n37u6ug0cvkvs4jli2k9" alt="Liga VRT Logo" class="w-16 h-16 object-contain rounded-full border-2 border-emerald-500 shadow-lg">
-                <h1 class="text-2xl font-black tracking-wider uppercase text-white">Liga <span class="text-emerald-400">VRT</span></h1>
-                <p class="text-xs text-gray-400">Acesse sua conta para visualizar campeonatos, classificações, murais e inscrições.</p>
+                <img src="https://cdn.thesimgrid.com/6et5y6k8n37u6ug0cvkvs4jli2k9" alt="Liga VRT Logo"
+                    class="w-16 h-16 object-contain rounded-full border-2 border-emerald-500 shadow-lg">
+                <h1 class="text-2xl font-black tracking-wider uppercase text-white">Liga <span
+                        class="text-emerald-400">VRT</span></h1>
+                <p class="text-xs text-gray-400">Acesse sua conta para visualizar campeonatos, classificações, murais e
+                    inscrições.</p>
             </div>
 
             <div class="space-y-3">
-                <button onclick="openGateAuthModal('login')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-lg cursor-pointer text-sm">
+                <button onclick="openGateAuthModal('login')"
+                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-lg cursor-pointer text-sm">
                     <i class="fa-solid fa-right-to-bracket mr-2"></i> Entrar na Conta
                 </button>
-                <button onclick="openGateAuthModal('register')" class="w-full bg-gray-800 hover:bg-gray-700 text-emerald-400 border border-emerald-500/30 font-bold py-3 rounded-xl transition cursor-pointer text-sm">
+                <button onclick="openGateAuthModal('register')"
+                    class="w-full bg-gray-800 hover:bg-gray-700 text-emerald-400 border border-emerald-500/30 font-bold py-3 rounded-xl transition cursor-pointer text-sm">
                     <i class="fa-solid fa-user-plus mr-2"></i> Cadastrar Novo Piloto
                 </button>
             </div>
@@ -38,9 +56,11 @@
         </div>
     </div>
 
-    <!-- WIDGETS FLUTUANTES (WHATSAPP) -->
+    <!-- WIDGETS FLUTUANTES -->
     <div class="fixed bottom-6 right-6 z-40 flex flex-col gap-3 items-end">
-        <a href="https://chat.whatsapp.com/KbzYtkqISNhDwTn0CjYKmH" target="_blank" class="bg-green-600 hover:bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition text-2xl cursor-pointer" title="Grupo WhatsApp VRT">
+        <a href="https://chat.whatsapp.com/KbzYtkqISNhDwTn0CjYKmH" target="_blank"
+            class="bg-green-600 hover:bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition text-2xl cursor-pointer"
+            title="Grupo WhatsApp VRT">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
     </div>
@@ -49,23 +69,42 @@
     <header class="bg-gray-900 border-b border-gray-800 sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
-                <img src="https://cdn.thesimgrid.com/6et5y6k8n37u6ug0cvkvs4jli2k9" alt="Liga VRT Logo" class="w-10 h-10 object-contain rounded-full border border-emerald-500/50 shadow-md">
-                <span class="text-xl font-black tracking-wider uppercase text-white">Liga <span class="text-emerald-400">VRT</span></span>
+                <img src="https://cdn.thesimgrid.com/6et5y6k8n37u6ug0cvkvs4jli2k9" alt="Liga VRT Logo"
+                    class="w-10 h-10 object-contain rounded-full border border-emerald-500/50 shadow-md">
+                <span class="text-xl font-black tracking-wider uppercase text-white">Liga <span
+                        class="text-emerald-400">VRT</span></span>
             </div>
 
             <nav class="flex flex-wrap items-center space-x-1 md:space-x-4 text-xs md:text-sm font-semibold">
-                <button onclick="switchTab('home')" class="nav-btn px-3 py-2 rounded-lg transition text-emerald-400 bg-gray-800 cursor-pointer" data-target="home">Início</button>
-                <button onclick="switchTab('avisos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="avisos">Mural</button>
-                <button onclick="switchTab('campeonatos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="campeonatos">Campeonatos</button>
-                <button onclick="switchTab('classificacao')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="classificacao">Classificação</button>
-                <button onclick="switchTab('ratings')" class="nav-btn px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer" data-target="ratings"><i class="fa-solid fa-chart-line"></i> Ratings</button>
-                <button onclick="switchTab('corridas')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="corridas">4funs & Inscrições</button>
-                <button onclick="switchTab('protestos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="protestos">Protestos</button>
-                <button onclick="switchTab('admin-section')" id="nav-admin" class="nav-btn hidden px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer" data-target="admin-section"><i class="fa-solid fa-shield-halved"></i> ADM</button>
+                <button onclick="switchTab('home')"
+                    class="nav-btn px-3 py-2 rounded-lg transition text-emerald-400 bg-gray-800 cursor-pointer"
+                    data-target="home">Início</button>
+                <button onclick="switchTab('avisos')"
+                    class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer"
+                    data-target="avisos">Mural</button>
+                <button onclick="switchTab('campeonatos')"
+                    class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer"
+                    data-target="campeonatos">Campeonatos</button>
+                <button onclick="switchTab('classificacao')"
+                    class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer"
+                    data-target="classificacao">Classificação</button>
+                <button onclick="switchTab('ratings')"
+                    class="nav-btn px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer"
+                    data-target="ratings"><i class="fa-solid fa-chart-line"></i> Ratings</button>
+                <button onclick="switchTab('corridas')"
+                    class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer"
+                    data-target="corridas">4funs & Inscrições</button>
+                <button onclick="switchTab('protestos')"
+                    class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer"
+                    data-target="protestos">Protestos</button>
+                <button onclick="switchTab('admin-section')" id="nav-admin"
+                    class="nav-btn hidden px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer"
+                    data-target="admin-section"><i class="fa-solid fa-shield-halved"></i> ADM</button>
             </nav>
 
             <div class="flex items-center space-x-3">
-                <button onclick="togglePixModal(true)" class="bg-purple-600/20 text-purple-400 border border-purple-600/40 hover:bg-purple-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg transition flex items-center gap-1.5 cursor-pointer">
+                <button onclick="togglePixModal(true)"
+                    class="bg-purple-600/20 text-purple-400 border border-purple-600/40 hover:bg-purple-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg transition flex items-center gap-1.5 cursor-pointer">
                     <i class="fa-solid fa-qrcode"></i> Pix VRT
                 </button>
                 <div id="auth-header-area"></div>
@@ -78,32 +117,44 @@
 
         <!-- ABA INÍCIO -->
         <section id="tab-home" class="tab-content active space-y-8">
-            <div class="bg-gradient-to-r from-emerald-950/30 via-gray-900 to-orange-950/20 border border-emerald-500/30 rounded-2xl p-8 md:p-12 shadow-2xl">
+            <div
+                class="bg-gradient-to-r from-emerald-950/30 via-gray-900 to-orange-950/20 border border-emerald-500/30 rounded-2xl p-8 md:p-12 shadow-2xl">
                 <div class="max-w-2xl">
-                    <span class="bg-emerald-600/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-emerald-600/40">Temporada 2026</span>
-                    <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-4 text-white">A Emoção do Automobilismo Virtual Começa Aqui</h1>
-                    <p class="text-gray-400 mb-6">Competições de elite, campeonatos, relatórios de carreira e sistema avançado de Rating VRT.</p>
-                    <button onclick="switchTab('corridas')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-600/30 inline-flex items-center gap-2 cursor-pointer">
+                    <span
+                        class="bg-emerald-600/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-emerald-600/40">Temporada
+                        2026</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-4 text-white">A Emoção do Automobilismo
+                        Virtual Começa Aqui</h1>
+                    <p class="text-gray-400 mb-6">Competições de elite, campeonatos, relatórios de carreira e sistema
+                        avançado de Rating VRT.</p>
+                    <button onclick="switchTab('corridas')"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-600/30 inline-flex items-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-gauge-high"></i> Ver Eventos Disponíveis
                     </button>
                 </div>
             </div>
 
             <!-- PAINEL DO PILOTO LOGADO -->
-            <section id="pilot-profile-section" class="bg-gray-900 border border-emerald-500/40 rounded-2xl p-6 md:p-8 shadow-xl">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-gray-800 pb-4">
+            <section id="pilot-profile-section"
+                class="bg-gray-900 border border-emerald-500/40 rounded-2xl p-6 md:p-8 shadow-xl">
+                <div
+                    class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-gray-800 pb-4">
                     <div class="flex items-center gap-3">
-                        <div class="bg-emerald-600/20 p-3 rounded-xl border border-emerald-600/30 text-emerald-400 text-2xl">
+                        <div
+                            class="bg-emerald-600/20 p-3 rounded-xl border border-emerald-600/30 text-emerald-400 text-2xl">
                             <i class="fa-solid fa-id-badge"></i>
                         </div>
                         <div>
                             <h2 id="profile-pilot-name" class="text-xl font-bold text-white">Carregando perfil...</h2>
-                            <p class="text-xs text-gray-400">ID PSN/Xbox Oficial: <span id="profile-pilot-psn" class="text-orange-400 font-semibold">--</span></p>
-                            <p class="text-xs text-gray-500 mt-0.5">Telefone: <span id="profile-pilot-phone" class="text-gray-300">--</span></p>
+                            <p class="text-xs text-gray-400">ID PSN/Xbox Oficial: <span id="profile-pilot-psn"
+                                    class="text-orange-400 font-semibold">--</span></p>
+                            <p class="text-xs text-gray-500 mt-0.5">Telefone: <span id="profile-pilot-phone"
+                                    class="text-gray-300">--</span></p>
                         </div>
                     </div>
                     <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="openEditProfileModal()" class="bg-blue-600/20 text-blue-400 border border-blue-600/40 hover:bg-blue-600 hover:text-white text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer">
+                        <button onclick="openEditProfileModal()"
+                            class="bg-blue-600/20 text-blue-400 border border-blue-600/40 hover:bg-blue-600 hover:text-white text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer">
                             <i class="fa-solid fa-user-pen mr-1"></i> Editar Perfil
                         </button>
                     </div>
@@ -111,14 +162,18 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-gray-950 border border-orange-500/30 rounded-xl p-5 relative overflow-hidden">
-                        <span class="text-[10px] uppercase font-bold text-orange-400 bg-orange-950/40 px-2.5 py-1 rounded border border-orange-800/40">Rating Principal (100%)</span>
+                        <span
+                            class="text-[10px] uppercase font-bold text-orange-400 bg-orange-950/40 px-2.5 py-1 rounded border border-orange-800/40">Rating
+                            Principal (100%)</span>
                         <div class="mt-4 flex items-baseline gap-2">
                             <span id="profile-rating-main" class="text-4xl font-black text-white">0.0</span>
                             <span class="text-xs text-gray-400">pontos</span>
                         </div>
                     </div>
                     <div class="bg-gray-950 border border-emerald-500/30 rounded-xl p-5 relative overflow-hidden">
-                        <span class="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-800/40">Rating Geral VRT</span>
+                        <span
+                            class="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-800/40">Rating
+                            Geral VRT</span>
                         <div class="mt-4 flex items-baseline gap-2">
                             <span id="profile-rating-general" class="text-4xl font-black text-white">0.0</span>
                             <span class="text-xs text-gray-400">pontos</span>
@@ -134,24 +189,28 @@
                 <h2 class="text-2xl font-bold border-l-4 border-orange-500 pl-3">Mural de Avisos & Briefing Oficial</h2>
             </div>
             <div id="announcements-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando avisos da liga...</div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando
+                    avisos da liga...</div>
             </div>
         </section>
 
         <!-- ABA CAMPEONATOS -->
         <section id="tab-campeonatos" class="tab-content space-y-6">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Campeonatos (Principais & Paralelos)</h2>
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Campeonatos (Principais & Paralelos)
+                </h2>
             </div>
             <div id="championships-list" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando campeonatos...</div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando
+                    campeonatos...</div>
             </div>
         </section>
 
         <!-- ABA CLASSIFICAÇÃO -->
         <section id="tab-classificacao" class="tab-content space-y-6">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Classificação Geral (Pontos Nominais)</h2>
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Classificação Geral (Pontos Nominais)
+                </h2>
             </div>
             <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
                 <table class="w-full text-left border-collapse">
@@ -164,7 +223,10 @@
                         </tr>
                     </thead>
                     <tbody id="standings-table-body">
-                        <tr><td colspan="4" class="p-6 text-center text-gray-500 text-sm">Carregando classificação...</td></tr>
+                        <tr>
+                            <td colspan="4" class="p-6 text-center text-gray-500 text-sm">Carregando classificação...
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -178,7 +240,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
                     <div class="bg-gray-950 p-4 border-b border-gray-800 flex justify-between items-center">
-                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i class="fa-solid fa-chart-line text-emerald-400 mr-2"></i> Ranking Rating Geral</h3>
+                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i
+                                class="fa-solid fa-chart-line text-emerald-400 mr-2"></i> Ranking Rating Geral</h3>
                     </div>
                     <table class="w-full text-left border-collapse">
                         <thead>
@@ -189,13 +252,16 @@
                             </tr>
                         </thead>
                         <tbody id="ratings-general-tbody">
-                            <tr><td colspan="3" class="p-6 text-center text-gray-500 text-sm">Carregando ratings...</td></tr>
+                            <tr>
+                                <td colspan="3" class="p-6 text-center text-gray-500 text-sm">Carregando ratings...</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
                     <div class="bg-gray-950 p-4 border-b border-gray-800 flex justify-between items-center">
-                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i class="fa-solid fa-trophy text-orange-400 mr-2"></i> Ranking Rating Principal</h3>
+                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i
+                                class="fa-solid fa-trophy text-orange-400 mr-2"></i> Ranking Rating Principal</h3>
                     </div>
                     <table class="w-full text-left border-collapse">
                         <thead>
@@ -206,7 +272,9 @@
                             </tr>
                         </thead>
                         <tbody id="ratings-main-tbody">
-                            <tr><td colspan="3" class="p-6 text-center text-gray-500 text-sm">Carregando ratings...</td></tr>
+                            <tr>
+                                <td colspan="3" class="p-6 text-center text-gray-500 text-sm">Carregando ratings...</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -219,7 +287,8 @@
                 <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Eventos 4funs & Inscrições</h2>
             </div>
             <div id="races-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando eventos...</div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando
+                    eventos...</div>
             </div>
         </section>
 
@@ -228,15 +297,19 @@
             <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
                 <div class="flex justify-between items-center mb-6 border-b border-gray-800 pb-4">
                     <div>
-                        <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3 text-white">Central de Protestos & Stewards</h2>
-                        <p class="text-xs text-gray-400 mt-1">Envio de protestos por vídeo (YouTube/Twitch ou arquivo do celular) em até 24h pós-corrida.</p>
+                        <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3 text-white">Central de
+                            Protestos & Stewards</h2>
+                        <p class="text-xs text-gray-400 mt-1">Envio de protestos por vídeo (YouTube/Twitch ou arquivo do
+                            celular) em até 24h pós-corrida.</p>
                     </div>
-                    <button onclick="openProtestModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition cursor-pointer shadow-md inline-flex items-center gap-2">
+                    <button onclick="openProtestModal()"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition cursor-pointer shadow-md inline-flex items-center gap-2">
                         <i class="fa-solid fa-triangle-exclamation"></i> Novo Protesto
                     </button>
                 </div>
                 <div id="protests-list" class="space-y-4">
-                    <div class="text-gray-500 text-center py-6 bg-gray-950 rounded-xl border border-gray-800 text-xs">Carregando protestos e julgamentos...</div>
+                    <div class="text-gray-500 text-center py-6 bg-gray-950 rounded-xl border border-gray-800 text-xs">
+                        Carregando protestos e julgamentos...</div>
                 </div>
             </div>
         </section>
@@ -248,31 +321,86 @@
                     <i class="fa-solid fa-toolbox text-orange-400 text-2xl"></i>
                     <div>
                         <h2 class="text-xl font-bold text-orange-400">Painel do Administrador - Gestão Pro</h2>
-                        <p class="text-xs text-gray-400">Gerenciamento completo de pilotos, avisos multimídia, campeonatos e 4funs detalhados.</p>
+                        <p class="text-xs text-gray-400">Gerenciamento completo de pilotos, avisos multimídia,
+                            campeonatos, 4funs e inscrições.</p>
                     </div>
                 </div>
 
                 <div class="space-y-8">
-                    <!-- GESTÃO DE PERFIS CADASTRADOS -->
+                    <!-- GESTÃO E INSCRIÇÃO DE PILOTOS EM EVENTOS (NOVO) -->
+                    <div class="bg-gray-950 p-6 rounded-xl border border-orange-500/30">
+                        <h3 class="font-bold text-lg mb-4 text-white"><i
+                                class="fa-solid fa-user-gear text-orange-400 mr-2"></i> Gestão de Inscrições em Eventos
+                            / Corridas</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Selecione o
+                                    Evento / Etapa</label>
+                                <select id="admin-race-select" onchange="carregarPilotosInscritosAdmin()"
+                                    class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                    <option value="">Carregando eventos...</option>
+                                </select>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                                <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 space-y-3">
+                                    <span class="text-xs font-bold text-emerald-400 block"><i
+                                            class="fa-solid fa-user-plus mr-1"></i> Inscrever Piloto Cadastrado</span>
+                                    <select id="admin-pilot-to-add"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white text-xs">
+                                        <option value="">Carregando pilotos...</option>
+                                    </select>
+                                    <button onclick="adicionarPilotoInscricaoAdmin()"
+                                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded text-xs transition cursor-pointer">Inscrever
+                                        Piloto no Evento</button>
+                                </div>
+
+                                <div
+                                    class="bg-gray-900 p-4 rounded-lg border border-gray-800 flex flex-col justify-between">
+                                    <div>
+                                        <span class="text-xs font-bold text-orange-400 block mb-2"><i
+                                                class="fa-solid fa-users mr-1"></i> Pilotos Já Inscritos nesta
+                                            Etapa</span>
+                                        <div id="admin-enrolled-pilots-list"
+                                            class="space-y-1.5 max-h-36 overflow-y-auto text-xs text-gray-300 pr-1">
+                                            <p class="text-gray-500 text-[11px]">Selecione um evento acima...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GESTÃO E VISUALIZAÇÃO DE PERFIS CADASTRADOS -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-users-gear text-emerald-400 mr-2"></i> Pilotos Cadastrados no Sistema</h3>
-                        <div id="admin-pilots-list" class="space-y-2 max-h-48 overflow-y-auto text-xs text-gray-300">
+                        <h3 class="font-bold text-lg mb-4 text-white"><i
+                                class="fa-solid fa-address-book text-emerald-400 mr-2"></i> Pilotos Cadastrados no
+                            Sistema (Visualização ADM)</h3>
+                        <div id="admin-pilots-list"
+                            class="space-y-3 max-h-64 overflow-y-auto text-xs text-gray-300 pr-2">
                             <p class="text-gray-500">Carregando pilotos...</p>
                         </div>
                     </div>
 
                     <!-- PUBLICAR AVISO -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-bullhorn text-orange-400 mr-2"></i> Publicar Aviso no Mural (Multimídia / Opcional)</h3>
+                        <h3 class="font-bold text-lg mb-4 text-white"><i
+                                class="fa-solid fa-bullhorn text-orange-400 mr-2"></i> Publicar Aviso no Mural
+                            (Multimídia / Opcional)</h3>
                         <form onsubmit="publicarAviso(event)" class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Título do Aviso</label>
-                                    <input type="text" id="admin-announcement-title" placeholder="Ex: Briefing Etapa Spa" required class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Título do
+                                        Aviso</label>
+                                    <input type="text" id="admin-announcement-title"
+                                        placeholder="Ex: Briefing Etapa Spa" required
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Categoria</label>
-                                    <select id="admin-announcement-badge" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
+                                    <label
+                                        class="block text-xs font-semibold uppercase text-gray-400 mb-1">Categoria</label>
+                                    <select id="admin-announcement-badge"
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
                                         <option value="Briefing Oficial">Briefing Oficial</option>
                                         <option value="Comunicado ADM">Comunicado ADM</option>
                                         <option value="Regulamento">Regulamento</option>
@@ -281,174 +409,256 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Conteúdo e Links (Recomendado usar links para vídeos pesados)</label>
-                                <textarea id="admin-announcement-content" rows="3" placeholder="Insira o texto e links..." required class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></textarea>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Conteúdo e Links
+                                    (Recomendado usar links para vídeos pesados)</label>
+                                <textarea id="admin-announcement-content" rows="3"
+                                    placeholder="Insira o texto e links..." required
+                                    class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></textarea>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Arquivo Opcional (Máximo recomendado: 800 KB devido ao limite do banco)</label>
-                                <input type="file" id="admin-announcement-media" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-1.5 text-white text-xs file:bg-orange-600 file:text-white file:border-0 file:rounded file:px-2 file:py-1 cursor-pointer">
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Arquivo Opcional
+                                    (Máximo recomendado: 800 KB devido ao limite do banco)</label>
+                                <input type="file" id="admin-announcement-media"
+                                    class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-1.5 text-white text-xs file:bg-orange-600 file:text-white file:border-0 file:rounded file:px-2 file:py-1 cursor-pointer">
                             </div>
-                            <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-2.5 rounded-lg transition cursor-pointer text-xs">Publicar Aviso</button>
+                            <button type="submit"
+                                class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-2.5 rounded-lg transition cursor-pointer text-xs">Publicar
+                                Aviso</button>
                         </form>
                     </div>
 
                     <!-- CRIAR CAMPEONATO -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-trophy text-emerald-400 mr-2"></i> Criar Campeonato (Etapa por Etapa Completo)</h3>
+                        <h3 class="font-bold text-lg mb-4 text-white"><i
+                                class="fa-solid fa-trophy text-emerald-400 mr-2"></i> Criar Campeonato (Etapa por Etapa
+                            Completo)</h3>
                         <div class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div>
                                     <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Tipo</label>
-                                    <select id="champ-tier" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
+                                    <select id="champ-tier"
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
                                         <option value="Principal">Principal (100%)</option>
                                         <option value="Paralelo">Paralelo (50%)</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Simulador</label>
-                                    <select id="champ-simulator" onchange="onChampSimChange()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
-                                        <option value="Assetto Corsa Competizione">Assetto Corsa Competizione (ACC)</option>
+                                    <label
+                                        class="block text-xs font-semibold uppercase text-gray-400 mb-1">Simulador</label>
+                                    <select id="champ-simulator" onchange="onChampSimChange()"
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                        <option value="Assetto Corsa Competizione">Assetto Corsa Competizione (ACC)
+                                        </option>
                                         <option value="Gran Turismo 7">Gran Turismo 7 (GT7)</option>
                                         <option value="Project Motor Racing">Project Motor Racing (PMR)</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome do Campeonato</label>
-                                    <input type="text" id="champ-name" placeholder="Ex: VRT GT3 Pro" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome do
+                                        Campeonato</label>
+                                    <input type="text" id="champ-name" placeholder="Ex: VRT GT3 Pro"
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Vagas</label>
-                                    <select id="champ-slots" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
+                                    <label
+                                        class="block text-xs font-semibold uppercase text-gray-400 mb-1">Vagas</label>
+                                    <select id="champ-slots"
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Número de Etapas</label>
-                                    <input type="number" id="champ-rounds" value="3" min="1" max="10" onchange="generateRoundFields()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Número de
+                                        Etapas</label>
+                                    <input type="number" id="champ-rounds" value="3" min="1" max="10"
+                                        onchange="generateRoundFields()"
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                                 </div>
                             </div>
 
                             <div id="rounds-container" class="space-y-4 pt-2 border-t border-gray-800"></div>
 
-                            <button type="button" onclick="criarCampeonatoCompleto()" class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-3 rounded-lg transition cursor-pointer text-sm">Salvar Campeonato Completo</button>
+                            <button type="button" onclick="criarCampeonatoCompleto()"
+                                class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-3 rounded-lg transition cursor-pointer text-sm">Salvar
+                                Campeonato Completo</button>
                         </div>
                     </div>
 
                     <!-- CRIAR EVENTO 4FUN -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-flag text-emerald-400 mr-2"></i> Criar Evento 4fun</h3>
+                        <h3 class="font-bold text-lg mb-4 text-white"><i
+                                class="fa-solid fa-flag text-emerald-400 mr-2"></i> Criar Evento 4fun</h3>
                         <div class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Simulador</label>
-                                    <select id="fun-simulator" onchange="onFunSimChange()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
-                                        <option value="Assetto Corsa Competizione">Assetto Corsa Competizione (ACC)</option>
+                                    <label
+                                        class="block text-xs font-semibold uppercase text-gray-400 mb-1">Simulador</label>
+                                    <select id="fun-simulator" onchange="onFunSimChange()"
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                        <option value="Assetto Corsa Competizione">Assetto Corsa Competizione (ACC)
+                                        </option>
                                         <option value="Gran Turismo 7">Gran Turismo 7 (GT7)</option>
                                         <option value="Project Motor Racing">Project Motor Racing (PMR)</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome do 4fun</label>
-                                    <input type="text" id="fun-name" placeholder="Ex: 4fun Spa Noturno" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome do
+                                        4fun</label>
+                                    <input type="text" id="fun-name" placeholder="Ex: 4fun Spa Noturno"
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Pista Oficial</label>
-                                    <select id="fun-track" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Pista
+                                        Oficial</label>
+                                    <select id="fun-track"
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Vagas</label>
-                                    <select id="fun-slots" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
+                                    <label
+                                        class="block text-xs font-semibold uppercase text-gray-400 mb-1">Vagas</label>
+                                    <select id="fun-slots"
+                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
+                            <div
+                                class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
                                 <div>
                                     <span class="font-bold text-white block mb-1">Treino Livre (Min)</span>
-                                    <input type="number" id="fun-fp" value="30" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                    <input type="number" id="fun-fp" value="30"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
                                 </div>
                                 <div>
                                     <span class="font-bold text-white block mb-1">Qualifying (Min)</span>
-                                    <input type="number" id="fun-q" value="15" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                    <input type="number" id="fun-q" value="15"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
                                 </div>
                                 <div>
                                     <span class="font-bold text-white block mb-1">Corrida (Min)</span>
-                                    <input type="number" id="fun-r" value="60" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                    <input type="number" id="fun-r" value="60"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
                                 </div>
                                 <div>
                                     <span class="font-bold text-white block mb-1">Horário Virtual (00:00 - 23:00)</span>
-                                    <select id="fun-vtime" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white"></select>
+                                    <select id="fun-vtime"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white"></select>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
+                            <div
+                                class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
                                 <div>
                                     <span class="font-bold text-white block mb-1">Progressão de Tempo</span>
-                                    <select id="fun-timeprog" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="1x">1x</option><option value="2x">2x</option><option value="3x">3x</option><option value="5x">5x</option><option value="10x">10x</option>
+                                    <select id="fun-timeprog"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="1x">1x</option>
+                                        <option value="2x">2x</option>
+                                        <option value="3x">3x</option>
+                                        <option value="5x">5x</option>
+                                        <option value="10x">10x</option>
                                     </select>
                                 </div>
                                 <div>
                                     <span class="font-bold text-white block mb-1">Clima</span>
-                                    <select id="fun-weather" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="Sol">Sol</option><option value="Nublado">Nublado</option><option value="Chuva Leve">Chuva Leve</option><option value="Dinâmico">Dinâmico</option>
+                                    <select id="fun-weather"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="Sol">Sol</option>
+                                        <option value="Nublado">Nublado</option>
+                                        <option value="Chuva Leve">Chuva Leve</option>
+                                        <option value="Dinâmico">Dinâmico</option>
                                     </select>
                                 </div>
                                 <div>
                                     <span class="font-bold text-white block mb-1">Temperatura</span>
-                                    <select id="fun-temp" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white"></select>
+                                    <select id="fun-temp"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white"></select>
                                 </div>
                                 <div>
                                     <span class="font-bold text-white block mb-1">BOP VRT Ativo?</span>
-                                    <select id="fun-bop" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="Sim">Sim</option><option value="Não">Não</option>
+                                    <select id="fun-bop"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="Sim">Sim</option>
+                                        <option value="Não">Não</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
+                            <div
+                                class="grid grid-cols-1 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
                                 <div>
                                     <span class="font-bold text-white block mb-1">Pit Obrigatório (0 a 4)</span>
-                                    <select id="fun-pit-req" onchange="togglePitOptions('fun')" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+                                    <select id="fun-pit-req" onchange="togglePitOptions('fun')"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
                                     </select>
                                 </div>
                                 <div id="fun-pit-sub-1" class="hidden">
                                     <span class="font-bold text-white block mb-1">Obrigatoriedade</span>
-                                    <select id="fun-pit-type" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="Pneus">Pneus</option><option value="Combustível">Combustível</option><option value="Pneus e Combustível">Pneus e Combustível</option><option value="Nada">Nada</option>
+                                    <select id="fun-pit-type"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="Pneus">Pneus</option>
+                                        <option value="Combustível">Combustível</option>
+                                        <option value="Pneus e Combustível">Pneus e Combustível</option>
+                                        <option value="Nada">Nada</option>
                                     </select>
                                 </div>
                                 <div id="fun-pit-sub-2" class="hidden">
                                     <span class="font-bold text-white block mb-1">Janela de Pit</span>
-                                    <select id="fun-pit-window" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="Não">Não</option><option value="5min">5min</option><option value="10min">10min</option><option value="15min">15min</option><option value="20min">20min</option>
+                                    <select id="fun-pit-window"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="Não">Não</option>
+                                        <option value="5min">5min</option>
+                                        <option value="10min">10min</option>
+                                        <option value="15min">15min</option>
+                                        <option value="20min">20min</option>
                                     </select>
                                 </div>
                                 <div id="fun-pit-sub-3" class="hidden">
                                     <span class="font-bold text-white block mb-1">Pit de 25 Segundos</span>
-                                    <select id="fun-pit-25s" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="Não">Não</option><option value="Sim">Sim</option>
+                                    <select id="fun-pit-25s"
+                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                        <option value="Não">Não</option>
+                                        <option value="Sim">Sim</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs space-y-2">
                                 <span class="font-bold text-white block">Categoria de Carros</span>
-                                <select id="fun-category" onchange="toggleMarcaUnica('fun')" class="w-full bg-gray-950 border border-gray-800 rounded p-2 text-white">
-                                    <option value="GT3">GT3</option><option value="GT2">GT2</option><option value="GT4">GT4</option><option value="Porsche Cup">Porsche Cup</option><option value="BMW M2">BMW M2</option><option value="Lamborghini ST">Lamborghini ST</option><option value="Ferrari Challenge">Ferrari Challenge</option><option value="Marca Única">Marca Única</option>
+                                <select id="fun-category" onchange="toggleMarcaUnica('fun')"
+                                    class="w-full bg-gray-950 border border-gray-800 rounded p-2 text-white">
+                                    <option value="GT3">GT3</option>
+                                    <option value="GT2">GT2</option>
+                                    <option value="GT4">GT4</option>
+                                    <option value="Porsche Cup">Porsche Cup</option>
+                                    <option value="BMW M2">BMW M2</option>
+                                    <option value="Lamborghini ST">Lamborghini ST</option>
+                                    <option value="Ferrari Challenge">Ferrari Challenge</option>
+                                    <option value="Marca Única">Marca Única</option>
                                 </select>
                                 <div id="fun-marca-unica-box" class="hidden pt-2">
-                                    <label class="text-[10px] text-orange-400 block mb-1">Selecione os carros participantes (Marca Única):</label>
-                                    <div id="fun-cars-checkboxes" class="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-36 overflow-y-auto bg-gray-950 p-2 rounded border border-gray-800"></div>
+                                    <label class="text-[10px] text-orange-400 block mb-1">Selecione os carros
+                                        participantes (Marca Única):</label>
+                                    <div id="fun-cars-checkboxes"
+                                        class="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-36 overflow-y-auto bg-gray-950 p-2 rounded border border-gray-800">
+                                    </div>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Data e Horário Real do Evento</label>
-                                <input type="datetime-local" id="fun-date" class="w-full bg-gray-900 border border-gray-800 rounded px-3 py-2 text-white text-xs">
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Data e Horário
+                                    Real do Evento</label>
+                                <input type="datetime-local" id="fun-date"
+                                    class="w-full bg-gray-900 border border-gray-800 rounded px-3 py-2 text-white text-xs">
                             </div>
 
-                            <button type="button" onclick="criarEvento4FunCompleto()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition cursor-pointer text-sm">Publicar Evento 4fun</button>
+                            <button type="button" onclick="criarEvento4FunCompleto()"
+                                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition cursor-pointer text-sm">Publicar
+                                Evento 4fun</button>
                         </div>
                     </div>
                 </div>
@@ -458,76 +668,105 @@
     </main>
 
     <!-- MODAL DE PIX QR CODE -->
-    <div id="pix-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-gray-900 border border-purple-500/40 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative text-center">
-            <button onclick="togglePixModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="text-lg font-bold mb-2 text-white flex items-center justify-center gap-2"><i class="fa-solid fa-qrcode text-purple-400"></i> Apoie a Liga VRT</h3>
+    <div id="pix-modal"
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div
+            class="bg-gray-900 border border-purple-500/40 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative text-center">
+            <button onclick="togglePixModal(false)"
+                class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i
+                    class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-lg font-bold mb-2 text-white flex items-center justify-center gap-2"><i
+                    class="fa-solid fa-qrcode text-purple-400"></i> Apoie a Liga VRT</h3>
             <p class="text-xs text-gray-400 mb-4">Contribua com as manutenções dos servidores da liga via PIX:</p>
             <div class="bg-white p-4 rounded-xl inline-block mb-4 shadow">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=virtualracingteam2017@gmail.com" alt="QR Code Pix" class="w-40 h-40 mx-auto">
+                <img id="pix-qrcode-img" src="" alt="QR Code Pix Oficial" class="w-40 h-40 mx-auto">
             </div>
-            <div class="bg-gray-950 p-3 rounded-lg border border-gray-800 text-xs select-all text-purple-300 font-mono mb-3">
+            <div
+                class="bg-gray-950 p-3 rounded-lg border border-gray-800 text-xs select-all text-purple-300 font-mono mb-3">
                 virtualracingteam2017@gmail.com
             </div>
-            <button onclick="copyPixKey()" class="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-2 rounded-lg transition cursor-pointer">Copiar Chave Pix</button>
+            <button onclick="copyPixKey()"
+                class="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-2 rounded-lg transition cursor-pointer">Copiar
+                Chave Pix</button>
         </div>
     </div>
 
     <!-- MODAL DE EDIÇÃO DE PERFIL -->
-    <div id="edit-profile-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div id="edit-profile-modal"
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-gray-900 border border-blue-500/40 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
-            <button onclick="toggleEditProfileModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-user-pen text-blue-400 mr-2"></i> Editar Meu Perfil</h3>
+            <button onclick="toggleEditProfileModal(false)"
+                class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i
+                    class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-user-pen text-blue-400 mr-2"></i> Editar
+                Meu Perfil</h3>
             <form onsubmit="salvarPerfilPiloto(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome Completo</label>
-                    <input type="text" id="edit-fullname" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                    <input type="text" id="edit-fullname" required
+                        class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Telefone com DDD</label>
-                    <input type="text" id="edit-phone" placeholder="(51) 99999-9999" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                    <input type="text" id="edit-phone" placeholder="(51) 99999-9999" required
+                        class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">ID PSN ou Xbox / Gamertag</label>
-                    <input type="text" id="edit-psnxbox" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">ID PSN ou Xbox /
+                        Gamertag</label>
+                    <input type="text" id="edit-psnxbox" required
+                        class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                 </div>
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg transition cursor-pointer text-xs">Salvar Alterações</button>
+                <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg transition cursor-pointer text-xs">Salvar
+                    Alterações</button>
             </form>
         </div>
     </div>
 
     <!-- MODAL DE LOGIN / CADASTRO -->
-    <div id="auth-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div id="auth-modal"
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-gray-900 border border-gray-800 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
-            <button onclick="toggleAuthModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button onclick="toggleAuthModal(false)"
+                class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i
+                    class="fa-solid fa-xmark text-xl"></i></button>
             <h3 id="auth-modal-title" class="text-xl font-bold mb-4 text-white">Entrar na Liga VRT</h3>
             <form id="auth-form" class="space-y-4">
                 <div id="register-fields" class="hidden space-y-3">
                     <div>
                         <label class="block text-xs uppercase text-gray-400 mb-1">Nome Completo</label>
-                        <input type="text" id="auth-fullname" placeholder="Ex: Mauro Moura" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                        <input type="text" id="auth-fullname" placeholder="Ex: Mauro Moura"
+                            class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
                     </div>
                     <div>
                         <label class="block text-xs uppercase text-gray-400 mb-1">Telefone com DDD</label>
-                        <input type="text" id="auth-phone" placeholder="(51) 99999-9999" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                        <input type="text" id="auth-phone" placeholder="(51) 99999-9999"
+                            class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
                     </div>
                     <div>
                         <label class="block text-xs uppercase text-gray-400 mb-1">ID PSN ou Xbox / Gamertag</label>
-                        <input type="text" id="auth-psnxbox" placeholder="Ex: VRT_MauroMoura" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                        <input type="text" id="auth-psnxbox" placeholder="Ex: VRT_MauroMoura"
+                            class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs uppercase text-gray-400 mb-1">E-mail</label>
-                    <input type="email" id="auth-email" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                    <input type="email" id="auth-email" required
+                        class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
                 </div>
                 <div>
                     <label class="block text-xs uppercase text-gray-400 mb-1">Senha</label>
-                    <input type="password" id="auth-password" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                    <input type="password" id="auth-password" required
+                        class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
                 </div>
-                <button type="submit" id="auth-submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition">Entrar</button>
+                <button type="submit" id="auth-submit-btn"
+                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition">Entrar</button>
             </form>
             <div class="mt-4 text-center text-sm text-gray-400">
-                <button type="button" onclick="switchAuthMode()" class="text-emerald-400 font-semibold hover:underline cursor-pointer" id="auth-switch-btn">Cadastre-se</button>
+                <button type="button" onclick="switchAuthMode()"
+                    class="text-emerald-400 font-semibold hover:underline cursor-pointer"
+                    id="auth-switch-btn">Cadastre-se</button>
             </div>
         </div>
     </div>
@@ -544,13 +783,13 @@
         import { getFirestore, collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
-          apiKey: "AIzaSyCNju-z3AvURu8M6YSO3ukNtFBYYs0t2-w",
-          authDomain: "site-virtual-racing-team.firebaseapp.com",
-          projectId: "site-virtual-racing-team",
-          storageBucket: "site-virtual-racing-team.firebasestorage.app",
-          messagingSenderId: "647741498721",
-          appId: "1:647741498721:web:09b636402b20aaa2fbd120",
-          measurementId: "G-MYPDGM819M"
+            apiKey: "AIzaSyCNju-z3AvURu8M6YSO3ukNtFBYYs0t2-w",
+            authDomain: "site-virtual-racing-team.firebaseapp.com",
+            projectId: "site-virtual-racing-team",
+            storageBucket: "site-virtual-racing-team.firebasestorage.app",
+            messagingSenderId: "647741498721",
+            appId: "1:647741498721:web:09b636402b20aaa2fbd120",
+            measurementId: "G-MYPDGM819M"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -583,8 +822,49 @@
         let currentUserProfile = null;
         let authMode = 'login';
         let activeRacesData = [];
+        let allSystemUsers = [];
 
-        // SISTEMA DE NOTIFICAÇÃO TOAST PROFISSIONAL
+        // GERADOR DE PAYLOAD PIX VÁLIDO (PADRÃO EMV / BR CODE - BANCO CENTRAL)
+        function gerarPayloadPix(chave, nome, cidade) {
+            const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
+            nome = normalize(nome).substring(0, 25);
+            cidade = normalize(cidade).substring(0, 15);
+
+            const formatField = (id, value) => {
+                const len = String(value.length).padStart(2, '0');
+                return id + len + value;
+            };
+
+            const gui = "br.gov.bcb.pix";
+            const accInfo = formatField("00", gui) + formatField("01", chave);
+
+            let payload = "";
+            payload += formatField("00", "01"); // Payload Format Indicator
+            payload += formatField("26", accInfo); // Merchant Account Information
+            payload += formatField("52", "0000"); // Merchant Category Code
+            payload += formatField("53", "986");  // Transaction Currency (BRL)
+            payload += formatField("58", "BR");   // Country Code
+            payload += formatField("59", nome);   // Merchant Name
+            payload += formatField("60", cidade); // Merchant City
+            payload += formatField("62", formatField("05", "***")); // Additional Data Field Template
+            payload += "6304"; // CRC16 Indicator
+
+            let crc = 0xFFFF;
+            for (let i = 0; i < payload.length; i++) {
+                crc ^= (payload.charCodeAt(i) << 8);
+                for (let j = 0; j < 8; j++) {
+                    if ((crc & 0x8000) !== 0) {
+                        crc = (crc << 1) ^ 0x1021;
+                    } else {
+                        crc = crc << 1;
+                    }
+                }
+            }
+            crc &= 0xFFFF;
+            return payload + crc.toString(16).toUpperCase().padStart(4, '0');
+        }
+
+        // SISTEMA DE NOTIFICAÇÃO TOAST
         window.showToast = (msg, type = 'success') => {
             const container = document.getElementById('toast-container');
             if (!container) return;
@@ -617,7 +897,15 @@
         };
 
         window.togglePixModal = (show) => {
-            document.getElementById('pix-modal').classList.toggle('hidden', !show);
+            const modal = document.getElementById('pix-modal');
+            if (show) {
+                const pixPayload = gerarPayloadPix("virtualracingteam2017@gmail.com", "LIGA VRT", "CANELA");
+                const qrcodeImg = document.getElementById('pix-qrcode-img');
+                if (qrcodeImg) {
+                    qrcodeImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(pixPayload)}`;
+                }
+            }
+            if (modal) modal.classList.toggle('hidden', !show);
         };
 
         window.copyPixKey = () => {
@@ -699,10 +987,7 @@
             `).join('');
         }
 
-        window.onChampSimChange = () => {
-            generateRoundFields();
-        };
-
+        window.onChampSimChange = () => { generateRoundFields(); };
         window.onFunSimChange = () => {
             const sim = document.getElementById('fun-simulator').value;
             const data = simulatorData[sim] || { tracks: [] };
@@ -752,7 +1037,7 @@
 
             for (let i = 1; i <= count; i++) {
                 let tOpts = tracks.map(t => `<option value="${t}">${t}</option>`).join('');
-                
+
                 let vTimeOpts = '';
                 for (let h = 0; h < 24; h++) {
                     let hh = h < 10 ? '0' + h : h;
@@ -946,7 +1231,6 @@
                 await loadChampionships();
                 await loadRaces();
                 await loadAdminPilots();
-                await populateAdminRaceSelect();
             } else {
                 if (authGate) authGate.classList.remove('hidden');
                 currentUserProfile = null;
@@ -993,15 +1277,15 @@
             const badgeEl = document.getElementById('admin-announcement-badge');
             const contentEl = document.getElementById('admin-announcement-content');
             const mediaInput = document.getElementById('admin-announcement-media');
-            
+
             const title = titleEl ? titleEl.value.trim() : '';
             const badge = badgeEl ? badgeEl.value : '';
             const content = contentEl ? contentEl.value.trim() : '';
 
             const saveDocToFirebase = async (mediaUrl, mediaType, mediaName) => {
                 try {
-                    await addDoc(collection(db, "announcements"), { 
-                        title, badge, content, mediaUrl, mediaType, mediaName, createdAt: new Date().toISOString() 
+                    await addDoc(collection(db, "announcements"), {
+                        title, badge, content, mediaUrl, mediaType, mediaName, createdAt: new Date().toISOString()
                     });
                     showToast('Aviso publicado com sucesso!');
                     if (titleEl) titleEl.value = '';
@@ -1013,14 +1297,12 @@
 
             if (mediaInput && mediaInput.files && mediaInput.files[0]) {
                 const file = mediaInput.files[0];
-                
                 if (file.size > 800000) {
                     showToast("Arquivo muito grande (>800KB). Para vídeos Full HD pesados, publique sem anexo e insira o link no texto.", 'error');
                     return;
                 }
-
                 const reader = new FileReader();
-                reader.onload = async function(uploadEvent) {
+                reader.onload = async function (uploadEvent) {
                     let type = "file";
                     if (file.type.startsWith("image/")) type = "image";
                     else if (file.type.startsWith("video/")) type = "video";
@@ -1042,7 +1324,7 @@
                 let a = d.data();
                 let isAdm = currentUser && currentUser.email === "mauro12moura@gmail.com";
                 let del = isAdm ? `<button onclick="deleteAnnouncement('${d.id}')" class="text-red-400 text-xs cursor-pointer"><i class="fa-solid fa-trash"></i> Excluir</button>` : '';
-                
+
                 let mediaElement = "";
                 if (a.mediaType === "image") {
                     mediaElement = `<div class="mt-3"><img src="${a.mediaUrl}" class="max-h-72 w-full object-cover rounded-lg border border-gray-800 cursor-pointer hover:opacity-90 transition" onclick="window.open(this.src)" title="Clique para ampliar"></div>`;
@@ -1058,24 +1340,48 @@
         }
 
         window.deleteAnnouncement = async (id) => {
-            if (confirm("Excluir aviso?")) { 
-                await deleteDoc(doc(db, "announcements", id)); 
-                showToast("Aviso excluído com sucesso!");
-                await loadAnnouncements(); 
-            }
+            await deleteDoc(doc(db, "announcements", id));
+            showToast("Aviso excluído com sucesso!");
+            await loadAnnouncements();
         };
 
+        // VISUALIZAÇÃO E GESTÃO COMPLETA DOS PILOTOS CADASTRADOS (PAINEL ADM)
         async function loadAdminPilots() {
             const box = document.getElementById('admin-pilots-list');
-            if (!box) return;
+            const adminPilotSelect = document.getElementById('admin-pilot-to-add');
+
             const snap = await getDocs(collection(db, "users"));
-            if (snap.empty) { box.innerHTML = `<p class="text-gray-500">Nenhum piloto cadastrado.</p>`; return; }
-            let html = '';
+            allSystemUsers = [];
             snap.forEach(d => {
-                let u = d.data();
-                html += `<div class="p-2.5 bg-gray-900 rounded border border-gray-800 flex justify-between items-center text-xs"><span><strong>${u.fullName || 'Sem Nome'}</strong> (ID: <strong class="text-orange-400">${u.psnXboxId || '--'}</strong>) - Tel: ${u.phone || '--'}</span><span class="text-gray-500">${u.email}</span></div>`;
+                allSystemUsers.push({ id: d.id, ...d.data() });
             });
-            box.innerHTML = html;
+
+            if (box) {
+                if (allSystemUsers.length === 0) {
+                    box.innerHTML = `<p class="text-gray-500 text-xs">Nenhum piloto cadastrado.</p>`;
+                } else {
+                    let html = '<div class="grid grid-cols-1 md:grid-cols-2 gap-2">';
+                    allSystemUsers.forEach(u => {
+                        html += `
+                            <div class="p-3 bg-gray-900 rounded-lg border border-gray-800 flex flex-col gap-1 text-xs">
+                                <div class="flex justify-between items-center">
+                                    <strong class="text-white text-sm"><i class="fa-solid fa-user text-emerald-400 mr-1"></i> ${u.fullName || 'Sem Nome'}</strong>
+                                    <span class="text-[10px] bg-orange-950 text-orange-400 px-2 py-0.5 rounded font-mono">${u.psnXboxId || 'Sem ID'}</span>
+                                </div>
+                                <div class="text-gray-400 flex justify-between items-center pt-1 border-t border-gray-800/60">
+                                    <span><i class="fa-solid fa-envelope mr-1 text-gray-500"></i> ${u.email || '--'}</span>
+                                    <span><i class="fa-solid fa-phone mr-1 text-gray-500"></i> ${u.phone || '--'}</span>
+                                </div>
+                            </div>`;
+                    });
+                    html += '</div>';
+                    box.innerHTML = html;
+                }
+            }
+
+            if (adminPilotSelect) {
+                adminPilotSelect.innerHTML = allSystemUsers.map(u => `<option value="${u.id}">${u.fullName || u.email} (${u.psnXboxId || 'ID --'})</option>`).join('');
+            }
         }
 
         window.criarCampeonatoCompleto = async () => {
@@ -1119,15 +1425,14 @@
                     }
 
                     await addDoc(collection(db, "races"), {
-                        track: `[${tier}] ${name} - Etapa ${i}: ${track}`, date, simulator, maxSlots, tier, ratingWeight, simulatorType: simulator, 
+                        track: `[${tier}] ${name} - Etapa ${i}: ${track}`, date, simulator, maxSlots, tier, ratingWeight, simulatorType: simulator,
                         vtime, fp, q, duration, timeprog, weather, temp, bop, pitReq, pitType, pitWindow, pit25s, category, selectedCars,
                         registrationsOpen: true, pilots: [], results: []
                     });
                 }
-                showToast('Campeonato criado com sucesso!'); 
-                await loadChampionships(); 
+                showToast('Campeonato criado com sucesso!');
+                await loadChampionships();
                 await loadRaces();
-                await populateAdminRaceSelect();
             } catch (err) { showToast('Erro: ' + err.message, 'error'); }
         };
 
@@ -1167,13 +1472,12 @@
             if (!name || !date) { showToast('Preencha os campos obrigatórios do 4fun.', 'error'); return; }
             try {
                 await addDoc(collection(db, "races"), {
-                    track: `4fun: ${name} (${track})`, date, simulator, maxSlots, tier: "4fun", ratingWeight: 0.3, simulatorType: simulator, 
+                    track: `4fun: ${name} (${track})`, date, simulator, maxSlots, tier: "4fun", ratingWeight: 0.3, simulatorType: simulator,
                     fp, q, duration, vtime, timeprog, weather, temp, bop, pitReq, pitType, pitWindow, pit25s, category, selectedCars,
                     registrationsOpen: true, pilots: [], results: []
                 });
-                showToast('Evento 4fun publicado com sucesso!'); 
+                showToast('Evento 4fun publicado com sucesso!');
                 await loadRaces();
-                await populateAdminRaceSelect();
             } catch (err) { showToast('Erro: ' + err.message, 'error'); }
         };
 
@@ -1185,38 +1489,193 @@
             let h = '';
             snap.forEach(d => {
                 let item = d.data();
-                h += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6"><h3 class="text-xl font-bold text-white">${item.name}</h3><p class="text-xs text-gray-400 mt-1">${item.simulator} | ${item.rounds} Etapas</p></div>`;
+                let isAdm = currentUser && currentUser.email === "mauro12moura@gmail.com";
+                let del = isAdm ? `<button onclick="deleteChampionship('${d.id}')" class="text-red-400 text-xs cursor-pointer"><i class="fa-solid fa-trash"></i> Excluir</button>` : '';
+                h += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between"><div><h3 class="text-xl font-bold text-white">${item.name}</h3><p class="text-xs text-gray-400 mt-1">${item.simulator} | ${item.rounds} Etapas</p></div><div class="mt-4 pt-3 border-t border-gray-800 flex justify-end">${del}</div></div>`;
             });
             c.innerHTML = h;
         }
+
+        window.deleteChampionship = async (id) => {
+            await deleteDoc(doc(db, "championships", id));
+            showToast("Campeonato excluído com sucesso!");
+            await loadChampionships();
+        };
 
         async function loadRaces() {
             const c = document.getElementById('races-list');
+            const adminSelect = document.getElementById('admin-race-select');
             if (!c) return;
             const snap = await getDocs(collection(db, "races"));
             activeRacesData = [];
-            if (snap.empty) { c.innerHTML = `<div class="col-span-2 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhum evento.</div>`; return; }
+
+            if (snap.empty) {
+                c.innerHTML = `<div class="col-span-2 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhum evento.</div>`;
+                if (adminSelect) adminSelect.innerHTML = '<option value="">Nenhum evento disponível</option>';
+                return;
+            }
+
             let h = '';
+            let adminSelectHtml = '<option value="">Selecione o evento para gerenciar...</option>';
+
             snap.forEach(d => {
                 let rId = d.id; let r = d.data(); r.id = rId;
                 activeRacesData.push(r);
-                let pitInfo = r.pitReq && r.pitReq !== "0" ? ` | Pit Obrigatório: ${r.pitReq}` : '';
+                adminSelectHtml += `<option value="${rId}">${r.track}</option>`;
+
+                let pitInfo = r.pitReq && r.pitReq !== "0" ? ` | Pit: ${r.pitReq}` : '';
                 let catInfo = r.category ? ` | Cat: ${r.category}` : '';
-                h += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between"><div><span class="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded">${r.simulator}</span><h3 class="text-lg font-bold text-white mt-2">${r.track}</h3><p class="text-xs text-gray-400 mt-1">${r.date ? new Date(r.date).toLocaleString('pt-BR') : '--'}</p><p class="text-[11px] text-orange-400 mt-1">Clima: ${r.weather || 'Sol'} (${r.temp || '25°C'}) | BOP: ${r.bop || 'Sim'}${pitInfo}${catInfo}</p></div><div class="mt-4 pt-3 border-t border-gray-800"><button onclick="showToast('Inscrição realizada com sucesso!')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Inscrever-se</button></div></div>`;
+                let isAdm = currentUser && currentUser.email === "mauro12moura@gmail.com";
+                let delBtn = isAdm ? `<button onclick="deleteRace('${rId}')" class="bg-red-600/20 text-red-400 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer"><i class="fa-solid fa-trash mr-1"></i> Excluir</button>` : '';
+
+                let pilotsCount = r.pilots ? r.pilots.length : 0;
+                let userAlreadyEnrolled = currentUser && r.pilots && r.pilots.some(p => p.uid === currentUser.uid);
+
+                let registerBtn = '';
+                if (userAlreadyEnrolled) {
+                    registerBtn = `<button onclick="cancelarInscricaoPiloto('${rId}')" class="bg-red-600/20 text-red-400 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Cancelar Inscrição</button>`;
+                } else {
+                    registerBtn = `<button onclick="inscreverPilotoLogado('${rId}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Inscrever-se (${pilotsCount}/${r.maxSlots || 30})</button>`;
+                }
+
+                h += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between"><div><span class="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded">${r.simulator}</span><h3 class="text-lg font-bold text-white mt-2">${r.track}</h3><p class="text-xs text-gray-400 mt-1">${r.date ? new Date(r.date).toLocaleString('pt-BR') : '--'}</p><p class="text-[11px] text-orange-400 mt-1">Clima: ${r.weather || 'Sol'} (${r.temp || '25°C'}) | Vagas: ${pilotsCount}/${r.maxSlots || 30}${pitInfo}${catInfo}</p></div><div class="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center"><div class="flex gap-2">${registerBtn}</div>${delBtn}</div></div>`;
             });
             c.innerHTML = h;
+            if (adminSelect) {
+                const currentVal = adminSelect.value;
+                adminSelect.innerHTML = adminSelectHtml;
+                if (currentVal) adminSelect.value = currentVal;
+                carregarPilotosInscritosAdmin();
+            }
         }
 
-        async function populateAdminRaceSelect() {
-            const sel = document.getElementById('result-race-select');
-            if (!sel) return;
-            const snap = await getDocs(collection(db, "races"));
-            sel.innerHTML = '<option value="">Selecione...</option>';
-            snap.forEach(d => {
-                let r = d.data();
-                sel.innerHTML += `<option value="${d.id}">${r.track}</option>`;
+        window.inscreverPilotoLogado = async (raceId) => {
+            if (!currentUser || !currentUserProfile) { showToast("Faça login para se inscrever.", "error"); return; }
+            const raceRef = doc(db, "races", raceId);
+            const raceSnap = await getDoc(raceRef);
+            if (!raceSnap.exists()) return;
+            let rData = raceSnap.data();
+            let pilots = rData.pilots || [];
+
+            if (pilots.some(p => p.uid === currentUser.uid)) {
+                showToast("Você já está inscrito nesta etapa!", "error");
+                return;
+            }
+            if (pilots.length >= (rData.maxSlots || 30)) {
+                showToast("Vagas esgotadas para esta etapa!", "error");
+                return;
+            }
+
+            pilots.push({
+                uid: currentUser.uid,
+                fullName: currentUserProfile.fullName || currentUser.email,
+                psnXboxId: currentUserProfile.psnXboxId || '--',
+                email: currentUser.email
             });
-        }
+
+            await setDoc(raceRef, { pilots }, { merge: true });
+            showToast("Inscrição realizada com sucesso!");
+            loadRaces();
+        };
+
+        window.cancelarInscricaoPiloto = async (raceId) => {
+            if (!currentUser) return;
+            const raceRef = doc(db, "races", raceId);
+            const raceSnap = await getDoc(raceRef);
+            if (!raceSnap.exists()) return;
+            let rData = raceSnap.data();
+            let pilots = (rData.pilots || []).filter(p => p.uid !== currentUser.uid);
+
+            await setDoc(raceRef, { pilots }, { merge: true });
+            showToast("Inscrição cancelada com sucesso!");
+            loadRaces();
+        };
+
+        // FUNÇÕES DE GESTÃO DE INSCRIÇÕES PELO ADMIN
+        window.carregarPilotosInscritosAdmin = () => {
+            const select = document.getElementById('admin-race-select');
+            const listDiv = document.getElementById('admin-enrolled-pilots-list');
+            if (!select || !listDiv) return;
+            const raceId = select.value;
+            if (!raceId) {
+                listDiv.innerHTML = `<p class="text-gray-500 text-[11px]">Selecione um evento acima...</p>`;
+                return;
+            }
+
+            const race = activeRacesData.find(r => r.id === raceId);
+            if (!race || !race.pilots || race.pilots.length === 0) {
+                listDiv.innerHTML = `<p class="text-gray-500 text-[11px]">Nenhum piloto inscrito neste evento.</p>`;
+                return;
+            }
+
+            let html = '';
+            race.pilots.forEach(p => {
+                html += `
+                    <div class="flex justify-between items-center bg-gray-950 p-2 rounded border border-gray-800">
+                        <div>
+                            <strong class="text-white">${p.fullName}</strong> <span class="text-orange-400 font-mono">(${p.psnXboxId})</span>
+                        </div>
+                        <button onclick="removerPilotoAdmin('${raceId}', '${p.uid}')" class="bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white px-2 py-1 rounded text-[10px] font-bold cursor-pointer">Remover</button>
+                    </div>`;
+            });
+            listDiv.innerHTML = html;
+        };
+
+        window.adicionarPilotoInscricaoAdmin = async () => {
+            const raceId = document.getElementById('admin-race-select').value;
+            const pilotUid = document.getElementById('admin-pilot-to-add').value;
+            if (!raceId) { showToast("Selecione um evento primeiro.", "error"); return; }
+            if (!pilotUid) { showToast("Selecione um piloto.", "error"); return; }
+
+            const userObj = allSystemUsers.find(u => u.id === pilotUid);
+            if (!userObj) return;
+
+            const raceRef = doc(db, "races", raceId);
+            const raceSnap = await getDoc(raceRef);
+            if (!raceSnap.exists()) return;
+            let rData = raceSnap.data();
+            let pilots = rData.pilots || [];
+
+            if (pilots.some(p => p.uid === pilotUid)) {
+                showToast("Este piloto já está inscrito neste evento!", "error");
+                return;
+            }
+            if (pilots.length >= (rData.maxSlots || 30)) {
+                showToast("O evento atingiu o limite máximo de vagas!", "error");
+                return;
+            }
+
+            pilots.push({
+                uid: pilotUid,
+                fullName: userObj.fullName || userObj.email,
+                psnXboxId: userObj.psnXboxId || '--',
+                email: userObj.email
+            });
+
+            await setDoc(raceRef, { pilots }, { merge: true });
+            showToast("Piloto inscrito com sucesso pela administração!");
+            await loadRaces();
+            carregarPilotosInscritosAdmin();
+        };
+
+        window.removerPilotoAdmin = async (raceId, pilotUid) => {
+            const raceRef = doc(db, "races", raceId);
+            const raceSnap = await getDoc(raceRef);
+            if (!raceSnap.exists()) return;
+            let rData = raceSnap.data();
+            let pilots = (rData.pilots || []).filter(p => p.uid !== pilotUid);
+
+            await setDoc(raceRef, { pilots }, { merge: true });
+            showToast("Piloto removido do evento com sucesso!");
+            await loadRaces();
+            carregarPilotosInscritosAdmin();
+        };
+
+        window.deleteRace = async (id) => {
+            await deleteDoc(doc(db, "races", id));
+            showToast("Etapa/Evento excluído com sucesso!");
+            await loadRaces();
+        };
 
         window.openProtestModal = () => {
             const modal = document.getElementById('protest-modal');
@@ -1233,4 +1692,5 @@
         };
     </script>
 </body>
+
 </html>
