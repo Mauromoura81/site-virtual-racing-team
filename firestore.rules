@@ -1,0 +1,128 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && request.auth.token.email == 'mauro12moura@gmail.com';
+    }
+
+    function validUserProfile(data) {
+      return data.keys().hasAll(['fullName', 'phone', 'psnXboxId', 'email'])
+        && data.keys().hasOnly(['fullName', 'phone', 'psnXboxId', 'email'])
+        && data.email == request.auth.token.email
+        && data.fullName is string
+        && data.phone is string
+        && data.psnXboxId is string;
+    }
+
+    function validSelfProfileUpdate(userId) {
+      return signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['fullName', 'phone', 'psnXboxId'])
+        && request.resource.data.keys()
+          .hasOnly(['fullName', 'phone', 'psnXboxId', 'email'])
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.fullName is string
+        && request.resource.data.phone is string
+        && request.resource.data.psnXboxId is string;
+    }
+
+    function isOwnPilotEntry(pilot) {
+      return pilot is map
+        && pilot.keys().hasAll(['uid', 'email'])
+        && pilot.get('uid', '') == request.auth.uid
+        && pilot.get('email', '') == request.auth.token.email;
+    }
+
+    function isValidNewPilotEntry(pilot) {
+      let profilePath = /databases/$(database)/documents/users/$(request.auth.uid);
+      let profile = get(profilePath).data;
+      return isOwnPilotEntry(pilot)
+        && pilot.keys().hasAll(['fullName', 'psnXboxId'])
+        && pilot.keys().hasOnly(['uid', 'fullName', 'psnXboxId', 'email'])
+        && pilot.get('fullName', '') is string
+        && pilot.get('psnXboxId', '') is string
+        && pilot.get('fullName', '') == profile.get('fullName', request.auth.token.email)
+        && pilot.get('psnXboxId', '') == profile.get('psnXboxId', '--');
+    }
+
+    function parentChampionshipRegistrationIsOpen(championshipId) {
+      let championshipPath = /databases/$(database)/documents/championships/$(championshipId);
+      let championship = get(championshipPath).data;
+      return championship.get('registrationsOpen', true) != false;
+    }
+
+    function registrationIsOpen() {
+      let championshipId = resource.data.get('championshipId', '');
+      return (championshipId == '' || championshipId == '4fun')
+        ? resource.data.get('registrationsOpen', true) != false
+        : parentChampionshipRegistrationIsOpen(championshipId);
+    }
+
+    function canAddOwnPilot() {
+      let oldPilots = resource.data.get('pilots', []);
+      let newPilots = request.resource.data.get('pilots', []);
+      let addedPilots = newPilots.removeAll(oldPilots);
+      return oldPilots is list
+        && newPilots is list
+        && newPilots.size() == oldPilots.size() + 1
+        && newPilots.hasAll(oldPilots)
+        && addedPilots.size() == 1
+        && isValidNewPilotEntry(addedPilots[0])
+        && newPilots.size() <= resource.data.get('maxSlots', 24)
+        && registrationIsOpen();
+    }
+
+    function canRemoveOwnPilot() {
+      let oldPilots = resource.data.get('pilots', []);
+      let newPilots = request.resource.data.get('pilots', []);
+      let removedPilots = oldPilots.removeAll(newPilots);
+      return oldPilots is list
+        && newPilots is list
+        && oldPilots.size() == newPilots.size() + 1
+        && oldPilots.hasAll(newPilots)
+        && removedPilots.size() == 1
+        && isOwnPilotEntry(removedPilots[0]);
+    }
+
+    function canUpdateOwnRegistration() {
+      return signedIn()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['pilots'])
+        && (canAddOwnPilot() || canRemoveOwnPilot());
+    }
+
+    match /users/{userId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && validUserProfile(request.resource.data);
+      allow update: if isAdmin() || validSelfProfileUpdate(userId);
+      allow delete: if isAdmin();
+    }
+
+    match /announcements/{announcementId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /championships/{championshipId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /races/{raceId} {
+      allow read: if signedIn();
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() || canUpdateOwnRegistration();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

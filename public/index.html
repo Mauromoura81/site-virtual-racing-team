@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -269,18 +268,11 @@
                 </div>
 
                 <div class="space-y-8">
-                    <!-- CONTROLE GLOBAL DE INSCRIÇÕES -->
+                    <!-- CONTROLE INDIVIDUAL DE INSCRIÇÕES -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-orange-500/30">
-                        <h3 class="font-bold text-lg mb-2 text-white"><i class="fa-solid fa-lock text-orange-400 mr-2"></i> Controle Geral de Inscrições</h3>
-                        <p class="text-xs text-gray-400 mb-4">Abra ou desabilite as inscrições em todos os campeonatos e corridas avulsas instantaneamente.</p>
-                        <div class="flex flex-wrap gap-4">
-                            <button onclick="toggleAllRegistrations(true)" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition cursor-pointer inline-flex items-center gap-2">
-                                <i class="fa-solid fa-lock-open"></i> Habilitar Inscrições em Tudo
-                            </button>
-                            <button onclick="toggleAllRegistrations(false)" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition cursor-pointer inline-flex items-center gap-2">
-                                <i class="fa-solid fa-lock"></i> Desabilitar Inscrições em Tudo
-                            </button>
-                        </div>
+                        <h3 class="font-bold text-lg mb-2 text-white"><i class="fa-solid fa-lock text-orange-400 mr-2"></i> Inscrições por Evento</h3>
+                        <p class="text-xs text-gray-400 mb-4">Abra ou encerre as inscrições de cada campeonato e corrida 4fun individualmente.</p>
+                        <div id="admin-registration-controls" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
                     </div>
 
                     <!-- GESTÃO DE RESULTADOS, PUNIÇÕES E PONTOS EXTRAS POR ETAPA -->
@@ -686,7 +678,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyCNju-z3AvURu8M6YSO3ukNtFBYYs0t2-w",
@@ -1642,23 +1634,103 @@
             } catch (err) { showToast('Erro: ' + err.message, 'error'); }
         };
 
-        // CONTROLE GLOBAL DE INSCRIÇÕES
-        window.toggleAllRegistrations = async (status) => {
-            if (!currentUser || currentUser.email !== "mauro12moura@gmail.com") return;
+        function renderAdminRegistrationControls() {
+            const container = document.getElementById('admin-registration-controls');
+            if (!container) return;
+
+            const isAdminUser = currentUser && currentUser.email === "mauro12moura@gmail.com";
+            if (!isAdminUser) {
+                container.replaceChildren();
+                return;
+            }
+
+            const targets = [
+                ...activeChampsData.map(ch => ({
+                    id: ch.id,
+                    type: 'championship',
+                    label: 'Campeonato',
+                    name: ch.name || 'Campeonato sem nome',
+                    isOpen: ch.registrationsOpen !== false
+                })),
+                ...activeRacesData
+                    .filter(race => race.championshipId === '4fun')
+                    .map(race => ({
+                        id: race.id,
+                        type: 'race',
+                        label: 'Corrida 4fun',
+                        name: race.track || 'Corrida sem nome',
+                        isOpen: race.registrationsOpen !== false
+                    }))
+            ];
+
+            container.replaceChildren();
+            if (targets.length === 0) {
+                container.textContent = 'Nenhum campeonato ou 4fun cadastrado.';
+                container.classList.add('text-gray-500', 'text-xs');
+                return;
+            }
+            container.classList.remove('text-gray-500', 'text-xs');
+
+            targets.forEach(target => {
+                const card = document.createElement('div');
+                card.className = 'flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-gray-900 border border-gray-800 rounded-lg p-3';
+
+                const details = document.createElement('div');
+                const type = document.createElement('p');
+                type.className = 'text-[10px] uppercase font-bold text-orange-400';
+                type.textContent = target.label;
+                const name = document.createElement('p');
+                name.className = 'text-sm font-semibold text-white';
+                name.textContent = target.name;
+                const status = document.createElement('p');
+                status.className = `text-xs ${target.isOpen ? 'text-emerald-400' : 'text-red-400'}`;
+                status.textContent = target.isOpen ? 'Inscrições abertas' : 'Inscrições encerradas';
+                details.append(type, name, status);
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = target.isOpen
+                    ? 'bg-red-600/20 text-red-300 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg transition cursor-pointer'
+                    : 'bg-emerald-600/20 text-emerald-300 border border-emerald-600/40 hover:bg-emerald-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg transition cursor-pointer';
+                button.textContent = target.isOpen ? 'Encerrar inscrições' : 'Reabrir inscrições';
+                button.addEventListener('click', () => {
+                    window.setEventRegistrationStatus(target.type, target.id, !target.isOpen);
+                });
+
+                card.append(details, button);
+                container.appendChild(card);
+            });
+        }
+
+        window.setEventRegistrationStatus = async (eventType, eventId, status) => {
+            if (!currentUser || currentUser.email !== "mauro12moura@gmail.com") {
+                showToast('Apenas o administrador pode alterar as inscrições.', 'error');
+                return;
+            }
+
+            const isChampionship = eventType === 'championship';
+            const target = isChampionship
+                ? activeChampsData.find(item => item.id === eventId)
+                : eventType === 'race'
+                    ? activeRacesData.find(item => item.id === eventId && item.championshipId === '4fun')
+                    : null;
+            if (!target) {
+                showToast('Evento não encontrado. Atualize a página e tente novamente.', 'error');
+                return;
+            }
+
+            const collectionName = isChampionship ? 'championships' : 'races';
             try {
-                // Atualiza campeonatos
-                for (let ch of activeChampsData) {
-                    await setDoc(doc(db, "championships", ch.id), { registrationsOpen: status }, { merge: true });
-                }
-                // Atualiza corridas / etapas
-                for (let rc of activeRacesData) {
-                    await setDoc(doc(db, "races", rc.id), { registrationsOpen: status }, { merge: true });
-                }
-                showToast(status ? "Inscrições Habilitadas em todos os eventos!" : "Inscrições Desabilitadas em todos os eventos!");
-                await loadChampionships();
-                await loadRaces();
-            } catch (err) { showToast("Erro ao atualizar status: " + err.message, 'error'); }
+                await setDoc(doc(db, collectionName, eventId), { registrationsOpen: status }, { merge: true });
+                const eventName = isChampionship ? target.name : target.track;
+                showToast(`Inscrições ${status ? 'abertas' : 'encerradas'} para ${eventName}.`);
+                if (isChampionship) await loadChampionships();
+                else await loadRaces();
+            } catch (err) {
+                showToast('Erro ao atualizar inscrições: ' + err.message, 'error');
+            }
         };
+
 
         async function loadChampionships() {
             const c = document.getElementById('championships-list');
@@ -1671,6 +1743,7 @@
             if (snap.empty) { 
                 c.innerHTML = `<div class="col-span-3 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhum campeonato.</div>`; 
                 if (standingsSelect) standingsSelect.innerHTML = selectHtml;
+                renderAdminRegistrationControls();
                 return; 
             }
 
@@ -1724,6 +1797,7 @@
                 standingsSelect.innerHTML = selectHtml;
                 if (currentVal) standingsSelect.value = currentVal;
             }
+            renderAdminRegistrationControls();
         }
 
         window.deleteChampionship = async (id) => {
@@ -1773,42 +1847,78 @@
             const ch = activeChampsData.find(item => item.id === champId);
             if (ch && ch.registrationsOpen === false) { showToast("As inscrições para este campeonato estão encerradas.", "error"); return; }
             if (!currentUser || !currentUserProfile) { showToast("Faça login para se inscrever.", "error"); return; }
-            let racesOfChamp = activeRacesData.filter(r => r.championshipId === champId);
+            const racesOfChamp = activeRacesData.filter(r => r.championshipId === champId);
             if (racesOfChamp.length === 0) { showToast("Este campeonato não possui etapas cadastradas.", "error"); return; }
 
-            for (let rc of racesOfChamp) {
-                let pilots = rc.pilots || [];
-                if (!pilots.some(p => p.uid === currentUser.uid)) {
-                    if (pilots.length >= (rc.maxSlots || 30)) {
-                        showToast(`Vagas esgotadas na etapa ${rc.track}!`, "error");
-                        return;
-                    }
-                    pilots.push({
-                        uid: currentUser.uid,
-                        fullName: currentUserProfile.fullName || currentUser.email,
-                        psnXboxId: currentUserProfile.psnXboxId || '--',
-                        email: currentUser.email
-                    });
-                    await setDoc(doc(db, "races", rc.id), { pilots }, { merge: true });
+            const pilot = {
+                uid: currentUser.uid,
+                fullName: currentUserProfile.fullName || currentUser.email,
+                psnXboxId: currentUserProfile.psnXboxId || '--',
+                email: currentUser.email
+            };
+            const updates = [];
+            for (const race of racesOfChamp) {
+                const pilots = Array.isArray(race.pilots) ? [...race.pilots] : [];
+                if (pilots.some(p => p.uid === currentUser.uid)) continue;
+                if (pilots.length >= (race.maxSlots || 30)) {
+                    showToast(`Vagas esgotadas na etapa ${race.track}!`, "error");
+                    return;
                 }
+                pilots.push(pilot);
+                updates.push({ raceId: race.id, pilots });
             }
-            showToast("Inscrição realizada em todas as etapas do campeonato com sucesso!");
-            loadRaces();
-            loadChampionships();
-            loadAdminPilots();
+
+            if (updates.length === 0) {
+                showToast("Você já está inscrito em todas as etapas deste campeonato.", "error");
+                return;
+            }
+
+            try {
+                const batch = writeBatch(db);
+                updates.forEach(({ raceId, pilots }) => {
+                    batch.set(doc(db, "races", raceId), { pilots }, { merge: true });
+                });
+                await batch.commit();
+                showToast("Inscrição realizada em todas as etapas do campeonato com sucesso!");
+                await loadRaces();
+                await loadChampionships();
+                await loadAdminPilots();
+            } catch (err) {
+                showToast("Não foi possível concluir a inscrição em todas as etapas: " + err.message, 'error');
+            }
         };
 
         window.cancelarInscricaoCampeonato = async (champId) => {
             if (!currentUser) return;
-            let racesOfChamp = activeRacesData.filter(r => r.championshipId === champId);
-            for (let rc of racesOfChamp) {
-                let pilots = (rc.pilots || []).filter(p => p.uid !== currentUser.uid);
-                await setDoc(doc(db, "races", rc.id), { pilots }, { merge: true });
+            const racesOfChamp = activeRacesData.filter(r => r.championshipId === champId);
+            const updates = racesOfChamp
+                .map(race => ({
+                    raceId: race.id,
+                    pilots: (race.pilots || []).filter(p => p.uid !== currentUser.uid)
+                }))
+                .filter(({ raceId, pilots }) => {
+                    const race = racesOfChamp.find(item => item.id === raceId);
+                    return pilots.length !== (race.pilots || []).length;
+                });
+
+            if (updates.length === 0) {
+                showToast("Você não possui inscrição ativa neste campeonato.", "error");
+                return;
             }
-            showToast("Inscrição cancelada em todas as etapas do campeonato!");
-            loadRaces();
-            loadChampionships();
-            loadAdminPilots();
+
+            try {
+                const batch = writeBatch(db);
+                updates.forEach(({ raceId, pilots }) => {
+                    batch.set(doc(db, "races", raceId), { pilots }, { merge: true });
+                });
+                await batch.commit();
+                showToast("Inscrição cancelada em todas as etapas do campeonato!");
+                await loadRaces();
+                await loadChampionships();
+                await loadAdminPilots();
+            } catch (err) {
+                showToast("Não foi possível cancelar em todas as etapas: " + err.message, 'error');
+            }
         };
 
         async function loadRaces() {
@@ -1823,6 +1933,7 @@
                 c.innerHTML = `<div class="col-span-2 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhuma corrida avulsa 4fun.</div>`; 
                 if (adminSelect) adminSelect.innerHTML = '<option value="">Nenhum evento disponível</option>';
                 if (adminResSelect) adminResSelect.innerHTML = '<option value="">Nenhum evento disponível</option>';
+                renderAdminRegistrationControls();
                 return; 
             }
 
@@ -1907,6 +2018,7 @@
             }
             if (adminResSelect) adminResSelect.innerHTML = adminResHtml;
             atualizarInterfaceRatingsEPerfil();
+            renderAdminRegistrationControls();
         }
 
         window.abrirEditaCorrida = (raceId) => {
