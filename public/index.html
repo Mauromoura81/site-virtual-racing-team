@@ -1,4 +1,4 @@
-html
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -60,7 +60,7 @@ html
                 <button onclick="switchTab('campeonatos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="campeonatos">Campeonatos</button>
                 <button onclick="switchTab('classificacao')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="classificacao">Classificação</button>
                 <button onclick="switchTab('ratings')" class="nav-btn px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer" data-target="ratings"><i class="fa-solid fa-chart-line"></i> Ratings</button>
-                <button onclick="switchTab('corridas')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="corridas">4funs & Inscrições</button>
+                <button onclick="switchTab('corridas')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="corridas">Corridas 4funs</button>
                 <button onclick="switchTab('protestos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="protestos">Protestos</button>
                 <button onclick="switchTab('admin-section')" id="nav-admin" class="nav-btn hidden px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer" data-target="admin-section"><i class="fa-solid fa-shield-halved"></i> ADM</button>
             </nav>
@@ -84,8 +84,8 @@ html
                     <span class="bg-emerald-600/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-emerald-600/40">Temporada 2026</span>
                     <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-4 text-white">A Emoção do Automobilismo Virtual Começa Aqui</h1>
                     <p class="text-gray-400 mb-6">Competições de elite, campeonatos, relatórios de carreira e sistema avançado de Rating VRT.</p>
-                    <button onclick="switchTab('corridas')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-600/30 inline-flex items-center gap-2 cursor-pointer">
-                        <i class="fa-solid fa-gauge-high"></i> Ver Eventos Disponíveis
+                    <button onclick="switchTab('campeonatos')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-600/30 inline-flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-trophy"></i> Ver Campeonatos
                     </button>
                 </div>
             </div>
@@ -116,22 +116,22 @@ html
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-gray-950 border border-orange-500/30 rounded-xl p-5 relative overflow-hidden">
                         <div class="flex justify-between items-start">
-                            <span class="text-[10px] uppercase font-bold text-orange-400 bg-orange-950/40 px-2.5 py-1 rounded border border-orange-800/40">Rating Principal (100%)</span>
+                            <span class="text-[10px] uppercase font-bold text-orange-400 bg-orange-950/40 px-2.5 py-1 rounded border border-orange-800/40">Rating Principal (%)</span>
                             <span id="profile-rating-main-pos" class="text-xs font-bold text-orange-300 bg-orange-900/40 px-2 py-0.5 rounded">Pos: --</span>
                         </div>
                         <div class="mt-4 flex items-baseline gap-2">
                             <span id="profile-rating-main" class="text-4xl font-black text-white">0.0</span>
-                            <span class="text-xs text-gray-400">pontos</span>
+                            <span class="text-xs text-gray-400">% de aproveitamento (100% peso)</span>
                         </div>
                     </div>
                     <div class="bg-gray-950 border border-emerald-500/30 rounded-xl p-5 relative overflow-hidden">
                         <div class="flex justify-between items-start">
-                            <span class="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-800/40">Rating Geral VRT</span>
+                            <span class="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-800/40">Rating Geral VRT (%)</span>
                             <span id="profile-rating-general-pos" class="text-xs font-bold text-emerald-300 bg-emerald-900/40 px-2 py-0.5 rounded">Pos: --</span>
                         </div>
                         <div class="mt-4 flex items-baseline gap-2">
                             <span id="profile-rating-general" class="text-4xl font-black text-white">0.0</span>
-                            <span class="text-xs text-gray-400">pontos</span>
+                            <span class="text-xs text-gray-400">% de aproveitamento ponderado</span>
                         </div>
                     </div>
                 </div>
@@ -160,8 +160,14 @@ html
 
         <!-- ABA CLASSIFICAÇÃO -->
         <section id="tab-classificacao" class="tab-content space-y-6">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Classificação Geral (Pontos Nominais & Descarte)</h2>
+            <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Classificação do Campeonato (Pontos & Descarte)</h2>
+                <div class="flex items-center gap-2">
+                    <label class="text-xs text-gray-400 uppercase font-bold">Campeonato:</label>
+                    <select id="standings-champ-select" onchange="atualizarInterfaceRatingsEPerfil()" class="bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold">
+                        <option value="all">Todos os Campeonatos (Geral)</option>
+                    </select>
+                </div>
             </div>
             <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
                 <table class="w-full text-left border-collapse">
@@ -183,19 +189,19 @@ html
         <!-- ABA RATINGS -->
         <section id="tab-ratings" class="tab-content space-y-6">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Ranking Oficial de Rating VRT</h2>
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Ranking Oficial de Rating VRT (Desempenho %)</h2>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
                     <div class="bg-gray-950 p-4 border-b border-gray-800 flex justify-between items-center">
-                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i class="fa-solid fa-chart-line text-emerald-400 mr-2"></i> Ranking Rating Geral</h3>
+                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i class="fa-solid fa-chart-line text-emerald-400 mr-2"></i> Ranking Rating Geral (Com Pesos)</h3>
                     </div>
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-gray-950/60 text-gray-400 text-xs uppercase border-b border-gray-800">
                                 <th class="p-3">Pos</th>
                                 <th class="p-3">Piloto (ID PSN / Xbox)</th>
-                                <th class="p-3 text-right">Rating Geral</th>
+                                <th class="p-3 text-right">Rating Geral (%)</th>
                             </tr>
                         </thead>
                         <tbody id="ratings-general-tbody">
@@ -212,7 +218,7 @@ html
                             <tr class="bg-gray-950/60 text-gray-400 text-xs uppercase border-b border-gray-800">
                                 <th class="p-3">Pos</th>
                                 <th class="p-3">Piloto (ID PSN / Xbox)</th>
-                                <th class="p-3 text-right">Rating Principal</th>
+                                <th class="p-3 text-right">Rating Principal (%)</th>
                             </tr>
                         </thead>
                         <tbody id="ratings-main-tbody">
@@ -223,13 +229,13 @@ html
             </div>
         </section>
 
-        <!-- ABA 4FUN E INSCRIÇÕES -->
+        <!-- ABA CORRIDAS 4FUN -->
         <section id="tab-corridas" class="tab-content space-y-6">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Eventos 4funs & Inscrições</h2>
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Corridas 4funs (Eventos Avulsos)</h2>
             </div>
             <div id="races-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando eventos...</div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando corridas avulsas...</div>
             </div>
         </section>
 
@@ -263,6 +269,20 @@ html
                 </div>
 
                 <div class="space-y-8">
+                    <!-- CONTROLE GLOBAL DE INSCRIÇÕES -->
+                    <div class="bg-gray-950 p-6 rounded-xl border border-orange-500/30">
+                        <h3 class="font-bold text-lg mb-2 text-white"><i class="fa-solid fa-lock text-orange-400 mr-2"></i> Controle Geral de Inscrições</h3>
+                        <p class="text-xs text-gray-400 mb-4">Abra ou desabilite as inscrições em todos os campeonatos e corridas avulsas instantaneamente.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="toggleAllRegistrations(true)" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition cursor-pointer inline-flex items-center gap-2">
+                                <i class="fa-solid fa-lock-open"></i> Habilitar Inscrições em Tudo
+                            </button>
+                            <button onclick="toggleAllRegistrations(false)" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition cursor-pointer inline-flex items-center gap-2">
+                                <i class="fa-solid fa-lock"></i> Desabilitar Inscrições em Tudo
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- GESTÃO DE RESULTADOS, PUNIÇÕES E PONTOS EXTRAS POR ETAPA -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-emerald-500/30">
                         <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-flag-checkered text-emerald-400 mr-2"></i> Lançar Resultados, Posições e Punições por Etapa</h3>
@@ -279,12 +299,12 @@ html
                         </div>
                     </div>
 
-                    <!-- GESTÃO E INSCRIÇÃO DE PILOTOS EM EVENTOS -->
+                    <!-- GESTÃO E INSCRIÇÃO DE PILOTOS EM EVENTOS / CAMPEONATOS -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-orange-500/30">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-user-gear text-orange-400 mr-2"></i> Gestão de Inscrições em Eventos / Corridas</h3>
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-user-gear text-orange-400 mr-2"></i> Gestão de Inscrições em Eventos / Campeonatos / Corridas</h3>
                         <div class="space-y-4">
                             <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Selecione o Evento / Etapa</label>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Selecione o Campeonato ou Corrida Avulsa</label>
                                 <select id="admin-race-select" onchange="carregarPilotosInscritosAdmin()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                                     <option value="">Carregando eventos...</option>
                                 </select>
@@ -301,7 +321,7 @@ html
 
                                 <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 flex flex-col justify-between">
                                     <div>
-                                        <span class="text-xs font-bold text-orange-400 block mb-2"><i class="fa-solid fa-users mr-1"></i> Pilotos Já Inscritos nesta Etapa</span>
+                                        <span class="text-xs font-bold text-orange-400 block mb-2"><i class="fa-solid fa-users mr-1"></i> Pilotos Já Inscritos</span>
                                         <div id="admin-enrolled-pilots-list" class="space-y-1.5 max-h-36 overflow-y-auto text-xs text-gray-300 pr-1">
                                             <p class="text-gray-500 text-[11px]">Selecione um evento acima...</p>
                                         </div>
@@ -350,7 +370,7 @@ html
                         </form>
                     </div>
 
-                    <!-- CRIAR CAMPEONATO (COM PONTUAÇÃO P1-P40, EXTRAS E DOBRADA POR ETAPA) -->
+                    <!-- CRIAR CAMPEONATO -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
                         <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-trophy text-emerald-400 mr-2"></i> Criar Campeonato (Etapa por Etapa Completo)</h3>
                         <div class="space-y-4">
@@ -358,8 +378,8 @@ html
                                 <div>
                                     <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Tipo</label>
                                     <select id="champ-tier" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
-                                        <option value="Principal">Principal (100%)</option>
-                                        <option value="Paralelo">Paralelo (70%)</option>
+                                        <option value="Principal">Principal (100% peso)</option>
+                                        <option value="Paralelo">Paralelo (70% peso)</option>
                                     </select>
                                 </div>
                                 <div>
@@ -417,7 +437,7 @@ html
 
                     <!-- CRIAR EVENTO 4FUN -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-flag text-emerald-400 mr-2"></i> Criar Evento 4fun (50%)</h3>
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-flag text-emerald-400 mr-2"></i> Criar Corrida 4fun (50% peso)</h3>
                         <div class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div>
@@ -496,7 +516,7 @@ html
                                 <input type="datetime-local" id="fun-date" class="w-full bg-gray-900 border border-gray-800 rounded px-3 py-2 text-white text-xs">
                             </div>
 
-                            <button type="button" onclick="criarEvento4FunCompleto()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition cursor-pointer text-sm">Publicar Evento 4fun</button>
+                            <button type="button" onclick="criarEvento4FunCompleto()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition cursor-pointer text-sm">Publicar Corrida 4fun</button>
                         </div>
                     </div>
                 </div>
@@ -549,30 +569,57 @@ html
         <div class="bg-gray-900 border border-emerald-500/40 w-full max-w-2xl rounded-2xl p-6 shadow-2xl relative max-h-[90vh] flex flex-col">
             <button onclick="togglePilotHistoryModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
             <h3 id="history-modal-title" class="text-xl font-bold mb-1 text-white"><i class="fa-solid fa-history text-emerald-400 mr-2"></i> Histórico do Piloto</h3>
-            <p id="history-modal-subtitle" class="text-xs text-gray-400 mb-4">Detalhes de ratings, posições e participações em eventos.</p>
+            <p id="history-modal-subtitle" class="text-xs text-gray-400 mb-4">Detalhes de ratings, posições e aproveitamento em eventos.</p>
             <div id="history-modal-content" class="overflow-y-auto space-y-3 pr-2 flex-grow text-xs">
                 <p class="text-gray-500">Carregando histórico...</p>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DE CONFIGURAÇÕES / SETTINGS DO EVENTO -->
+    <!-- MODAL DE CONFIGURAÇÕES / SETTINGS DO EVENTO OU CAMPEONATO -->
     <div id="race-settings-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-gray-900 border border-emerald-500/40 w-full max-w-lg rounded-2xl p-6 shadow-2xl relative max-h-[90vh] flex flex-col">
             <button onclick="toggleRaceSettingsModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 id="settings-modal-title" class="text-xl font-bold mb-1 text-white"><i class="fa-solid fa-gear text-emerald-400 mr-2"></i> Configurações do Evento</h3>
-            <p class="text-xs text-gray-400 mb-4">Detalhes técnicos e regulamento de pista configurados pela direção.</p>
+            <h3 id="settings-modal-title" class="text-xl font-bold mb-1 text-white"><i class="fa-solid fa-gear text-emerald-400 mr-2"></i> Configurações</h3>
+            <p class="text-xs text-gray-400 mb-4">Detalhes técnicos e regulamento configurados pela direção.</p>
             <div id="settings-modal-content" class="overflow-y-auto space-y-3 pr-2 flex-grow text-xs text-gray-300">
                 <p class="text-gray-500">Carregando configurações...</p>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DE EDIÇÃO DE EVENTO / CORRIDA (ADM) -->
+    <!-- MODAL DE EDIÇÃO DE CAMPEONATO (ADM) -->
+    <div id="edit-champ-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-orange-500/40 w-full max-w-md rounded-2xl p-6 shadow-2xl relative max-h-[90vh] flex flex-col">
+            <button onclick="toggleEditChampModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-1 text-white"><i class="fa-solid fa-pen-to-square text-orange-400 mr-2"></i> Editar Campeonato</h3>
+            <form onsubmit="salvarEdicaoCampeonato(event)" class="overflow-y-auto space-y-3 pr-2 flex-grow text-xs pt-2">
+                <input type="hidden" id="edit-champ-id">
+                <div>
+                    <label class="block text-gray-400 uppercase mb-1">Nome do Campeonato</label>
+                    <input type="text" id="edit-champ-name" required class="w-full bg-gray-950 border border-gray-800 rounded p-2 text-white">
+                </div>
+                <div>
+                    <label class="block text-gray-400 uppercase mb-1">Tipo / Categoria</label>
+                    <select id="edit-champ-tier" class="w-full bg-gray-950 border border-gray-800 rounded p-2 text-white font-bold text-orange-400">
+                        <option value="Principal">Principal (100% peso)</option>
+                        <option value="Paralelo">Paralelo (70% peso)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-400 uppercase mb-1">Vagas Máximas</label>
+                    <input type="number" id="edit-champ-slots" required class="w-full bg-gray-950 border border-gray-800 rounded p-2 text-white">
+                </div>
+                <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-2.5 rounded transition cursor-pointer">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDIÇÃO DE CORRIDA 4FUN (ADM) -->
     <div id="edit-race-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-gray-900 border border-orange-500/40 w-full max-w-lg rounded-2xl p-6 shadow-2xl relative max-h-[90vh] flex flex-col">
             <button onclick="toggleEditRaceModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="text-xl font-bold mb-1 text-white"><i class="fa-solid fa-pen-to-square text-orange-400 mr-2"></i> Editar Evento / Corrida</h3>
+            <h3 class="text-xl font-bold mb-1 text-white"><i class="fa-solid fa-pen-to-square text-orange-400 mr-2"></i> Editar Corrida 4fun</h3>
             <form onsubmit="salvarEdicaoCorrida(event)" class="overflow-y-auto space-y-3 pr-2 flex-grow text-xs pt-2">
                 <input type="hidden" id="edit-race-id">
                 <div>
@@ -681,6 +728,7 @@ html
         let currentUserProfile = null;
         let authMode = 'login';
         let activeRacesData = [];
+        let activeChampsData = [];
         let allSystemUsers = [];
 
         function getWeightByTier(tier) {
@@ -821,6 +869,10 @@ html
 
         window.toggleRaceSettingsModal = (show) => {
             document.getElementById('race-settings-modal').classList.toggle('hidden', !show);
+        };
+
+        window.toggleEditChampModal = (show) => {
+            document.getElementById('edit-champ-modal').classList.toggle('hidden', !show);
         };
 
         window.toggleEditRaceModal = (show) => {
@@ -1008,6 +1060,7 @@ html
 
         window.switchAuthMode = () => { toggleAuthModal(true, authMode === 'login' ? 'register' : 'login'); };
 
+        // MOTOR DE RATING COM TETO DINÂMICO E PESOS PONDERADOS
         function calcularClassificacaoERatings() {
             let userStats = {};
             allSystemUsers.forEach(u => {
@@ -1017,6 +1070,10 @@ html
                     psnXboxId: u.psnXboxId || '--',
                     email: u.email,
                     phone: u.phone || '--',
+                    mainWeightedSum: 0,
+                    mainWeightTotal: 0,
+                    generalWeightedSum: 0,
+                    generalWeightTotal: 0,
                     ratingMain: 0,
                     ratingGeneral: 0,
                     totalChampionshipPoints: 0,
@@ -1026,47 +1083,73 @@ html
                 };
             });
 
-            activeRacesData.forEach(r => {
+            const standingsSelect = document.getElementById('standings-champ-select');
+            const selectedChampId = standingsSelect ? standingsSelect.value : 'all';
+
+            let racesToProcess = activeRacesData;
+            if (selectedChampId !== 'all') {
+                racesToProcess = activeRacesData.filter(r => r.championshipId === selectedChampId);
+            }
+
+            racesToProcess.forEach(r => {
                 const weight = getWeightByTier(r.tier);
+                
+                let pointsTable = r.pointsTable || [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
+                let ptsPole = r.ptsPole !== undefined ? r.ptsPole : 2;
+                let ptsFL = r.ptsFL !== undefined ? r.ptsFL : 1;
+                let mult = r.doublePoints ? 2 : 1;
+                
+                let maxPosPts = pointsTable[0] || 25;
+                let maxPossiblePoints = (maxPosPts + ptsPole + ptsFL) * mult;
+                if (maxPossiblePoints <= 0) maxPossiblePoints = 28 * mult;
+
                 if (r.pilots) {
                     r.pilots.forEach(p => {
                         if (userStats[p.uid]) {
                             let resObj = r.results && r.results.find(res => res.uid === p.uid);
-                            let racePts = 0;
-                            let hasPenalty = false;
-
+                            
                             if (resObj) {
-                                racePts = resObj.totalPoints || 0;
-                                hasPenalty = resObj.penalty || false;
-                            } else {
-                                racePts = 100 * weight; 
-                            }
+                                let earnedPoints = resObj.totalPoints || 0;
+                                let performancePct = (earnedPoints / maxPossiblePoints) * 100;
+                                if (performancePct < 0) performancePct = 0;
+                                if (performancePct > 100) performancePct = 100;
 
-                            if (r.tier === "Principal") {
-                                userStats[p.uid].ratingMain += racePts;
-                            }
-                            userStats[p.uid].ratingGeneral += racePts;
-                            userStats[p.uid].racesCount += 1;
-                            userStats[p.uid].raceScores.push({
-                                raceName: r.track,
-                                points: racePts,
-                                penalty: hasPenalty
-                            });
+                                let hasPenalty = resObj.penalty || false;
 
-                            userStats[p.uid].participations.push({
-                                raceName: r.track,
-                                tier: r.tier || '4fun',
-                                date: r.date,
-                                weight: weight,
-                                points: racePts,
-                                penalty: hasPenalty
-                            });
+                                if (r.tier === "Principal") {
+                                    userStats[p.uid].mainWeightedSum += performancePct * weight;
+                                    userStats[p.uid].mainWeightTotal += weight;
+                                }
+
+                                userStats[p.uid].generalWeightedSum += performancePct * weight;
+                                userStats[p.uid].generalWeightTotal += weight;
+                                userStats[p.uid].racesCount += 1;
+
+                                userStats[p.uid].raceScores.push({
+                                    raceName: r.track,
+                                    points: earnedPoints,
+                                    penalty: hasPenalty
+                                });
+
+                                userStats[p.uid].participations.push({
+                                    raceName: r.track,
+                                    tier: r.tier || '4fun',
+                                    date: r.date,
+                                    weight: weight,
+                                    points: earnedPoints,
+                                    performance: performancePct,
+                                    penalty: hasPenalty
+                                });
+                            }
                         }
                     });
                 }
             });
 
             Object.values(userStats).forEach(u => {
+                u.ratingMain = u.mainWeightTotal > 0 ? (u.mainWeightedSum / u.mainWeightTotal) : 0;
+                u.ratingGeneral = u.generalWeightTotal > 0 ? (u.generalWeightedSum / u.generalWeightTotal) : 0;
+
                 let scores = u.raceScores;
                 if (scores.length <= 1) {
                     u.totalChampionshipPoints = scores.reduce((acc, s) => acc + s.points, 0);
@@ -1113,8 +1196,8 @@ html
                 const pMainPos = document.getElementById('profile-rating-main-pos');
                 const pGenPos = document.getElementById('profile-rating-general-pos');
 
-                if (pMain) pMain.textContent = uStat.ratingMain.toFixed(1);
-                if (pGen) pGen.textContent = uStat.ratingGeneral.toFixed(1);
+                if (pMain) pMain.textContent = uStat.ratingMain.toFixed(1) + '%';
+                if (pGen) pGen.textContent = uStat.ratingGeneral.toFixed(1) + '%';
                 if (pMainPos) pMainPos.textContent = `Pos: #${mainPositions[currentUser.uid] || '--'}`;
                 if (pGenPos) pGenPos.textContent = `Pos: #${generalPositions[currentUser.uid] || '--'}`;
             }
@@ -1128,7 +1211,7 @@ html
                         <tr class="border-b border-gray-800/60 hover:bg-gray-950/40">
                             <td class="p-3 font-bold text-orange-400">#${i + 1}</td>
                             <td class="p-3 text-white">${u.fullName} <span class="text-gray-400 text-[10px]">(${u.psnXboxId})</span></td>
-                            <td class="p-3 text-right font-black text-emerald-400">${u.ratingGeneral.toFixed(1)}</td>
+                            <td class="p-3 text-right font-black text-emerald-400">${u.ratingGeneral.toFixed(1)}%</td>
                         </tr>
                     `).join('');
             }
@@ -1139,7 +1222,7 @@ html
                         <tr class="border-b border-gray-800/60 hover:bg-gray-950/40">
                             <td class="p-3 font-bold text-orange-400">#${i + 1}</td>
                             <td class="p-3 text-white">${u.fullName} <span class="text-gray-400 text-[10px]">(${u.psnXboxId})</span></td>
-                            <td class="p-3 text-right font-black text-orange-400">${u.ratingMain.toFixed(1)}</td>
+                            <td class="p-3 text-right font-black text-orange-400">${u.ratingMain.toFixed(1)}%</td>
                         </tr>
                     `).join('');
             }
@@ -1348,8 +1431,8 @@ html
                                         <span><i class="fa-solid fa-phone mr-1 text-gray-500"></i> ${u.phone || '--'}</span>
                                     </div>
                                     <div class="flex flex-wrap gap-3 mt-2 text-[11px]">
-                                        <span class="text-orange-400 font-semibold">Rating Principal: ${uStat.ratingMain.toFixed(1)} (Pos: #${mPos})</span>
-                                        <span class="text-emerald-400 font-semibold">Rating Geral: ${uStat.ratingGeneral.toFixed(1)} (Pos: #${gPos})</span>
+                                        <span class="text-orange-400 font-semibold">Rating Principal: ${uStat.ratingMain.toFixed(1)}% (Pos: #${mPos})</span>
+                                        <span class="text-emerald-400 font-semibold">Rating Geral: ${uStat.ratingGeneral.toFixed(1)}% (Pos: #${gPos})</span>
                                         <span class="text-gray-300">Etapas: ${uStat.racesCount}</span>
                                     </div>
                                 </div>
@@ -1361,10 +1444,6 @@ html
                     html += '</div>';
                     box.innerHTML = html;
                 }
-            }
-
-            if (adminPilotSelect) {
-                adminPilotSelect.innerHTML = allSystemUsers.map(u => `<option value="${u.id}">${u.fullName || u.email} (${u.psnXboxId || 'ID --'})</option>`).join('');
             }
         }
 
@@ -1384,7 +1463,7 @@ html
                     <div class="bg-gray-950 p-3 rounded-lg border border-gray-800 flex justify-between items-center text-xs">
                         <div>
                             <strong class="text-white block">${p.raceName}</strong>
-                            <span class="text-gray-400 text-[10px]">Categoria: ${p.tier} | Pts Obtidos: ${p.points.toFixed(1)} ${p.penalty ? '<span class="text-red-400 font-bold ml-2">[PUNIDO - BLOQUEIA DESCARTE]</span>' : ''}</span>
+                            <span class="text-gray-400 text-[10px]">Categoria: ${p.tier} (Peso: ${(p.weight*100)}%) | Pts: ${p.points.toFixed(1)} | <span class="text-emerald-400 font-bold">Aproveitamento: ${p.performance.toFixed(1)}%</span> ${p.penalty ? '<span class="text-red-400 font-bold ml-2">[PUNIDO - BLOQUEIA DESCARTE]</span>' : ''}</span>
                         </div>
                         <span class="text-emerald-400 font-bold">Participou</span>
                     </div>
@@ -1395,12 +1474,12 @@ html
                 <div class="grid grid-cols-2 gap-3 mb-4">
                     <div class="bg-gray-950 p-3 rounded-lg border border-orange-500/30">
                         <span class="text-[10px] text-orange-400 font-bold uppercase block">Rating Principal</span>
-                        <span class="text-xl font-black text-white">${uStat.ratingMain.toFixed(1)}</span>
+                        <span class="text-xl font-black text-white">${uStat.ratingMain.toFixed(1)}%</span>
                         <span class="text-xs text-orange-300 block">Posição: #${mainPositions[userId] || '--'}</span>
                     </div>
                     <div class="bg-gray-950 p-3 rounded-lg border border-emerald-500/30">
                         <span class="text-[10px] text-emerald-400 font-bold uppercase block">Rating Geral VRT</span>
-                        <span class="text-xl font-black text-white">${uStat.ratingGeneral.toFixed(1)}</span>
+                        <span class="text-xl font-black text-white">${uStat.ratingGeneral.toFixed(1)}%</span>
                         <span class="text-xs text-emerald-300 block">Posição: #${generalPositions[userId] || '--'}</span>
                     </div>
                 </div>
@@ -1420,12 +1499,47 @@ html
             document.getElementById('settings-modal-content').innerHTML = `
                 <div class="space-y-2 text-xs">
                     <p><strong>Simulador:</strong> ${r.simulator || '--'}</p>
-                    <p><strong>Tipo / Categoria:</strong> ${r.tier || '4fun'}</p>
+                    <p><strong>Corrida Avulsa (4fun):</strong> ${r.track}</p>
+                    <p><strong>Tipo / Categoria:</strong> 4fun (Peso Rating: 50%)</p>
+                    <p><strong>Status de Inscrições:</strong> ${r.registrationsOpen !== false ? '<span class="text-emerald-400 font-bold">Abertas</span>' : '<span class="text-red-400 font-bold">Encerradas</span>'}</p>
                     <p><strong>Pontuação Dobrada (2x):</strong> ${r.doublePoints ? '<span class="text-orange-400 font-bold">Sim</span>' : 'Não'}</p>
                     <p><strong>Data/Horário:</strong> ${r.date ? new Date(r.date).toLocaleString('pt-BR') : '--'}</p>
-                    <p><strong>Vagas Limite:</strong> ${r.maxSlots || 30}</p>
+                    <p><strong>Vagas Limite:</strong> ${r.maxSlots || 24}</p>
                     <p><strong>Treino Livre:</strong> ${r.fp || 30} min | <strong>Qualifying:</strong> ${r.q || 15} min | <strong>Corrida:</strong> ${r.duration || 60} min</p>
                     <p><strong>Pilotos Inscritos:</strong> ${r.pilots ? r.pilots.length : 0}</p>
+                </div>
+            `;
+            toggleRaceSettingsModal(true);
+        };
+
+        window.verConfiguracoesCampeonato = (champId) => {
+            const ch = activeChampsData.find(item => item.id === champId);
+            if (!ch) return;
+
+            // Ordena estritamente pelo roundNumber para exibir perfeitamente na ordem correta (Etapa 1, 2, 3...)
+            let racesOfChamp = activeRacesData
+                .filter(r => r.championshipId === champId)
+                .sort((a, b) => (a.roundNumber || 0) - (b.roundNumber || 0));
+
+            let etapasHtml = racesOfChamp.map((rc) => `
+                <div class="bg-gray-950 p-2.5 rounded border border-gray-800 text-[11px] mb-2">
+                    <strong>Etapa ${rc.roundNumber || '--'}:</strong> ${rc.track} <br>
+                    <span class="text-gray-400">Data: ${rc.date ? new Date(rc.date).toLocaleString('pt-BR') : '--'} | Inscritos: ${rc.pilots ? rc.pilots.length : 0}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('settings-modal-title').innerHTML = `<i class="fa-solid fa-trophy text-emerald-400 mr-2"></i> ${ch.name}`;
+            document.getElementById('settings-modal-content').innerHTML = `
+                <div class="space-y-3 text-xs">
+                    <p><strong>Simulador:</strong> ${ch.simulator || '--'}</p>
+                    <p><strong>Categoria:</strong> ${ch.tier || 'Principal'} (Peso Rating: ${(ch.tier==='Principal'?100:70)}%)</p>
+                    <p><strong>Status de Inscrições:</strong> ${ch.registrationsOpen !== false ? '<span class="text-emerald-400 font-bold">Abertas</span>' : '<span class="text-red-400 font-bold">Encerradas</span>'}</p>
+                    <p><strong>Número de Etapas:</strong> ${ch.rounds || 3}</p>
+                    <p><strong>Vagas Limite:</strong> ${ch.maxSlots || 30}</p>
+                    <div class="pt-2 border-t border-gray-800">
+                        <strong class="text-orange-400 block mb-2">Etapas do Campeonato (Ordem Oficial):</strong>
+                        <div class="max-h-48 overflow-y-auto pr-1">${etapasHtml}</div>
+                    </div>
                 </div>
             `;
             toggleRaceSettingsModal(true);
@@ -1453,7 +1567,11 @@ html
             if (!name) { showToast('Informe o nome do campeonato.', 'error'); return; }
             const ratingWeight = getWeightByTier(tier);
             try {
-                await addDoc(collection(db, "championships"), { name, tier, ratingWeight, simulator, maxSlots, rounds: roundsCount, pointsTable, ptsPole, ptsFL, ptsProAm, ptsAm });
+                const champRef = await addDoc(collection(db, "championships"), { 
+                    name, tier, ratingWeight, simulator, maxSlots, rounds: roundsCount, pointsTable, ptsPole, ptsFL, ptsProAm, ptsAm, registrationsOpen: true 
+                });
+                const championshipId = champRef.id;
+
                 for (let i = 1; i <= roundsCount; i++) {
                     const track = document.getElementById(`round-${i}-track`)?.value || 'Monza';
                     const date = document.getElementById(`round-${i}-date`)?.value || new Date().toISOString();
@@ -1467,6 +1585,9 @@ html
                     const doublePoints = document.getElementById(`round-${i}-double`)?.value === 'true';
 
                     await addDoc(collection(db, "races"), {
+                        championshipId,
+                        championshipName: name,
+                        roundNumber: i, // Garante a ordem correta
                         track: `[${tier}] ${name} - Etapa ${i}: ${track} ${doublePoints ? '(2x)' : ''}`, date, simulator, maxSlots, tier, ratingWeight, simulatorType: simulator, 
                         vtime, fp, q, duration, weather, temp, bop, doublePoints, pointsTable, ptsPole, ptsFL, ptsProAm, ptsAm,
                         registrationsOpen: true, pilots: [], results: []
@@ -1508,43 +1629,186 @@ html
             const ratingWeight = getWeightByTier("4fun"); 
             try {
                 await addDoc(collection(db, "races"), {
+                    championshipId: "4fun",
+                    championshipName: "Eventos 4fun",
+                    roundNumber: 1,
                     track: `4fun: ${name} (${track}) ${doublePoints ? '(2x)' : ''}`, date, simulator, maxSlots, tier: "4fun", ratingWeight, simulatorType: simulator, 
                     fp, q, duration, vtime, doublePoints, pointsTable, ptsPole, ptsFL, ptsProAm, ptsAm,
                     registrationsOpen: true, pilots: [], results: []
                 });
-                showToast('Evento 4fun publicado com sucesso!'); 
+                showToast('Corrida 4fun publicada com sucesso!'); 
                 await loadRaces();
                 await loadAdminPilots();
             } catch (err) { showToast('Erro: ' + err.message, 'error'); }
         };
 
+        // CONTROLE GLOBAL DE INSCRIÇÕES
+        window.toggleAllRegistrations = async (status) => {
+            if (!currentUser || currentUser.email !== "mauro12moura@gmail.com") return;
+            try {
+                // Atualiza campeonatos
+                for (let ch of activeChampsData) {
+                    await setDoc(doc(db, "championships", ch.id), { registrationsOpen: status }, { merge: true });
+                }
+                // Atualiza corridas / etapas
+                for (let rc of activeRacesData) {
+                    await setDoc(doc(db, "races", rc.id), { registrationsOpen: status }, { merge: true });
+                }
+                showToast(status ? "Inscrições Habilitadas em todos os eventos!" : "Inscrições Desabilitadas em todos os eventos!");
+                await loadChampionships();
+                await loadRaces();
+            } catch (err) { showToast("Erro ao atualizar status: " + err.message, 'error'); }
+        };
+
         async function loadChampionships() {
             const c = document.getElementById('championships-list');
+            const standingsSelect = document.getElementById('standings-champ-select');
             if (!c) return;
             const snap = await getDocs(collection(db, "championships"));
-            if (snap.empty) { c.innerHTML = `<div class="col-span-3 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhum campeonato.</div>`; return; }
+            activeChampsData = [];
+            
+            let selectHtml = '<option value="all">Todos os Campeonatos (Geral)</option>';
+            if (snap.empty) { 
+                c.innerHTML = `<div class="col-span-3 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhum campeonato.</div>`; 
+                if (standingsSelect) standingsSelect.innerHTML = selectHtml;
+                return; 
+            }
+
             let h = '';
             snap.forEach(d => {
                 let item = d.data();
+                let champId = d.id;
+                item.id = champId;
+                activeChampsData.push(item);
+                selectHtml += `<option value="${champId}">${item.name} (${item.tier})</option>`;
+
                 let isAdm = currentUser && currentUser.email === "mauro12moura@gmail.com";
                 let adminActions = isAdm ? `
                     <div class="flex gap-2">
-                        <button onclick="editarCampeonato('${d.id}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white px-2.5 py-1 rounded text-xs cursor-pointer"><i class="fa-solid fa-pen"></i></button>
-                        <button onclick="deleteChampionship('${d.id}')" class="bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white px-2.5 py-1 rounded text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="abrirEditaCampeonato('${champId}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white px-2.5 py-1 rounded text-xs cursor-pointer"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteChampionship('${champId}')" class="bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white px-2.5 py-1 rounded text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>
                     </div>` : '';
-                h += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between"><div><h3 class="text-xl font-bold text-white">${item.name}</h3><p class="text-xs text-gray-400 mt-1">${item.simulator} | ${item.rounds} Etapas (${item.tier})</p></div><div class="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center">${adminActions}</div></div>`;
+
+                let racesOfChamp = activeRacesData.filter(r => r.championshipId === champId);
+                let userEnrolledInChamp = currentUser && racesOfChamp.length > 0 && racesOfChamp.every(rc => rc.pilots && rc.pilots.some(p => p.uid === currentUser.uid));
+                let isOpen = item.registrationsOpen !== false;
+                
+                let registerChampBtn = '';
+                if (!isOpen) {
+                    registerChampBtn = `<span class="text-xs text-red-400 font-bold">[Inscrições Encerradas]</span>`;
+                } else if (userEnrolledInChamp) {
+                    registerChampBtn = `<button onclick="cancelarInscricaoCampeonato('${champId}')" class="bg-red-600/20 text-red-400 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer">Cancelar Inscrição</button>`;
+                } else {
+                    registerChampBtn = `<button onclick="inscreverCampeonato('${champId}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer">Inscrever no Campeonato</button>`;
+                }
+
+                h += `
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded">${item.simulator} (${item.tier})</span>
+                            <h3 class="text-xl font-bold text-white mt-2">${item.name}</h3>
+                            <p class="text-xs text-gray-400 mt-1">${item.rounds} Etapas configuradas</p>
+                            <button onclick="verConfiguracoesCampeonato('${champId}')" class="mt-2 text-xs text-blue-400 hover:underline inline-flex items-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-circle-info"></i> Ver Configurações e Etapas
+                            </button>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center">
+                            <div>${registerChampBtn}</div>
+                            ${adminActions}
+                        </div>
+                    </div>`;
             });
             c.innerHTML = h;
+            if (standingsSelect) {
+                let currentVal = standingsSelect.value;
+                standingsSelect.innerHTML = selectHtml;
+                if (currentVal) standingsSelect.value = currentVal;
+            }
         }
 
         window.deleteChampionship = async (id) => {
+            if (!confirm("Deseja realmente excluir este campeonato e todas as suas etapas?")) return;
             await deleteDoc(doc(db, "championships", id));
-            showToast("Campeonato excluído com sucesso!");
+            let racesToDel = activeRacesData.filter(r => r.championshipId === id);
+            for (let rc of racesToDel) {
+                await deleteDoc(doc(db, "races", rc.id));
+            }
+            showToast("Campeonato e etapas excluídos com sucesso!");
             await loadChampionships();
+            await loadRaces();
+            await loadAdminPilots();
         };
 
-        window.editarCampeonato = (id) => {
-            showToast("Para editar o campeonato, ajuste as etapas correspondentes na aba de Corridas/Etapas.", "success");
+        window.abrirEditaCampeonato = (champId) => {
+            const ch = activeChampsData.find(item => item.id === champId);
+            if (!ch) return;
+            document.getElementById('edit-champ-id').value = ch.id;
+            document.getElementById('edit-champ-name').value = ch.name;
+            document.getElementById('edit-champ-tier').value = ch.tier || 'Principal';
+            document.getElementById('edit-champ-slots').value = ch.maxSlots || 30;
+            toggleEditChampModal(true);
+        };
+
+        window.salvarEdicaoCampeonato = async (e) => {
+            e.preventDefault();
+            const champId = document.getElementById('edit-champ-id').value;
+            const name = document.getElementById('edit-champ-name').value.trim();
+            const tier = document.getElementById('edit-champ-tier').value;
+            const maxSlots = parseInt(document.getElementById('edit-champ-slots').value) || 30;
+
+            try {
+                await setDoc(doc(db, "championships", champId), { name, tier, maxSlots }, { merge: true });
+                let racesOfChamp = activeRacesData.filter(r => r.championshipId === champId);
+                for (let rc of racesOfChamp) {
+                    await setDoc(doc(db, "races", rc.id), { championshipName: name, tier, maxSlots }, { merge: true });
+                }
+                showToast("Campeonato atualizado com sucesso!");
+                toggleEditChampModal(false);
+                loadChampionships();
+                loadRaces();
+            } catch (err) { showToast("Erro ao atualizar: " + err.message, 'error'); }
+        };
+
+        window.inscreverCampeonato = async (champId) => {
+            const ch = activeChampsData.find(item => item.id === champId);
+            if (ch && ch.registrationsOpen === false) { showToast("As inscrições para este campeonato estão encerradas.", "error"); return; }
+            if (!currentUser || !currentUserProfile) { showToast("Faça login para se inscrever.", "error"); return; }
+            let racesOfChamp = activeRacesData.filter(r => r.championshipId === champId);
+            if (racesOfChamp.length === 0) { showToast("Este campeonato não possui etapas cadastradas.", "error"); return; }
+
+            for (let rc of racesOfChamp) {
+                let pilots = rc.pilots || [];
+                if (!pilots.some(p => p.uid === currentUser.uid)) {
+                    if (pilots.length >= (rc.maxSlots || 30)) {
+                        showToast(`Vagas esgotadas na etapa ${rc.track}!`, "error");
+                        return;
+                    }
+                    pilots.push({
+                        uid: currentUser.uid,
+                        fullName: currentUserProfile.fullName || currentUser.email,
+                        psnXboxId: currentUserProfile.psnXboxId || '--',
+                        email: currentUser.email
+                    });
+                    await setDoc(doc(db, "races", rc.id), { pilots }, { merge: true });
+                }
+            }
+            showToast("Inscrição realizada em todas as etapas do campeonato com sucesso!");
+            loadRaces();
+            loadChampionships();
+            loadAdminPilots();
+        };
+
+        window.cancelarInscricaoCampeonato = async (champId) => {
+            if (!currentUser) return;
+            let racesOfChamp = activeRacesData.filter(r => r.championshipId === champId);
+            for (let rc of racesOfChamp) {
+                let pilots = (rc.pilots || []).filter(p => p.uid !== currentUser.uid);
+                await setDoc(doc(db, "races", rc.id), { pilots }, { merge: true });
+            }
+            showToast("Inscrição cancelada em todas as etapas do campeonato!");
+            loadRaces();
+            loadChampionships();
+            loadAdminPilots();
         };
 
         async function loadRaces() {
@@ -1556,58 +1820,91 @@ html
             activeRacesData = [];
             
             if (snap.empty) { 
-                c.innerHTML = `<div class="col-span-2 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhum evento.</div>`; 
+                c.innerHTML = `<div class="col-span-2 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhuma corrida avulsa 4fun.</div>`; 
                 if (adminSelect) adminSelect.innerHTML = '<option value="">Nenhum evento disponível</option>';
                 if (adminResSelect) adminResSelect.innerHTML = '<option value="">Nenhum evento disponível</option>';
                 return; 
             }
 
             let h = '';
-            let adminSelectHtml = '<option value="">Selecione o evento para gerenciar inscrições...</option>';
-            let adminResHtml = '<option value="">Selecione o evento para lançar resultados...</option>';
+            let adminSelectHtml = '<option value="">Selecione o Campeonato ou Corrida Avulsa...</option>';
+            let adminResHtml = '<option value="">Selecione a etapa para lançar resultados...</option>';
 
             snap.forEach(d => {
                 let rId = d.id; let r = d.data(); r.id = rId;
                 activeRacesData.push(r);
-                adminSelectHtml += `<option value="${rId}">${r.track}</option>`;
-                adminResHtml += `<option value="${rId}">${r.track}</option>`;
-
-                let isAdm = currentUser && currentUser.email === "mauro12moura@gmail.com";
-                let adminBtns = isAdm ? `
-                    <div class="flex gap-2">
-                        <button onclick="abrirEditaCorrida('${rId}')" class="bg-blue-600/20 text-blue-400 border border-blue-600/40 hover:bg-blue-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer"><i class="fa-solid fa-pen"></i></button>
-                        <button onclick="deleteRace('${rId}')" class="bg-red-600/20 text-red-400 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer"><i class="fa-solid fa-trash"></i></button>
-                    </div>` : '';
-                
-                let pilotsCount = r.pilots ? r.pilots.length : 0;
-                let userAlreadyEnrolled = currentUser && r.pilots && r.pilots.some(p => p.uid === currentUser.uid);
-                
-                let registerBtn = '';
-                if (userAlreadyEnrolled) {
-                    registerBtn = `<button onclick="cancelarInscricaoPiloto('${rId}')" class="bg-red-600/20 text-red-400 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Cancelar Inscrição</button>`;
-                } else {
-                    registerBtn = `<button onclick="inscreverPilotoLogado('${rId}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Inscrever-se (${pilotsCount}/${r.maxSlots || 30})</button>`;
+                if (r.championshipId === "4fun") {
+                    adminResHtml += `<option value="${rId}">${r.track}</option>`;
                 }
-
-                h += `
-                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between">
-                        <div>
-                            <span class="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded">${r.simulator} (${r.tier || '4fun'})</span>
-                            <h3 class="text-lg font-bold text-white mt-2">${r.track}</h3>
-                            <p class="text-xs text-gray-400 mt-1">${r.date ? new Date(r.date).toLocaleString('pt-BR') : '--'}</p>
-                            <p class="text-[11px] text-orange-400 mt-1">Vagas: ${pilotsCount}/${r.maxSlots || 30}</p>
-                            <button onclick="verConfiguracoesCorrida('${rId}')" class="mt-2 text-xs text-blue-400 hover:underline inline-flex items-center gap-1 cursor-pointer">
-                                <i class="fa-solid fa-circle-info"></i> Ver Configurações da Pista
-                            </button>
-                        </div>
-                        <div class="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center">
-                            <div class="flex gap-2">${registerBtn}</div>
-                            ${adminBtns}
-                        </div>
-                    </div>`;
             });
-            c.innerHTML = h;
-            if (adminSelect) adminSelect.innerHTML = adminSelectHtml;
+
+            if (activeChampsData.length > 0) {
+                activeChampsData.forEach(ch => {
+                    adminSelectHtml += `<optgroup label="Campeonato: ${ch.name}">`;
+                    let rOfC = activeRacesData.filter(rc => rc.championshipId === ch.id).sort((a, b) => (a.roundNumber || 0) - (b.roundNumber || 0));
+                    rOfC.forEach(rc => {
+                        adminSelectHtml += `<option value="${rc.id}">[Etapa ${rc.roundNumber || ''}] ${rc.track}</option>`;
+                    });
+                    adminSelectHtml += `</optgroup>`;
+                });
+            }
+
+            let funRaces = activeRacesData.filter(r => r.championshipId === "4fun");
+            if (funRaces.length > 0) {
+                adminSelectHtml += `<optgroup label="Corridas Avulsas (4funs)">`;
+                funRaces.forEach(rc => {
+                    adminSelectHtml += `<option value="${rc.id}">[4fun] ${rc.track}</option>`;
+                    let isAdm = currentUser && currentUser.email === "mauro12moura@gmail.com";
+                    let adminBtns = isAdm ? `
+                        <div class="flex gap-2">
+                            <button onclick="abrirEditaCorrida('${rc.id}')" class="bg-blue-600/20 text-blue-400 border border-blue-600/40 hover:bg-blue-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteRace('${rc.id}')" class="bg-red-600/20 text-red-400 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                        ` : '';
+
+                    let pilotsCount = rc.pilots ? rc.pilots.length : 0;
+                    let userAlreadyEnrolled = currentUser && rc.pilots && rc.pilots.some(p => p.uid === currentUser.uid);
+                    let isOpen = rc.registrationsOpen !== false;
+
+                    let registerBtn = '';
+                    if (!isOpen) {
+                        registerBtn = `<span class="text-xs text-red-400 font-bold">[Inscrições Encerradas]</span>`;
+                    } else if (userAlreadyEnrolled) {
+                        registerBtn = `<button onclick="cancelarInscricaoPiloto('${rc.id}')" class="bg-red-600/20 text-red-400 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Cancelar Inscrição</button>`;
+                    } else {
+                        registerBtn = `<button onclick="inscreverPilotoLogado('${rc.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Inscrever-se (${pilotsCount}/${rc.maxSlots || 24})</button>`;
+                    }
+
+                    h += `
+                        <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded">${rc.simulator} (4fun)</span>
+                                <h3 class="text-lg font-bold text-white mt-2">${rc.track}</h3>
+                                <p class="text-xs text-gray-400 mt-1">${rc.date ? new Date(rc.date).toLocaleString('pt-BR') : '--'}</p>
+                                <p class="text-[11px] text-orange-400 mt-1">Vagas: ${pilotsCount}/${rc.maxSlots || 24}</p>
+                                <button onclick="verConfiguracoesCorrida('${rc.id}')" class="mt-2 text-xs text-blue-400 hover:underline inline-flex items-center gap-1 cursor-pointer">
+                                    <i class="fa-solid fa-circle-info"></i> Ver Configurações da Pista
+                                </button>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center">
+                                <div class="flex gap-2">${registerBtn}</div>
+                                ${adminBtns}
+                            </div>
+                        </div>`;
+                });
+                adminSelectHtml += `</optgroup>`;
+            }
+
+            if (funRaces.length === 0) {
+                c.innerHTML = `<div class="col-span-2 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhuma corrida avulsa 4fun no momento.</div>`;
+            } else {
+                c.innerHTML = h;
+            }
+
+            if (adminSelect) {
+                let prevVal = adminSelect.value;
+                adminSelect.innerHTML = adminSelectHtml;
+                if (prevVal) adminSelect.value = prevVal; 
+            }
             if (adminResSelect) adminResSelect.innerHTML = adminResHtml;
             atualizarInterfaceRatingsEPerfil();
         }
@@ -1618,7 +1915,7 @@ html
             document.getElementById('edit-race-id').value = r.id;
             document.getElementById('edit-race-track').value = r.track;
             document.getElementById('edit-race-date').value = r.date ? r.date.substring(0, 16) : '';
-            document.getElementById('edit-race-slots').value = r.maxSlots || 30;
+            document.getElementById('edit-race-slots').value = r.maxSlots || 24;
             toggleEditRaceModal(true);
         };
 
@@ -1627,11 +1924,11 @@ html
             const raceId = document.getElementById('edit-race-id').value;
             const track = document.getElementById('edit-race-track').value.trim();
             const date = document.getElementById('edit-race-date').value;
-            const maxSlots = parseInt(document.getElementById('edit-race-slots').value) || 30;
+            const maxSlots = parseInt(document.getElementById('edit-race-slots').value) || 24;
 
             try {
                 await setDoc(doc(db, "races", raceId), { track, date, maxSlots }, { merge: true });
-                showToast("Corrida/Etapa atualizada com sucesso!");
+                showToast("Corrida atualizada com sucesso!");
                 toggleEditRaceModal(false);
                 loadRaces();
             } catch (err) { showToast("Erro ao atualizar: " + err.message, 'error'); }
@@ -1728,24 +2025,25 @@ html
 
             try {
                 await setDoc(doc(db, "races", raceId), { results }, { merge: true });
-                showToast("Resultados salvos e pontuações calculadas com sucesso!");
+                showToast("Resultados salvos e ratings percentuais ponderados calculados com sucesso!");
                 await loadRaces();
             } catch (err) { showToast("Erro ao salvar resultados: " + err.message, 'error'); }
         };
 
         window.inscreverPilotoLogado = async (raceId) => {
-            if (!currentUser || !currentUserProfile) { showToast("Faça login para se inscrever.", "error"); return; }
             const raceRef = doc(db, "races", raceId);
             const raceSnap = await getDoc(raceRef);
             if (!raceSnap.exists()) return;
             let rData = raceSnap.data();
-            let pilots = rData.pilots || [];
+            if (rData.registrationsOpen === false) { showToast("As inscrições para esta corrida estão encerradas.", "error"); return; }
+            if (!currentUser || !currentUserProfile) { showToast("Faça login para se inscrever.", "error"); return; }
             
+            let pilots = rData.pilots || [];
             if (pilots.some(p => p.uid === currentUser.uid)) {
                 showToast("Você já está inscrito nesta etapa!", "error");
                 return;
             }
-            if (pilots.length >= (rData.maxSlots || 30)) {
+            if (pilots.length >= (rData.maxSlots || 24)) {
                 showToast("Vagas esgotadas para esta etapa!", "error");
                 return;
             }
@@ -1777,92 +2075,165 @@ html
             loadAdminPilots();
         };
 
+        // GESTÃO ADMIN DE INSCRIÇÕES (EXCLUI JÁ INSCRITOS DA LISTA E MANTÉM SELECIONADO)
         window.carregarPilotosInscritosAdmin = () => {
             const select = document.getElementById('admin-race-select');
             const listDiv = document.getElementById('admin-enrolled-pilots-list');
-            if (!select || !listDiv) return;
-            const raceId = select.value;
-            if (!raceId) {
-                listDiv.innerHTML = `<p class="text-gray-500 text-[11px]">Selecione um evento acima...</p>`;
+            const pilotToAddSelect = document.getElementById('admin-pilot-to-add');
+            if (!select || !listDiv || !pilotToAddSelect) return;
+            
+            const targetId = select.value;
+            if (!targetId) {
+                listDiv.innerHTML = `<p class="text-gray-500 text-[11px]">Selecione um evento ou campeonato acima...</p>`;
+                pilotToAddSelect.innerHTML = '<option value="">Selecione um evento primeiro...</option>';
                 return;
             }
 
-            const race = activeRacesData.find(r => r.id === raceId);
-            if (!race || !race.pilots || race.pilots.length === 0) {
-                listDiv.innerHTML = `<p class="text-gray-500 text-[11px]">Nenhum piloto inscrito neste evento.</p>`;
-                return;
+            let isChamp = activeChampsData.some(ch => ch.id === targetId);
+            let targetPilots = [];
+            let enrolledUids = new Set();
+
+            if (isChamp) {
+                let racesOfChamp = activeRacesData.filter(r => r.championshipId === targetId);
+                racesOfChamp.forEach(rc => {
+                    if (rc.pilots) {
+                        rc.pilots.forEach(p => {
+                            enrolledUids.add(p.uid);
+                            if (!targetPilots.some(tp => tp.uid === p.uid)) {
+                                targetPilots.push(p);
+                            }
+                        });
+                    }
+                });
+            } else {
+                let race = activeRacesData.find(r => r.id === targetId);
+                if (race && race.pilots) {
+                    targetPilots = race.pilots;
+                    race.pilots.forEach(p => enrolledUids.add(p.uid));
+                }
             }
 
             let html = '';
-            race.pilots.forEach(p => {
-                html += `
-                    <div class="flex justify-between items-center bg-gray-950 p-2 rounded border border-gray-800">
-                        <div>
-                            <strong class="text-white">${p.fullName}</strong> <span class="text-orange-400 font-mono">(${p.psnXboxId})</span>
-                        </div>
-                        <button onclick="removerPilotoAdmin('${raceId}', '${p.uid}')" class="bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white px-2 py-1 rounded text-[10px] font-bold cursor-pointer">Remover</button>
-                    </div>`;
-            });
+            if (targetPilots.length === 0) {
+                html = `<p class="text-gray-500 text-[11px]">Nenhum piloto inscrito.</p>`;
+            } else {
+                targetPilots.forEach(p => {
+                    html += `
+                        <div class="flex justify-between items-center bg-gray-950 p-2 rounded border border-gray-800 mb-1">
+                            <div>
+                                <strong class="text-white">${p.fullName}</strong> <span class="text-orange-400 font-mono">(${p.psnXboxId})</span>
+                            </div>
+                            <button onclick="removerPilotoAdmin('${targetId}', '${p.uid}', ${isChamp})" class="bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white px-2 py-1 rounded text-[10px] font-bold cursor-pointer">Remover</button>
+                        </div>`;
+                });
+            }
             listDiv.innerHTML = html;
+
+            let availablePilots = allSystemUsers.filter(u => !enrolledUids.has(u.id));
+            if (availablePilots.length === 0) {
+                pilotToAddSelect.innerHTML = '<option value="">Todos os pilotos já estão inscritos!</option>';
+            } else {
+                pilotToAddSelect.innerHTML = availablePilots.map(u => `<option value="${u.id}">${u.fullName || u.email} (${u.psnXboxId || 'ID --'})</option>`).join('');
+            }
         };
 
         window.adicionarPilotoInscricaoAdmin = async () => {
-            const raceId = document.getElementById('admin-race-select').value;
+            const select = document.getElementById('admin-race-select');
+            const raceOrChampId = select ? select.value : '';
             const pilotUid = document.getElementById('admin-pilot-to-add').value;
-            if (!raceId) { showToast("Selecione um evento primeiro.", "error"); return; }
+            
+            if (!raceOrChampId) { showToast("Selecione um evento ou campeonato primeiro.", "error"); return; }
             if (!pilotUid) { showToast("Selecione um piloto.", "error"); return; }
 
             const userObj = allSystemUsers.find(u => u.id === pilotUid);
             if (!userObj) return;
 
-            const raceRef = doc(db, "races", raceId);
-            const raceSnap = await getDoc(raceRef);
-            if (!raceSnap.exists()) return;
-            let rData = raceSnap.data();
-            let pilots = rData.pilots || [];
+            let isChamp = activeChampsData.some(ch => ch.id === raceOrChampId);
 
-            if (pilots.some(p => p.uid === pilotUid)) {
-                showToast("Este piloto já está inscrito neste evento!", "error");
-                return;
+            if (isChamp) {
+                let racesOfChamp = activeRacesData.filter(r => r.championshipId === raceOrChampId);
+                for (let rc of racesOfChamp) {
+                    let pilots = rc.pilots || [];
+                    if (!pilots.some(p => p.uid === pilotUid)) {
+                        pilots.push({
+                            uid: pilotUid,
+                            fullName: userObj.fullName || userObj.email,
+                            psnXboxId: userObj.psnXboxId || '--',
+                            email: userObj.email
+                        });
+                        await setDoc(doc(db, "races", rc.id), { pilots }, { merge: true });
+                    }
+                }
+                showToast("Piloto inscrito em todas as etapas do campeonato com sucesso!");
+            } else {
+                const raceRef = doc(db, "races", raceOrChampId);
+                const raceSnap = await getDoc(raceRef);
+                if (!raceSnap.exists()) return;
+                let rData = raceSnap.data();
+                let pilots = rData.pilots || [];
+
+                if (pilots.some(p => p.uid === pilotUid)) {
+                    showToast("Este piloto já está inscrito neste evento!", "error");
+                    return;
+                }
+                if (pilots.length >= (rData.maxSlots || 24)) {
+                    showToast("O evento atingiu o limite máximo de vagas!", "error");
+                    return;
+                }
+
+                pilots.push({
+                    uid: pilotUid,
+                    fullName: userObj.fullName || userObj.email,
+                    psnXboxId: userObj.psnXboxId || '--',
+                    email: userObj.email
+                });
+
+                await setDoc(raceRef, { pilots }, { merge: true });
+                showToast("Piloto inscrito com sucesso pela administração!");
             }
-            if (pilots.length >= (rData.maxSlots || 30)) {
-                showToast("O evento atingiu o limite máximo de vagas!", "error");
-                return;
-            }
 
-            pilots.push({
-                uid: pilotUid,
-                fullName: userObj.fullName || userObj.email,
-                psnXboxId: userObj.psnXboxId || '--',
-                email: userObj.email
-            });
-
-            await setDoc(raceRef, { pilots }, { merge: true });
-            showToast("Piloto inscrito com sucesso pela administração!");
             await loadRaces();
-            loadAdminPilots();
+            await loadChampionships();
+            await loadAdminPilots();
+            
+            select.value = raceOrChampId;
             carregarPilotosInscritosAdmin();
         };
 
-        window.removerPilotoAdmin = async (raceId, pilotUid) => {
-            const raceRef = doc(db, "races", raceId);
-            const raceSnap = await getDoc(raceRef);
-            if (!raceSnap.exists()) return;
-            let rData = raceSnap.data();
-            let pilots = (rData.pilots || []).filter(p => p.uid !== pilotUid);
+        window.removerPilotoAdmin = async (targetId, pilotUid, isChamp) => {
+            const select = document.getElementById('admin-race-select');
+            if (isChamp) {
+                let racesOfChamp = activeRacesData.filter(r => r.championshipId === targetId);
+                for (let rc of racesOfChamp) {
+                    let pilots = (rc.pilots || []).filter(p => p.uid !== pilotUid);
+                    await setDoc(doc(db, "races", rc.id), { pilots }, { merge: true });
+                }
+                showToast("Piloto removido de todas as etapas do campeonato!");
+            } else {
+                const raceRef = doc(db, "races", targetId);
+                const raceSnap = await getDoc(raceRef);
+                if (!raceSnap.exists()) return;
+                let rData = raceSnap.data();
+                let pilots = (rData.pilots || []).filter(p => p.uid !== pilotUid);
 
-            await setDoc(raceRef, { pilots }, { merge: true });
-            showToast("Piloto removido do evento com sucesso!");
+                await setDoc(raceRef, { pilots }, { merge: true });
+                showToast("Piloto removido do evento com sucesso!");
+            }
+
             await loadRaces();
-            loadAdminPilots();
+            await loadChampionships();
+            await loadAdminPilots();
+            
+            if (select) select.value = targetId;
             carregarPilotosInscritosAdmin();
         };
 
         window.deleteRace = async (id) => {
+            if (!confirm("Deseja realmente excluir esta corrida 4fun?")) return;
             await deleteDoc(doc(db, "races", id));
-            showToast("Etapa/Evento excluído com sucesso!");
+            showToast("Corrida excluída com sucesso!");
             await loadRaces();
-            loadAdminPilots();
+            await loadAdminPilots();
         };
 
         window.openProtestModal = () => {
