@@ -1,6 +1,6 @@
+html
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,22 +8,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background-color: #07090e;
-            color: #f3f4f6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
+        body { background-color: #07090e; color: #f3f4f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
-
 <body class="min-h-screen flex flex-col justify-between">
 
     <!-- CONTAINER DE NOTIFICAÇÕES TOAST -->
@@ -31,24 +20,18 @@
 
     <!-- TELA DE CAPA / PORTÃO DE LOGIN -->
     <div id="auth-gate" class="fixed inset-0 bg-[#07090e] z-50 flex items-center justify-center p-4">
-        <div
-            class="bg-gray-900 border border-emerald-500/40 w-full max-w-md rounded-2xl p-8 shadow-2xl text-center space-y-6">
+        <div class="bg-gray-900 border border-emerald-500/40 w-full max-w-md rounded-2xl p-8 shadow-2xl text-center space-y-6">
             <div class="flex flex-col items-center space-y-3">
-                <img src="https://cdn.thesimgrid.com/6et5y6k8n37u6ug0cvkvs4jli2k9" alt="Liga VRT Logo"
-                    class="w-16 h-16 object-contain rounded-full border-2 border-emerald-500 shadow-lg">
-                <h1 class="text-2xl font-black tracking-wider uppercase text-white">Liga <span
-                        class="text-emerald-400">VRT</span></h1>
-                <p class="text-xs text-gray-400">Acesse sua conta para visualizar campeonatos, classificações, murais e
-                    inscrições.</p>
+                <img src="https://cdn.thesimgrid.com/6et5y6k8n37u6ug0cvkvs4jli2k9" alt="Liga VRT Logo" class="w-16 h-16 object-contain rounded-full border-2 border-emerald-500 shadow-lg">
+                <h1 class="text-2xl font-black tracking-wider uppercase text-white">Liga <span class="text-emerald-400">VRT</span></h1>
+                <p class="text-xs text-gray-400">Acesse sua conta para visualizar campeonatos, classificações, murais e inscrições.</p>
             </div>
 
             <div class="space-y-3">
-                <button onclick="openGateAuthModal('login')"
-                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-lg cursor-pointer text-sm">
+                <button onclick="openGateAuthModal('login')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-lg cursor-pointer text-sm">
                     <i class="fa-solid fa-right-to-bracket mr-2"></i> Entrar na Conta
                 </button>
-                <button onclick="openGateAuthModal('register')"
-                    class="w-full bg-gray-800 hover:bg-gray-700 text-emerald-400 border border-emerald-500/30 font-bold py-3 rounded-xl transition cursor-pointer text-sm">
+                <button onclick="openGateAuthModal('register')" class="w-full bg-gray-800 hover:bg-gray-700 text-emerald-400 border border-emerald-500/30 font-bold py-3 rounded-xl transition cursor-pointer text-sm">
                     <i class="fa-solid fa-user-plus mr-2"></i> Cadastrar Novo Piloto
                 </button>
             </div>
@@ -58,9 +41,7 @@
 
     <!-- WIDGETS FLUTUANTES -->
     <div class="fixed bottom-6 right-6 z-40 flex flex-col gap-3 items-end">
-        <a href="https://chat.whatsapp.com/KbzYtkqISNhDwTn0CjYKmH" target="_blank"
-            class="bg-green-600 hover:bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition text-2xl cursor-pointer"
-            title="Grupo WhatsApp VRT">
+        <a href="https://chat.whatsapp.com/KbzYtkqISNhDwTn0CjYKmH" target="_blank" class="bg-green-600 hover:bg-green-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition text-2xl cursor-pointer" title="Grupo WhatsApp VRT">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
     </div>
@@ -69,42 +50,23 @@
     <header class="bg-gray-900 border-b border-gray-800 sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
-                <img src="https://cdn.thesimgrid.com/6et5y6k8n37u6ug0cvkvs4jli2k9" alt="Liga VRT Logo"
-                    class="w-10 h-10 object-contain rounded-full border border-emerald-500/50 shadow-md">
-                <span class="text-xl font-black tracking-wider uppercase text-white">Liga <span
-                        class="text-emerald-400">VRT</span></span>
+                <img src="https://cdn.thesimgrid.com/6et5y6k8n37u6ug0cvkvs4jli2k9" alt="Liga VRT Logo" class="w-10 h-10 object-contain rounded-full border border-emerald-500/50 shadow-md">
+                <span class="text-xl font-black tracking-wider uppercase text-white">Liga <span class="text-emerald-400">VRT</span></span>
             </div>
 
             <nav class="flex flex-wrap items-center space-x-1 md:space-x-4 text-xs md:text-sm font-semibold">
-                <button onclick="switchTab('home')"
-                    class="nav-btn px-3 py-2 rounded-lg transition text-emerald-400 bg-gray-800 cursor-pointer"
-                    data-target="home">Início</button>
-                <button onclick="switchTab('avisos')"
-                    class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer"
-                    data-target="avisos">Mural</button>
-                <button onclick="switchTab('campeonatos')"
-                    class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer"
-                    data-target="campeonatos">Campeonatos</button>
-                <button onclick="switchTab('classificacao')"
-                    class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer"
-                    data-target="classificacao">Classificação</button>
-                <button onclick="switchTab('ratings')"
-                    class="nav-btn px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer"
-                    data-target="ratings"><i class="fa-solid fa-chart-line"></i> Ratings</button>
-                <button onclick="switchTab('corridas')"
-                    class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer"
-                    data-target="corridas">4funs & Inscrições</button>
-                <button onclick="switchTab('protestos')"
-                    class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer"
-                    data-target="protestos">Protestos</button>
-                <button onclick="switchTab('admin-section')" id="nav-admin"
-                    class="nav-btn hidden px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer"
-                    data-target="admin-section"><i class="fa-solid fa-shield-halved"></i> ADM</button>
+                <button onclick="switchTab('home')" class="nav-btn px-3 py-2 rounded-lg transition text-emerald-400 bg-gray-800 cursor-pointer" data-target="home">Início</button>
+                <button onclick="switchTab('avisos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="avisos">Mural</button>
+                <button onclick="switchTab('campeonatos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="campeonatos">Campeonatos</button>
+                <button onclick="switchTab('classificacao')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="classificacao">Classificação</button>
+                <button onclick="switchTab('ratings')" class="nav-btn px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer" data-target="ratings"><i class="fa-solid fa-chart-line"></i> Ratings</button>
+                <button onclick="switchTab('corridas')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="corridas">4funs & Inscrições</button>
+                <button onclick="switchTab('protestos')" class="nav-btn px-3 py-2 rounded-lg transition text-gray-300 hover:text-emerald-400 cursor-pointer" data-target="protestos">Protestos</button>
+                <button onclick="switchTab('admin-section')" id="nav-admin" class="nav-btn hidden px-3 py-2 rounded-lg transition text-orange-400 hover:text-orange-300 cursor-pointer" data-target="admin-section"><i class="fa-solid fa-shield-halved"></i> ADM</button>
             </nav>
 
             <div class="flex items-center space-x-3">
-                <button onclick="togglePixModal(true)"
-                    class="bg-purple-600/20 text-purple-400 border border-purple-600/40 hover:bg-purple-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg transition flex items-center gap-1.5 cursor-pointer">
+                <button onclick="togglePixModal(true)" class="bg-purple-600/20 text-purple-400 border border-purple-600/40 hover:bg-purple-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg transition flex items-center gap-1.5 cursor-pointer">
                     <i class="fa-solid fa-qrcode"></i> Pix VRT
                 </button>
                 <div id="auth-header-area"></div>
@@ -117,63 +79,56 @@
 
         <!-- ABA INÍCIO -->
         <section id="tab-home" class="tab-content active space-y-8">
-            <div
-                class="bg-gradient-to-r from-emerald-950/30 via-gray-900 to-orange-950/20 border border-emerald-500/30 rounded-2xl p-8 md:p-12 shadow-2xl">
+            <div class="bg-gradient-to-r from-emerald-950/30 via-gray-900 to-orange-950/20 border border-emerald-500/30 rounded-2xl p-8 md:p-12 shadow-2xl">
                 <div class="max-w-2xl">
-                    <span
-                        class="bg-emerald-600/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-emerald-600/40">Temporada
-                        2026</span>
-                    <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-4 text-white">A Emoção do Automobilismo
-                        Virtual Começa Aqui</h1>
-                    <p class="text-gray-400 mb-6">Competições de elite, campeonatos, relatórios de carreira e sistema
-                        avançado de Rating VRT.</p>
-                    <button onclick="switchTab('corridas')"
-                        class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-600/30 inline-flex items-center gap-2 cursor-pointer">
+                    <span class="bg-emerald-600/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-emerald-600/40">Temporada 2026</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-4 text-white">A Emoção do Automobilismo Virtual Começa Aqui</h1>
+                    <p class="text-gray-400 mb-6">Competições de elite, campeonatos, relatórios de carreira e sistema avançado de Rating VRT.</p>
+                    <button onclick="switchTab('corridas')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-600/30 inline-flex items-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-gauge-high"></i> Ver Eventos Disponíveis
                     </button>
                 </div>
             </div>
 
             <!-- PAINEL DO PILOTO LOGADO -->
-            <section id="pilot-profile-section"
-                class="bg-gray-900 border border-emerald-500/40 rounded-2xl p-6 md:p-8 shadow-xl">
-                <div
-                    class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-gray-800 pb-4">
+            <section id="pilot-profile-section" class="hidden bg-gray-900 border border-emerald-500/40 rounded-2xl p-6 md:p-8 shadow-xl space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-gray-800 pb-4">
                     <div class="flex items-center gap-3">
-                        <div
-                            class="bg-emerald-600/20 p-3 rounded-xl border border-emerald-600/30 text-emerald-400 text-2xl">
+                        <div class="bg-emerald-600/20 p-3 rounded-xl border border-emerald-600/30 text-emerald-400 text-2xl">
                             <i class="fa-solid fa-id-badge"></i>
                         </div>
                         <div>
                             <h2 id="profile-pilot-name" class="text-xl font-bold text-white">Carregando perfil...</h2>
-                            <p class="text-xs text-gray-400">ID PSN/Xbox Oficial: <span id="profile-pilot-psn"
-                                    class="text-orange-400 font-semibold">--</span></p>
-                            <p class="text-xs text-gray-500 mt-0.5">Telefone: <span id="profile-pilot-phone"
-                                    class="text-gray-300">--</span></p>
+                            <p class="text-xs text-gray-400">ID PSN/Xbox Oficial: <span id="profile-pilot-psn" class="text-orange-400 font-semibold">--</span></p>
+                            <p class="text-xs text-gray-500 mt-0.5">Telefone: <span id="profile-pilot-phone" class="text-gray-300">--</span></p>
                         </div>
                     </div>
                     <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="openEditProfileModal()"
-                            class="bg-blue-600/20 text-blue-400 border border-blue-600/40 hover:bg-blue-600 hover:text-white text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer">
+                        <button onclick="openEditProfileModal()" class="bg-blue-600/20 text-blue-400 border border-blue-600/40 hover:bg-blue-600 hover:text-white text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer">
                             <i class="fa-solid fa-user-pen mr-1"></i> Editar Perfil
+                        </button>
+                        <button onclick="abrirHistoricoPiloto(currentUser.uid)" class="bg-emerald-600/20 text-emerald-400 border border-emerald-600/40 hover:bg-emerald-600 hover:text-white text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer">
+                            <i class="fa-solid fa-file-lines mr-1"></i> Ver Meu Histórico de Provas
                         </button>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-gray-950 border border-orange-500/30 rounded-xl p-5 relative overflow-hidden">
-                        <span
-                            class="text-[10px] uppercase font-bold text-orange-400 bg-orange-950/40 px-2.5 py-1 rounded border border-orange-800/40">Rating
-                            Principal (100%)</span>
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] uppercase font-bold text-orange-400 bg-orange-950/40 px-2.5 py-1 rounded border border-orange-800/40">Rating Principal (100%)</span>
+                            <span id="profile-rating-main-pos" class="text-xs font-bold text-orange-300 bg-orange-900/40 px-2 py-0.5 rounded">Pos: --</span>
+                        </div>
                         <div class="mt-4 flex items-baseline gap-2">
                             <span id="profile-rating-main" class="text-4xl font-black text-white">0.0</span>
                             <span class="text-xs text-gray-400">pontos</span>
                         </div>
                     </div>
                     <div class="bg-gray-950 border border-emerald-500/30 rounded-xl p-5 relative overflow-hidden">
-                        <span
-                            class="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-800/40">Rating
-                            Geral VRT</span>
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-800/40">Rating Geral VRT</span>
+                            <span id="profile-rating-general-pos" class="text-xs font-bold text-emerald-300 bg-emerald-900/40 px-2 py-0.5 rounded">Pos: --</span>
+                        </div>
                         <div class="mt-4 flex items-baseline gap-2">
                             <span id="profile-rating-general" class="text-4xl font-black text-white">0.0</span>
                             <span class="text-xs text-gray-400">pontos</span>
@@ -189,28 +144,24 @@
                 <h2 class="text-2xl font-bold border-l-4 border-orange-500 pl-3">Mural de Avisos & Briefing Oficial</h2>
             </div>
             <div id="announcements-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando
-                    avisos da liga...</div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando avisos da liga...</div>
             </div>
         </section>
 
         <!-- ABA CAMPEONATOS -->
         <section id="tab-campeonatos" class="tab-content space-y-6">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Campeonatos (Principais & Paralelos)
-                </h2>
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Campeonatos (Principais & Paralelos)</h2>
             </div>
             <div id="championships-list" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando
-                    campeonatos...</div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando campeonatos...</div>
             </div>
         </section>
 
         <!-- ABA CLASSIFICAÇÃO -->
         <section id="tab-classificacao" class="tab-content space-y-6">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Classificação Geral (Pontos Nominais)
-                </h2>
+                <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Classificação Geral (Pontos Nominais & Descarte)</h2>
             </div>
             <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
                 <table class="w-full text-left border-collapse">
@@ -219,14 +170,11 @@
                             <th class="p-4">Pos</th>
                             <th class="p-4">Piloto (ID PSN / Xbox)</th>
                             <th class="p-4 text-center">Etapas Disputadas</th>
-                            <th class="p-4 text-right">Pontuação Total</th>
+                            <th class="p-4 text-right">Pontuação Total (Com Descarte)</th>
                         </tr>
                     </thead>
                     <tbody id="standings-table-body">
-                        <tr>
-                            <td colspan="4" class="p-6 text-center text-gray-500 text-sm">Carregando classificação...
-                            </td>
-                        </tr>
+                        <tr><td colspan="4" class="p-6 text-center text-gray-500 text-sm">Carregando classificação...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -240,8 +188,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
                     <div class="bg-gray-950 p-4 border-b border-gray-800 flex justify-between items-center">
-                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i
-                                class="fa-solid fa-chart-line text-emerald-400 mr-2"></i> Ranking Rating Geral</h3>
+                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i class="fa-solid fa-chart-line text-emerald-400 mr-2"></i> Ranking Rating Geral</h3>
                     </div>
                     <table class="w-full text-left border-collapse">
                         <thead>
@@ -252,16 +199,13 @@
                             </tr>
                         </thead>
                         <tbody id="ratings-general-tbody">
-                            <tr>
-                                <td colspan="3" class="p-6 text-center text-gray-500 text-sm">Carregando ratings...</td>
-                            </tr>
+                            <tr><td colspan="3" class="p-6 text-center text-gray-500 text-sm">Carregando ratings...</td></tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-md">
                     <div class="bg-gray-950 p-4 border-b border-gray-800 flex justify-between items-center">
-                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i
-                                class="fa-solid fa-trophy text-orange-400 mr-2"></i> Ranking Rating Principal</h3>
+                        <h3 class="font-bold text-white text-sm uppercase tracking-wider"><i class="fa-solid fa-trophy text-orange-400 mr-2"></i> Ranking Rating Principal</h3>
                     </div>
                     <table class="w-full text-left border-collapse">
                         <thead>
@@ -272,9 +216,7 @@
                             </tr>
                         </thead>
                         <tbody id="ratings-main-tbody">
-                            <tr>
-                                <td colspan="3" class="p-6 text-center text-gray-500 text-sm">Carregando ratings...</td>
-                            </tr>
+                            <tr><td colspan="3" class="p-6 text-center text-gray-500 text-sm">Carregando ratings...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -287,8 +229,7 @@
                 <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3">Eventos 4funs & Inscrições</h2>
             </div>
             <div id="races-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando
-                    eventos...</div>
+                <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 text-gray-500 text-center">Carregando eventos...</div>
             </div>
         </section>
 
@@ -297,19 +238,15 @@
             <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
                 <div class="flex justify-between items-center mb-6 border-b border-gray-800 pb-4">
                     <div>
-                        <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3 text-white">Central de
-                            Protestos & Stewards</h2>
-                        <p class="text-xs text-gray-400 mt-1">Envio de protestos por vídeo (YouTube/Twitch ou arquivo do
-                            celular) em até 24h pós-corrida.</p>
+                        <h2 class="text-2xl font-bold border-l-4 border-emerald-500 pl-3 text-white">Central de Protestos & Stewards</h2>
+                        <p class="text-xs text-gray-400 mt-1">Envio de protestos por vídeo (YouTube/Twitch ou arquivo do celular) em até 24h pós-corrida.</p>
                     </div>
-                    <button onclick="openProtestModal()"
-                        class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition cursor-pointer shadow-md inline-flex items-center gap-2">
+                    <button onclick="openProtestModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition cursor-pointer shadow-md inline-flex items-center gap-2">
                         <i class="fa-solid fa-triangle-exclamation"></i> Novo Protesto
                     </button>
                 </div>
                 <div id="protests-list" class="space-y-4">
-                    <div class="text-gray-500 text-center py-6 bg-gray-950 rounded-xl border border-gray-800 text-xs">
-                        Carregando protestos e julgamentos...</div>
+                    <div class="text-gray-500 text-center py-6 bg-gray-950 rounded-xl border border-gray-800 text-xs">Carregando protestos e julgamentos...</div>
                 </div>
             </div>
         </section>
@@ -321,48 +258,51 @@
                     <i class="fa-solid fa-toolbox text-orange-400 text-2xl"></i>
                     <div>
                         <h2 class="text-xl font-bold text-orange-400">Painel do Administrador - Gestão Pro</h2>
-                        <p class="text-xs text-gray-400">Gerenciamento completo de pilotos, avisos multimídia,
-                            campeonatos, 4funs e inscrições.</p>
+                        <p class="text-xs text-gray-400">Gerenciamento completo de pilotos, avisos multimídia, campeonatos, 4funs, resultados e pontuações.</p>
                     </div>
                 </div>
 
                 <div class="space-y-8">
-                    <!-- GESTÃO E INSCRIÇÃO DE PILOTOS EM EVENTOS (NOVO) -->
-                    <div class="bg-gray-950 p-6 rounded-xl border border-orange-500/30">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i
-                                class="fa-solid fa-user-gear text-orange-400 mr-2"></i> Gestão de Inscrições em Eventos
-                            / Corridas</h3>
+                    <!-- GESTÃO DE RESULTADOS, PUNIÇÕES E PONTOS EXTRAS POR ETAPA -->
+                    <div class="bg-gray-950 p-6 rounded-xl border border-emerald-500/30">
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-flag-checkered text-emerald-400 mr-2"></i> Lançar Resultados, Posições e Punições por Etapa</h3>
                         <div class="space-y-4">
                             <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Selecione o
-                                    Evento / Etapa</label>
-                                <select id="admin-race-select" onchange="carregarPilotosInscritosAdmin()"
-                                    class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Selecione o Evento / Etapa</label>
+                                <select id="admin-results-race-select" onchange="carregarResultadosEtapaAdmin()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                    <option value="">Selecione um evento...</option>
+                                </select>
+                            </div>
+                            <div id="admin-results-container" class="space-y-3 pt-2">
+                                <p class="text-gray-500 text-xs">Selecione uma etapa acima para gerenciar posições, pontos extras e punições.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GESTÃO E INSCRIÇÃO DE PILOTOS EM EVENTOS -->
+                    <div class="bg-gray-950 p-6 rounded-xl border border-orange-500/30">
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-user-gear text-orange-400 mr-2"></i> Gestão de Inscrições em Eventos / Corridas</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Selecione o Evento / Etapa</label>
+                                <select id="admin-race-select" onchange="carregarPilotosInscritosAdmin()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                                     <option value="">Carregando eventos...</option>
                                 </select>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                                 <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 space-y-3">
-                                    <span class="text-xs font-bold text-emerald-400 block"><i
-                                            class="fa-solid fa-user-plus mr-1"></i> Inscrever Piloto Cadastrado</span>
-                                    <select id="admin-pilot-to-add"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white text-xs">
+                                    <span class="text-xs font-bold text-emerald-400 block"><i class="fa-solid fa-user-plus mr-1"></i> Inscrever Piloto Cadastrado</span>
+                                    <select id="admin-pilot-to-add" class="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-white text-xs">
                                         <option value="">Carregando pilotos...</option>
                                     </select>
-                                    <button onclick="adicionarPilotoInscricaoAdmin()"
-                                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded text-xs transition cursor-pointer">Inscrever
-                                        Piloto no Evento</button>
+                                    <button onclick="adicionarPilotoInscricaoAdmin()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded text-xs transition cursor-pointer">Inscrever Piloto no Evento</button>
                                 </div>
 
-                                <div
-                                    class="bg-gray-900 p-4 rounded-lg border border-gray-800 flex flex-col justify-between">
+                                <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 flex flex-col justify-between">
                                     <div>
-                                        <span class="text-xs font-bold text-orange-400 block mb-2"><i
-                                                class="fa-solid fa-users mr-1"></i> Pilotos Já Inscritos nesta
-                                            Etapa</span>
-                                        <div id="admin-enrolled-pilots-list"
-                                            class="space-y-1.5 max-h-36 overflow-y-auto text-xs text-gray-300 pr-1">
+                                        <span class="text-xs font-bold text-orange-400 block mb-2"><i class="fa-solid fa-users mr-1"></i> Pilotos Já Inscritos nesta Etapa</span>
+                                        <div id="admin-enrolled-pilots-list" class="space-y-1.5 max-h-36 overflow-y-auto text-xs text-gray-300 pr-1">
                                             <p class="text-gray-500 text-[11px]">Selecione um evento acima...</p>
                                         </div>
                                     </div>
@@ -373,34 +313,24 @@
 
                     <!-- GESTÃO E VISUALIZAÇÃO DE PERFIS CADASTRADOS -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i
-                                class="fa-solid fa-address-book text-emerald-400 mr-2"></i> Pilotos Cadastrados no
-                            Sistema (Visualização ADM)</h3>
-                        <div id="admin-pilots-list"
-                            class="space-y-3 max-h-64 overflow-y-auto text-xs text-gray-300 pr-2">
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-address-book text-emerald-400 mr-2"></i> Pilotos Cadastrados no Sistema (Visualização ADM)</h3>
+                        <div id="admin-pilots-list" class="space-y-3 max-h-96 overflow-y-auto text-xs text-gray-300 pr-2">
                             <p class="text-gray-500">Carregando pilotos...</p>
                         </div>
                     </div>
 
                     <!-- PUBLICAR AVISO -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i
-                                class="fa-solid fa-bullhorn text-orange-400 mr-2"></i> Publicar Aviso no Mural
-                            (Multimídia / Opcional)</h3>
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-bullhorn text-orange-400 mr-2"></i> Publicar Aviso no Mural (Multimídia / Opcional)</h3>
                         <form onsubmit="publicarAviso(event)" class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Título do
-                                        Aviso</label>
-                                    <input type="text" id="admin-announcement-title"
-                                        placeholder="Ex: Briefing Etapa Spa" required
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Título do Aviso</label>
+                                    <input type="text" id="admin-announcement-title" placeholder="Ex: Briefing Etapa Spa" required class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                                 </div>
                                 <div>
-                                    <label
-                                        class="block text-xs font-semibold uppercase text-gray-400 mb-1">Categoria</label>
-                                    <select id="admin-announcement-badge"
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Categoria</label>
+                                    <select id="admin-announcement-badge" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
                                         <option value="Briefing Oficial">Briefing Oficial</option>
                                         <option value="Comunicado ADM">Comunicado ADM</option>
                                         <option value="Regulamento">Regulamento</option>
@@ -409,256 +339,164 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Conteúdo e Links
-                                    (Recomendado usar links para vídeos pesados)</label>
-                                <textarea id="admin-announcement-content" rows="3"
-                                    placeholder="Insira o texto e links..." required
-                                    class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></textarea>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Conteúdo e Links</label>
+                                <textarea id="admin-announcement-content" rows="3" placeholder="Insira o texto e links..." required class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></textarea>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Arquivo Opcional
-                                    (Máximo recomendado: 800 KB devido ao limite do banco)</label>
-                                <input type="file" id="admin-announcement-media"
-                                    class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-1.5 text-white text-xs file:bg-orange-600 file:text-white file:border-0 file:rounded file:px-2 file:py-1 cursor-pointer">
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Arquivo Opcional (Máx: 800 KB)</label>
+                                <input type="file" id="admin-announcement-media" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-1.5 text-white text-xs file:bg-orange-600 file:text-white file:border-0 file:rounded file:px-2 file:py-1 cursor-pointer">
                             </div>
-                            <button type="submit"
-                                class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-2.5 rounded-lg transition cursor-pointer text-xs">Publicar
-                                Aviso</button>
+                            <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-2.5 rounded-lg transition cursor-pointer text-xs">Publicar Aviso</button>
                         </form>
                     </div>
 
-                    <!-- CRIAR CAMPEONATO -->
+                    <!-- CRIAR CAMPEONATO (COM PONTUAÇÃO P1-P40, EXTRAS E DOBRADA POR ETAPA) -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i
-                                class="fa-solid fa-trophy text-emerald-400 mr-2"></i> Criar Campeonato (Etapa por Etapa
-                            Completo)</h3>
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-trophy text-emerald-400 mr-2"></i> Criar Campeonato (Etapa por Etapa Completo)</h3>
                         <div class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div>
                                     <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Tipo</label>
-                                    <select id="champ-tier"
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
+                                    <select id="champ-tier" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs font-bold text-orange-400">
                                         <option value="Principal">Principal (100%)</option>
-                                        <option value="Paralelo">Paralelo (50%)</option>
+                                        <option value="Paralelo">Paralelo (70%)</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label
-                                        class="block text-xs font-semibold uppercase text-gray-400 mb-1">Simulador</label>
-                                    <select id="champ-simulator" onchange="onChampSimChange()"
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
-                                        <option value="Assetto Corsa Competizione">Assetto Corsa Competizione (ACC)
-                                        </option>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Simulador</label>
+                                    <select id="champ-simulator" onchange="onChampSimChange()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                        <option value="Assetto Corsa Competizione">Assetto Corsa Competizione (ACC)</option>
                                         <option value="Gran Turismo 7">Gran Turismo 7 (GT7)</option>
                                         <option value="Project Motor Racing">Project Motor Racing (PMR)</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome do
-                                        Campeonato</label>
-                                    <input type="text" id="champ-name" placeholder="Ex: VRT GT3 Pro"
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome do Campeonato</label>
+                                    <input type="text" id="champ-name" placeholder="Ex: VRT GT3 Pro" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                                 </div>
                                 <div>
-                                    <label
-                                        class="block text-xs font-semibold uppercase text-gray-400 mb-1">Vagas</label>
-                                    <select id="champ-slots"
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Vagas</label>
+                                    <select id="champ-slots" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
                                 </div>
                             </div>
+
+                            <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 space-y-3">
+                                <span class="text-xs font-bold text-orange-400 block"><i class="fa-solid fa-award mr-1"></i> Tabela de Pontuação por Posição (P1 ao P40) e Bônus</span>
+                                <div id="champ-points-grid" class="grid grid-cols-2 md:grid-cols-4 gap-2 max-h-52 overflow-y-auto p-2 bg-gray-950 rounded border border-gray-800"></div>
+                                
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-2">
+                                    <div>
+                                        <label class="text-[10px] uppercase text-gray-400 block mb-1">Pole Position (Pts)</label>
+                                        <input type="number" id="champ-pts-pole" value="2" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] uppercase text-gray-400 block mb-1">Melhor Volta (Pts)</label>
+                                        <input type="number" id="champ-pts-fl" value="1" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] uppercase text-gray-400 block mb-1">Melhor PRO-AM (Pts)</label>
+                                        <input type="number" id="champ-pts-proam" value="1" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] uppercase text-gray-400 block mb-1">Melhor AM (Pts)</label>
+                                        <input type="number" id="champ-pts-am" value="1" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Número de
-                                        Etapas</label>
-                                    <input type="number" id="champ-rounds" value="3" min="1" max="10"
-                                        onchange="generateRoundFields()"
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Número de Etapas</label>
+                                    <input type="number" id="champ-rounds" value="3" min="1" max="10" onchange="generateRoundFields()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                                 </div>
                             </div>
-
                             <div id="rounds-container" class="space-y-4 pt-2 border-t border-gray-800"></div>
-
-                            <button type="button" onclick="criarCampeonatoCompleto()"
-                                class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-3 rounded-lg transition cursor-pointer text-sm">Salvar
-                                Campeonato Completo</button>
+                            <button type="button" onclick="criarCampeonatoCompleto()" class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-3 rounded-lg transition cursor-pointer text-sm">Salvar Campeonato Completo</button>
                         </div>
                     </div>
 
                     <!-- CRIAR EVENTO 4FUN -->
                     <div class="bg-gray-950 p-6 rounded-xl border border-gray-800">
-                        <h3 class="font-bold text-lg mb-4 text-white"><i
-                                class="fa-solid fa-flag text-emerald-400 mr-2"></i> Criar Evento 4fun</h3>
+                        <h3 class="font-bold text-lg mb-4 text-white"><i class="fa-solid fa-flag text-emerald-400 mr-2"></i> Criar Evento 4fun (50%)</h3>
                         <div class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div>
-                                    <label
-                                        class="block text-xs font-semibold uppercase text-gray-400 mb-1">Simulador</label>
-                                    <select id="fun-simulator" onchange="onFunSimChange()"
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
-                                        <option value="Assetto Corsa Competizione">Assetto Corsa Competizione (ACC)
-                                        </option>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Simulador</label>
+                                    <select id="fun-simulator" onchange="onFunSimChange()" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                        <option value="Assetto Corsa Competizione">Assetto Corsa Competizione (ACC)</option>
                                         <option value="Gran Turismo 7">Gran Turismo 7 (GT7)</option>
                                         <option value="Project Motor Racing">Project Motor Racing (PMR)</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome do
-                                        4fun</label>
-                                    <input type="text" id="fun-name" placeholder="Ex: 4fun Spa Noturno"
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome do 4fun</label>
+                                    <input type="text" id="fun-name" placeholder="Ex: 4fun Spa Noturno" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Pista
-                                        Oficial</label>
-                                    <select id="fun-track"
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Pista Oficial</label>
+                                    <select id="fun-track" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
                                 </div>
                                 <div>
-                                    <label
-                                        class="block text-xs font-semibold uppercase text-gray-400 mb-1">Vagas</label>
-                                    <select id="fun-slots"
-                                        class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
+                                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Vagas</label>
+                                    <select id="fun-slots" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs"></select>
                                 </div>
                             </div>
 
-                            <div
-                                class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
-                                <div>
-                                    <span class="font-bold text-white block mb-1">Treino Livre (Min)</span>
-                                    <input type="number" id="fun-fp" value="30"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                </div>
-                                <div>
-                                    <span class="font-bold text-white block mb-1">Qualifying (Min)</span>
-                                    <input type="number" id="fun-q" value="15"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                </div>
-                                <div>
-                                    <span class="font-bold text-white block mb-1">Corrida (Min)</span>
-                                    <input type="number" id="fun-r" value="60"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                </div>
-                                <div>
-                                    <span class="font-bold text-white block mb-1">Horário Virtual (00:00 - 23:00)</span>
-                                    <select id="fun-vtime"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white"></select>
-                                </div>
-                            </div>
-
-                            <div
-                                class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
-                                <div>
-                                    <span class="font-bold text-white block mb-1">Progressão de Tempo</span>
-                                    <select id="fun-timeprog"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="1x">1x</option>
-                                        <option value="2x">2x</option>
-                                        <option value="3x">3x</option>
-                                        <option value="5x">5x</option>
-                                        <option value="10x">10x</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <span class="font-bold text-white block mb-1">Clima</span>
-                                    <select id="fun-weather"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="Sol">Sol</option>
-                                        <option value="Nublado">Nublado</option>
-                                        <option value="Chuva Leve">Chuva Leve</option>
-                                        <option value="Dinâmico">Dinâmico</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <span class="font-bold text-white block mb-1">Temperatura</span>
-                                    <select id="fun-temp"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white"></select>
-                                </div>
-                                <div>
-                                    <span class="font-bold text-white block mb-1">BOP VRT Ativo?</span>
-                                    <select id="fun-bop"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="Sim">Sim</option>
-                                        <option value="Não">Não</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div
-                                class="grid grid-cols-1 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
-                                <div>
-                                    <span class="font-bold text-white block mb-1">Pit Obrigatório (0 a 4)</span>
-                                    <select id="fun-pit-req" onchange="togglePitOptions('fun')"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
-                                </div>
-                                <div id="fun-pit-sub-1" class="hidden">
-                                    <span class="font-bold text-white block mb-1">Obrigatoriedade</span>
-                                    <select id="fun-pit-type"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="Pneus">Pneus</option>
-                                        <option value="Combustível">Combustível</option>
-                                        <option value="Pneus e Combustível">Pneus e Combustível</option>
-                                        <option value="Nada">Nada</option>
-                                    </select>
-                                </div>
-                                <div id="fun-pit-sub-2" class="hidden">
-                                    <span class="font-bold text-white block mb-1">Janela de Pit</span>
-                                    <select id="fun-pit-window"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="Não">Não</option>
-                                        <option value="5min">5min</option>
-                                        <option value="10min">10min</option>
-                                        <option value="15min">15min</option>
-                                        <option value="20min">20min</option>
-                                    </select>
-                                </div>
-                                <div id="fun-pit-sub-3" class="hidden">
-                                    <span class="font-bold text-white block mb-1">Pit de 25 Segundos</span>
-                                    <select id="fun-pit-25s"
-                                        class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
-                                        <option value="Não">Não</option>
-                                        <option value="Sim">Sim</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs space-y-2">
-                                <span class="font-bold text-white block">Categoria de Carros</span>
-                                <select id="fun-category" onchange="toggleMarcaUnica('fun')"
-                                    class="w-full bg-gray-950 border border-gray-800 rounded p-2 text-white">
-                                    <option value="GT3">GT3</option>
-                                    <option value="GT2">GT2</option>
-                                    <option value="GT4">GT4</option>
-                                    <option value="Porsche Cup">Porsche Cup</option>
-                                    <option value="BMW M2">BMW M2</option>
-                                    <option value="Lamborghini ST">Lamborghini ST</option>
-                                    <option value="Ferrari Challenge">Ferrari Challenge</option>
-                                    <option value="Marca Única">Marca Única</option>
-                                </select>
-                                <div id="fun-marca-unica-box" class="hidden pt-2">
-                                    <label class="text-[10px] text-orange-400 block mb-1">Selecione os carros
-                                        participantes (Marca Única):</label>
-                                    <div id="fun-cars-checkboxes"
-                                        class="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-36 overflow-y-auto bg-gray-950 p-2 rounded border border-gray-800">
+                            <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 space-y-3 text-xs">
+                                <span class="font-bold text-orange-400 block">Tabela de Pontuação por Posição do 4fun (P1 ao P40)</span>
+                                <div id="fun-points-grid" class="grid grid-cols-2 md:grid-cols-4 gap-2 max-h-52 overflow-y-auto p-2 bg-gray-950 rounded border border-gray-800"></div>
+                                
+                                <div class="grid grid-cols-2 md:grid-cols-5 gap-3 pt-2">
+                                    <div>
+                                        <label class="text-[10px] uppercase text-gray-400 block mb-1">Pole (Pts)</label>
+                                        <input type="number" id="fun-pts-pole" value="2" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] uppercase text-gray-400 block mb-1">Melhor Volta (Pts)</label>
+                                        <input type="number" id="fun-pts-fl" value="1" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] uppercase text-gray-400 block mb-1">PRO-AM (Pts)</label>
+                                        <input type="number" id="fun-pts-proam" value="1" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] uppercase text-gray-400 block mb-1">AM (Pts)</label>
+                                        <input type="number" id="fun-pts-am" value="1" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] uppercase text-gray-400 block mb-1">Pts Dobrados?</label>
+                                        <select id="fun-double" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white font-bold text-orange-400">
+                                            <option value="false">Não</option><option value="true">Sim (2x)</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Data e Horário
-                                    Real do Evento</label>
-                                <input type="datetime-local" id="fun-date"
-                                    class="w-full bg-gray-900 border border-gray-800 rounded px-3 py-2 text-white text-xs">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-900 p-4 rounded-lg border border-gray-800 text-xs">
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Treino Livre (Min)</span>
+                                    <input type="number" id="fun-fp" value="30" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                </div>
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Qualifying (Min)</span>
+                                    <input type="number" id="fun-q" value="15" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                </div>
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Corrida (Min)</span>
+                                    <input type="number" id="fun-r" value="60" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white">
+                                </div>
+                                <div>
+                                    <span class="font-bold text-white block mb-1">Horário Virtual</span>
+                                    <select id="fun-vtime" class="w-full bg-gray-950 border border-gray-800 rounded px-2 py-1 text-white"></select>
+                                </div>
                             </div>
 
-                            <button type="button" onclick="criarEvento4FunCompleto()"
-                                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition cursor-pointer text-sm">Publicar
-                                Evento 4fun</button>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Data e Horário Real do Evento</label>
+                                <input type="datetime-local" id="fun-date" class="w-full bg-gray-900 border border-gray-800 rounded px-3 py-2 text-white text-xs">
+                            </div>
+
+                            <button type="button" onclick="criarEvento4FunCompleto()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition cursor-pointer text-sm">Publicar Evento 4fun</button>
                         </div>
                     </div>
                 </div>
@@ -668,105 +506,126 @@
     </main>
 
     <!-- MODAL DE PIX QR CODE -->
-    <div id="pix-modal"
-        class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div
-            class="bg-gray-900 border border-purple-500/40 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative text-center">
-            <button onclick="togglePixModal(false)"
-                class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i
-                    class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="text-lg font-bold mb-2 text-white flex items-center justify-center gap-2"><i
-                    class="fa-solid fa-qrcode text-purple-400"></i> Apoie a Liga VRT</h3>
+    <div id="pix-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-purple-500/40 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative text-center">
+            <button onclick="togglePixModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-lg font-bold mb-2 text-white flex items-center justify-center gap-2"><i class="fa-solid fa-qrcode text-purple-400"></i> Apoie a Liga VRT</h3>
             <p class="text-xs text-gray-400 mb-4">Contribua com as manutenções dos servidores da liga via PIX:</p>
             <div class="bg-white p-4 rounded-xl inline-block mb-4 shadow">
                 <img id="pix-qrcode-img" src="" alt="QR Code Pix Oficial" class="w-40 h-40 mx-auto">
             </div>
-            <div
-                class="bg-gray-950 p-3 rounded-lg border border-gray-800 text-xs select-all text-purple-300 font-mono mb-3">
+            <div class="bg-gray-950 p-3 rounded-lg border border-gray-800 text-xs select-all text-purple-300 font-mono mb-3">
                 virtualracingteam2017@gmail.com
             </div>
-            <button onclick="copyPixKey()"
-                class="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-2 rounded-lg transition cursor-pointer">Copiar
-                Chave Pix</button>
+            <button onclick="copyPixKey()" class="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-2 rounded-lg transition cursor-pointer">Copiar Chave Pix</button>
         </div>
     </div>
 
     <!-- MODAL DE EDIÇÃO DE PERFIL -->
-    <div id="edit-profile-modal"
-        class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div id="edit-profile-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-gray-900 border border-blue-500/40 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
-            <button onclick="toggleEditProfileModal(false)"
-                class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i
-                    class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-user-pen text-blue-400 mr-2"></i> Editar
-                Meu Perfil</h3>
+            <button onclick="toggleEditProfileModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-white"><i class="fa-solid fa-user-pen text-blue-400 mr-2"></i> Editar Meu Perfil</h3>
             <form onsubmit="salvarPerfilPiloto(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nome Completo</label>
-                    <input type="text" id="edit-fullname" required
-                        class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                    <input type="text" id="edit-fullname" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Telefone com DDD</label>
-                    <input type="text" id="edit-phone" placeholder="(51) 99999-9999" required
-                        class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                    <input type="text" id="edit-phone" placeholder="(51) 99999-9999" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">ID PSN ou Xbox /
-                        Gamertag</label>
-                    <input type="text" id="edit-psnxbox" required
-                        class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
+                    <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">ID PSN ou Xbox / Gamertag</label>
+                    <input type="text" id="edit-psnxbox" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-white text-xs">
                 </div>
-                <button type="submit"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg transition cursor-pointer text-xs">Salvar
-                    Alterações</button>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg transition cursor-pointer text-xs">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE HISTÓRICO E PARTICIPAÇÕES DO PILOTO -->
+    <div id="pilot-history-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-emerald-500/40 w-full max-w-2xl rounded-2xl p-6 shadow-2xl relative max-h-[90vh] flex flex-col">
+            <button onclick="togglePilotHistoryModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 id="history-modal-title" class="text-xl font-bold mb-1 text-white"><i class="fa-solid fa-history text-emerald-400 mr-2"></i> Histórico do Piloto</h3>
+            <p id="history-modal-subtitle" class="text-xs text-gray-400 mb-4">Detalhes de ratings, posições e participações em eventos.</p>
+            <div id="history-modal-content" class="overflow-y-auto space-y-3 pr-2 flex-grow text-xs">
+                <p class="text-gray-500">Carregando histórico...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIGURAÇÕES / SETTINGS DO EVENTO -->
+    <div id="race-settings-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-emerald-500/40 w-full max-w-lg rounded-2xl p-6 shadow-2xl relative max-h-[90vh] flex flex-col">
+            <button onclick="toggleRaceSettingsModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 id="settings-modal-title" class="text-xl font-bold mb-1 text-white"><i class="fa-solid fa-gear text-emerald-400 mr-2"></i> Configurações do Evento</h3>
+            <p class="text-xs text-gray-400 mb-4">Detalhes técnicos e regulamento de pista configurados pela direção.</p>
+            <div id="settings-modal-content" class="overflow-y-auto space-y-3 pr-2 flex-grow text-xs text-gray-300">
+                <p class="text-gray-500">Carregando configurações...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDIÇÃO DE EVENTO / CORRIDA (ADM) -->
+    <div id="edit-race-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-orange-500/40 w-full max-w-lg rounded-2xl p-6 shadow-2xl relative max-h-[90vh] flex flex-col">
+            <button onclick="toggleEditRaceModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-1 text-white"><i class="fa-solid fa-pen-to-square text-orange-400 mr-2"></i> Editar Evento / Corrida</h3>
+            <form onsubmit="salvarEdicaoCorrida(event)" class="overflow-y-auto space-y-3 pr-2 flex-grow text-xs pt-2">
+                <input type="hidden" id="edit-race-id">
+                <div>
+                    <label class="block text-gray-400 uppercase mb-1">Nome / Pista / Descrição</label>
+                    <input type="text" id="edit-race-track" required class="w-full bg-gray-950 border border-gray-800 rounded p-2 text-white">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-gray-400 uppercase mb-1">Data e Horário</label>
+                        <input type="datetime-local" id="edit-race-date" required class="w-full bg-gray-950 border border-gray-800 rounded p-2 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 uppercase mb-1">Vagas Máximas</label>
+                        <input type="number" id="edit-race-slots" required class="w-full bg-gray-950 border border-gray-800 rounded p-2 text-white">
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-gray-950 font-bold py-2.5 rounded transition cursor-pointer">Salvar Alterações</button>
             </form>
         </div>
     </div>
 
     <!-- MODAL DE LOGIN / CADASTRO -->
-    <div id="auth-modal"
-        class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div id="auth-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-gray-900 border border-gray-800 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
-            <button onclick="toggleAuthModal(false)"
-                class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i
-                    class="fa-solid fa-xmark text-xl"></i></button>
+            <button onclick="toggleAuthModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
             <h3 id="auth-modal-title" class="text-xl font-bold mb-4 text-white">Entrar na Liga VRT</h3>
             <form id="auth-form" class="space-y-4">
                 <div id="register-fields" class="hidden space-y-3">
                     <div>
                         <label class="block text-xs uppercase text-gray-400 mb-1">Nome Completo</label>
-                        <input type="text" id="auth-fullname" placeholder="Ex: Mauro Moura"
-                            class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                        <input type="text" id="auth-fullname" placeholder="Ex: Mauro Moura" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
                     </div>
                     <div>
                         <label class="block text-xs uppercase text-gray-400 mb-1">Telefone com DDD</label>
-                        <input type="text" id="auth-phone" placeholder="(51) 99999-9999"
-                            class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                        <input type="text" id="auth-phone" placeholder="(51) 99999-9999" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
                     </div>
                     <div>
                         <label class="block text-xs uppercase text-gray-400 mb-1">ID PSN ou Xbox / Gamertag</label>
-                        <input type="text" id="auth-psnxbox" placeholder="Ex: VRT_MauroMoura"
-                            class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                        <input type="text" id="auth-psnxbox" placeholder="Ex: VRT_MauroMoura" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs uppercase text-gray-400 mb-1">E-mail</label>
-                    <input type="email" id="auth-email" required
-                        class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                    <input type="email" id="auth-email" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
                 </div>
                 <div>
                     <label class="block text-xs uppercase text-gray-400 mb-1">Senha</label>
-                    <input type="password" id="auth-password" required
-                        class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
+                    <input type="password" id="auth-password" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-2 text-white text-xs">
                 </div>
-                <button type="submit" id="auth-submit-btn"
-                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition">Entrar</button>
+                <button type="submit" id="auth-submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition">Entrar</button>
             </form>
             <div class="mt-4 text-center text-sm text-gray-400">
-                <button type="button" onclick="switchAuthMode()"
-                    class="text-emerald-400 font-semibold hover:underline cursor-pointer"
-                    id="auth-switch-btn">Cadastre-se</button>
+                <button type="button" onclick="switchAuthMode()" class="text-emerald-400 font-semibold hover:underline cursor-pointer" id="auth-switch-btn">Cadastre-se</button>
             </div>
         </div>
     </div>
@@ -783,13 +642,13 @@
         import { getFirestore, collection, addDoc, getDocs, doc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCNju-z3AvURu8M6YSO3ukNtFBYYs0t2-w",
-            authDomain: "site-virtual-racing-team.firebaseapp.com",
-            projectId: "site-virtual-racing-team",
-            storageBucket: "site-virtual-racing-team.firebasestorage.app",
-            messagingSenderId: "647741498721",
-            appId: "1:647741498721:web:09b636402b20aaa2fbd120",
-            measurementId: "G-MYPDGM819M"
+          apiKey: "AIzaSyCNju-z3AvURu8M6YSO3ukNtFBYYs0t2-w",
+          authDomain: "site-virtual-racing-team.firebaseapp.com",
+          projectId: "site-virtual-racing-team",
+          storageBucket: "site-virtual-racing-team.firebasestorage.app",
+          messagingSenderId: "647741498721",
+          appId: "1:647741498721:web:09b636402b20aaa2fbd120",
+          measurementId: "G-MYPDGM819M"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -824,7 +683,39 @@
         let activeRacesData = [];
         let allSystemUsers = [];
 
-        // GERADOR DE PAYLOAD PIX VÁLIDO (PADRÃO EMV / BR CODE - BANCO CENTRAL)
+        function getWeightByTier(tier) {
+            if (tier === "Principal") return 1.0;
+            if (tier === "Paralelo") return 0.7;
+            if (tier === "4fun") return 0.5;
+            return 1.0;
+        }
+
+        function renderPointsInputs(containerId, defaultPts = []) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            let html = '';
+            const standard = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
+            for (let i = 1; i <= 40; i++) {
+                let val = defaultPts[i-1] !== undefined ? defaultPts[i-1] : (i <= 10 ? standard[i-1] : 0);
+                html += `
+                    <div class="flex items-center gap-2 bg-gray-900 p-1.5 rounded border border-gray-800">
+                        <span class="text-[11px] font-bold text-orange-400 w-8">P${i}</span>
+                        <input type="number" id="${containerId}-p${i}" value="${val}" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white text-xs text-center">
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        function getPointsTableValues(containerId) {
+            let pts = [];
+            for (let i = 1; i <= 40; i++) {
+                let input = document.getElementById(`${containerId}-p${i}`);
+                pts.push(input ? parseFloat(input.value) || 0 : 0);
+            }
+            return pts;
+        }
+
         function gerarPayloadPix(chave, nome, cidade) {
             const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim();
             nome = normalize(nome).substring(0, 25);
@@ -837,17 +728,17 @@
 
             const gui = "br.gov.bcb.pix";
             const accInfo = formatField("00", gui) + formatField("01", chave);
-
+            
             let payload = "";
-            payload += formatField("00", "01"); // Payload Format Indicator
-            payload += formatField("26", accInfo); // Merchant Account Information
-            payload += formatField("52", "0000"); // Merchant Category Code
-            payload += formatField("53", "986");  // Transaction Currency (BRL)
-            payload += formatField("58", "BR");   // Country Code
-            payload += formatField("59", nome);   // Merchant Name
-            payload += formatField("60", cidade); // Merchant City
-            payload += formatField("62", formatField("05", "***")); // Additional Data Field Template
-            payload += "6304"; // CRC16 Indicator
+            payload += formatField("00", "01");
+            payload += formatField("26", accInfo);
+            payload += formatField("52", "0000");
+            payload += formatField("53", "986");
+            payload += formatField("58", "BR");
+            payload += formatField("59", nome);
+            payload += formatField("60", cidade);
+            payload += formatField("62", formatField("05", "***"));
+            payload += "6304";
 
             let crc = 0xFFFF;
             for (let i = 0; i < payload.length; i++) {
@@ -864,7 +755,6 @@
             return payload + crc.toString(16).toUpperCase().padStart(4, '0');
         }
 
-        // SISTEMA DE NOTIFICAÇÃO TOAST
         window.showToast = (msg, type = 'success') => {
             const container = document.getElementById('toast-container');
             if (!container) return;
@@ -925,6 +815,18 @@
             document.getElementById('edit-profile-modal').classList.toggle('hidden', !show);
         };
 
+        window.togglePilotHistoryModal = (show) => {
+            document.getElementById('pilot-history-modal').classList.toggle('hidden', !show);
+        };
+
+        window.toggleRaceSettingsModal = (show) => {
+            document.getElementById('race-settings-modal').classList.toggle('hidden', !show);
+        };
+
+        window.toggleEditRaceModal = (show) => {
+            document.getElementById('edit-race-modal').classList.toggle('hidden', !show);
+        };
+
         window.salvarPerfilPiloto = async (e) => {
             e.preventDefault();
             if (!currentUser) return;
@@ -975,18 +877,6 @@
             if (tempSelect) tempSelect.innerHTML = tempHtml;
         }
 
-        function populateCarsCheckboxes(containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            const cars = simulatorData["Assetto Corsa Competizione"].cars;
-            container.innerHTML = cars.map(car => `
-                <label class="flex items-center space-x-2 text-[11px] text-gray-300">
-                    <input type="checkbox" value="${car}" class="car-checkbox rounded bg-gray-900 border-gray-700 text-emerald-600 focus:ring-0">
-                    <span class="truncate" title="${car}">${car}</span>
-                </label>
-            `).join('');
-        }
-
         window.onChampSimChange = () => { generateRoundFields(); };
         window.onFunSimChange = () => {
             const sim = document.getElementById('fun-simulator').value;
@@ -994,32 +884,6 @@
             const trackSelect = document.getElementById('fun-track');
             if (trackSelect) {
                 trackSelect.innerHTML = data.tracks.map(t => `<option value="${t}">${t}</option>`).join('');
-            }
-        };
-
-        window.togglePitOptions = (prefix, i = null) => {
-            const reqVal = i !== null ? document.getElementById(`round-${i}-pit-req`).value : document.getElementById(`${prefix}-pit-req`).value;
-            const sub1 = document.getElementById(i !== null ? `round-${i}-pit-sub-1` : `${prefix}-pit-sub-1`);
-            const sub2 = document.getElementById(i !== null ? `round-${i}-pit-sub-2` : `${prefix}-pit-sub-2`);
-            const sub3 = document.getElementById(i !== null ? `round-${i}-pit-sub-3` : `${prefix}-pit-sub-3`);
-
-            if (reqVal === "0") {
-                if (sub1) sub1.classList.add('hidden');
-                if (sub2) sub2.classList.add('hidden');
-                if (sub3) sub3.classList.add('hidden');
-            } else {
-                if (sub1) sub1.classList.remove('hidden');
-                if (sub2) sub2.classList.remove('hidden');
-                if (sub3) sub3.classList.remove('hidden');
-            }
-        };
-
-        window.toggleMarcaUnica = (prefix, i = null) => {
-            const catVal = i !== null ? document.getElementById(`round-${i}-category`).value : document.getElementById(`${prefix}-category`).value;
-            const box = document.getElementById(i !== null ? `round-${i}-marca-unica-box` : `${prefix}-marca-unica-box`);
-            if (box) {
-                if (catVal === "Marca Única") box.classList.remove('hidden');
-                else box.classList.add('hidden');
             }
         };
 
@@ -1031,13 +895,12 @@
             const container = document.getElementById('rounds-container');
             if (!container) return;
             const tracks = simulatorData[sim] ? simulatorData[sim].tracks : [];
-            const cars = simulatorData["Assetto Corsa Competizione"].cars;
 
             let html = `<label class="block text-xs font-bold uppercase text-orange-400 mb-2">Configuração Detalhada por Etapa</label>`;
 
             for (let i = 1; i <= count; i++) {
                 let tOpts = tracks.map(t => `<option value="${t}">${t}</option>`).join('');
-
+                
                 let vTimeOpts = '';
                 for (let h = 0; h < 24; h++) {
                     let hh = h < 10 ? '0' + h : h;
@@ -1050,16 +913,17 @@
                     tempOpts += `<option value="${tt}°C" ${t === 25 ? 'selected' : ''}>${tt}°C</option>`;
                 }
 
-                let carsOpts = cars.map(car => `
-                    <label class="flex items-center space-x-2 text-[10px] text-gray-300">
-                        <input type="checkbox" value="${car}" class="round-${i}-car-checkbox rounded bg-gray-900 border-gray-700 text-emerald-600 focus:ring-0">
-                        <span class="truncate" title="${car}">${car}</span>
-                    </label>
-                `).join('');
-
                 html += `
                     <div class="bg-gray-900 border border-gray-800 rounded-lg p-4 space-y-3">
-                        <span class="text-xs font-bold text-white block mb-1">Etapa ${i}</span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-white">Etapa ${i}</span>
+                            <div class="flex items-center gap-2">
+                                <label class="text-[10px] text-orange-400 font-bold uppercase">Pts Dobrados (2x)?</label>
+                                <select id="round-${i}-double" class="bg-gray-950 border border-gray-800 rounded p-1 text-white text-xs font-bold text-orange-400">
+                                    <option value="false">Não</option><option value="true">Sim</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
                             <div>
                                 <label class="text-[10px] uppercase text-gray-400 block mb-1">Pista</label>
@@ -1075,7 +939,7 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 md:grid-cols-7 gap-2 text-xs pt-2 border-t border-gray-800">
+                        <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-xs pt-2 border-t border-gray-800">
                             <div>
                                 <label class="text-[9px] uppercase text-gray-400 block mb-1">Treino Livre (Min)</label>
                                 <input type="number" id="round-${i}-fp" value="30" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
@@ -1087,12 +951,6 @@
                             <div>
                                 <label class="text-[9px] uppercase text-gray-400 block mb-1">Corrida (Min)</label>
                                 <input type="number" id="round-${i}-duration" value="60" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
-                            </div>
-                            <div>
-                                <label class="text-[9px] uppercase text-gray-400 block mb-1">Progressão</label>
-                                <select id="round-${i}-timeprog" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
-                                    <option value="1x">1x</option><option value="2x">2x</option><option value="3x">3x</option><option value="5x">5x</option><option value="10x">10x</option>
-                                </select>
                             </div>
                             <div>
                                 <label class="text-[9px] uppercase text-gray-400 block mb-1">Clima</label>
@@ -1111,47 +969,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-2 pt-2 border-t border-gray-800 text-xs">
-                            <div>
-                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Pit Obrigatório (0-4)</label>
-                                <select id="round-${i}-pit-req" onchange="togglePitOptions(null, ${i})" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
-                                    <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                                </select>
-                            </div>
-                            <div id="round-${i}-pit-sub-1" class="hidden">
-                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Obrigatoriedade</label>
-                                <select id="round-${i}-pit-type" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
-                                    <option value="Pneus">Pneus</option><option value="Combustível">Combustível</option><option value="Pneus e Combustível">Pneus e Combustível</option><option value="Nada">Nada</option>
-                                </select>
-                            </div>
-                            <div id="round-${i}-pit-sub-2" class="hidden">
-                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Janela de Pit</label>
-                                <select id="round-${i}-pit-window" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
-                                    <option value="Não">Não</option><option value="5min">5min</option><option value="10min">10min</option><option value="15min">15min</option><option value="20min">20min</option>
-                                </select>
-                            </div>
-                            <div id="round-${i}-pit-sub-3" class="hidden">
-                                <label class="text-[10px] uppercase text-gray-400 block mb-1">Pit de 25s</label>
-                                <select id="round-${i}-pit-25s" class="w-full bg-gray-950 border border-gray-800 rounded p-1 text-white">
-                                    <option value="Não">Não</option><option value="Sim">Sim</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="pt-2 border-t border-gray-800 text-xs">
-                            <label class="text-[10px] uppercase text-gray-400 block mb-1">Categoria de Carros</label>
-                            <select id="round-${i}-category" onchange="toggleMarcaUnica(null, ${i})" class="w-full bg-gray-950 border border-gray-800 rounded p-1.5 text-white">
-                                <option value="GT3">GT3</option><option value="GT2">GT2</option><option value="GT4">GT4</option><option value="Porsche Cup">Porsche Cup</option><option value="BMW M2">BMW M2</option><option value="Lamborghini ST">Lamborghini ST</option><option value="Ferrari Challenge">Ferrari Challenge</option><option value="Marca Única">Marca Única</option>
-                            </select>
-                            <div id="round-${i}-marca-unica-box" class="hidden pt-2">
-                                <label class="text-[10px] text-orange-400 block mb-1">Selecione os carros participantes (Marca Única):</label>
-                                <div class="grid grid-cols-2 md:grid-cols-3 gap-1 max-h-32 overflow-y-auto bg-gray-950 p-2 rounded border border-gray-800">
-                                    ${carsOpts}
-                                </div>
-                            </div>
-                        </div>
-
                     </div>`;
             }
             container.innerHTML = html;
@@ -1163,7 +980,8 @@
             onFunSimChange();
             generateRoundFields();
             populateDynamicSelects('fun-vtime', 'fun-temp');
-            populateCarsCheckboxes('fun-cars-checkboxes');
+            renderPointsInputs('champ-points-grid');
+            renderPointsInputs('fun-points-grid');
         });
 
         window.toggleAuthModal = (show, mode = 'login') => {
@@ -1189,6 +1007,156 @@
         };
 
         window.switchAuthMode = () => { toggleAuthModal(true, authMode === 'login' ? 'register' : 'login'); };
+
+        function calcularClassificacaoERatings() {
+            let userStats = {};
+            allSystemUsers.forEach(u => {
+                userStats[u.id] = {
+                    uid: u.id,
+                    fullName: u.fullName || u.email,
+                    psnXboxId: u.psnXboxId || '--',
+                    email: u.email,
+                    phone: u.phone || '--',
+                    ratingMain: 0,
+                    ratingGeneral: 0,
+                    totalChampionshipPoints: 0,
+                    racesCount: 0,
+                    participations: [],
+                    raceScores: []
+                };
+            });
+
+            activeRacesData.forEach(r => {
+                const weight = getWeightByTier(r.tier);
+                if (r.pilots) {
+                    r.pilots.forEach(p => {
+                        if (userStats[p.uid]) {
+                            let resObj = r.results && r.results.find(res => res.uid === p.uid);
+                            let racePts = 0;
+                            let hasPenalty = false;
+
+                            if (resObj) {
+                                racePts = resObj.totalPoints || 0;
+                                hasPenalty = resObj.penalty || false;
+                            } else {
+                                racePts = 100 * weight; 
+                            }
+
+                            if (r.tier === "Principal") {
+                                userStats[p.uid].ratingMain += racePts;
+                            }
+                            userStats[p.uid].ratingGeneral += racePts;
+                            userStats[p.uid].racesCount += 1;
+                            userStats[p.uid].raceScores.push({
+                                raceName: r.track,
+                                points: racePts,
+                                penalty: hasPenalty
+                            });
+
+                            userStats[p.uid].participations.push({
+                                raceName: r.track,
+                                tier: r.tier || '4fun',
+                                date: r.date,
+                                weight: weight,
+                                points: racePts,
+                                penalty: hasPenalty
+                            });
+                        }
+                    });
+                }
+            });
+
+            Object.values(userStats).forEach(u => {
+                let scores = u.raceScores;
+                if (scores.length <= 1) {
+                    u.totalChampionshipPoints = scores.reduce((acc, s) => acc + s.points, 0);
+                } else {
+                    let sortedScores = [...scores].sort((a, b) => a.points - b.points);
+                    let dropped = false;
+                    let sum = 0;
+                    
+                    for (let s of sortedScores) {
+                        if (!dropped && !s.penalty) {
+                            dropped = true; 
+                        } else {
+                            sum += s.points;
+                        }
+                    }
+                    if (!dropped && sortedScores.length > 0) {
+                        sum = sortedScores.slice(1).reduce((acc, s) => acc + s.points, 0);
+                    }
+                    u.totalChampionshipPoints = sum;
+                }
+            });
+
+            let sortedMain = Object.values(userStats).sort((a, b) => b.ratingMain - a.ratingMain);
+            let mainPositions = {};
+            sortedMain.forEach((u, idx) => { mainPositions[u.uid] = idx + 1; });
+
+            let sortedGeneral = Object.values(userStats).sort((a, b) => b.ratingGeneral - a.ratingGeneral);
+            let generalPositions = {};
+            sortedGeneral.forEach((u, idx) => { generalPositions[u.uid] = idx + 1; });
+
+            let sortedChampionship = Object.values(userStats).sort((a, b) => b.totalChampionshipPoints - a.totalChampionshipPoints);
+
+            return { userStats, sortedMain, sortedGeneral, sortedChampionship, mainPositions, generalPositions };
+        }
+
+        function atualizarInterfaceRatingsEPerfil() {
+            if (!allSystemUsers.length || !currentUser) return;
+            const { userStats, sortedMain, sortedGeneral, sortedChampionship, mainPositions, generalPositions } = calcularClassificacaoERatings();
+
+            if (currentUserProfile && userStats[currentUser.uid]) {
+                const uStat = userStats[currentUser.uid];
+                const pMain = document.getElementById('profile-rating-main');
+                const pGen = document.getElementById('profile-rating-general');
+                const pMainPos = document.getElementById('profile-rating-main-pos');
+                const pGenPos = document.getElementById('profile-rating-general-pos');
+
+                if (pMain) pMain.textContent = uStat.ratingMain.toFixed(1);
+                if (pGen) pGen.textContent = uStat.ratingGeneral.toFixed(1);
+                if (pMainPos) pMainPos.textContent = `Pos: #${mainPositions[currentUser.uid] || '--'}`;
+                if (pGenPos) pGenPos.textContent = `Pos: #${generalPositions[currentUser.uid] || '--'}`;
+            }
+
+            const ratGenTbody = document.getElementById('ratings-general-tbody');
+            const ratMainTbody = document.getElementById('ratings-main-tbody');
+
+            if (ratGenTbody) {
+                ratGenTbody.innerHTML = sortedGeneral.length === 0 ? `<tr><td colspan="3" class="p-4 text-center text-gray-500">Nenhum dado</td></tr>` :
+                    sortedGeneral.map((u, i) => `
+                        <tr class="border-b border-gray-800/60 hover:bg-gray-950/40">
+                            <td class="p-3 font-bold text-orange-400">#${i + 1}</td>
+                            <td class="p-3 text-white">${u.fullName} <span class="text-gray-400 text-[10px]">(${u.psnXboxId})</span></td>
+                            <td class="p-3 text-right font-black text-emerald-400">${u.ratingGeneral.toFixed(1)}</td>
+                        </tr>
+                    `).join('');
+            }
+
+            if (ratMainTbody) {
+                ratMainTbody.innerHTML = sortedMain.length === 0 ? `<tr><td colspan="3" class="p-4 text-center text-gray-500">Nenhum dado</td></tr>` :
+                    sortedMain.map((u, i) => `
+                        <tr class="border-b border-gray-800/60 hover:bg-gray-950/40">
+                            <td class="p-3 font-bold text-orange-400">#${i + 1}</td>
+                            <td class="p-3 text-white">${u.fullName} <span class="text-gray-400 text-[10px]">(${u.psnXboxId})</span></td>
+                            <td class="p-3 text-right font-black text-orange-400">${u.ratingMain.toFixed(1)}</td>
+                        </tr>
+                    `).join('');
+            }
+
+            const standingsBody = document.getElementById('standings-table-body');
+            if (standingsBody) {
+                standingsBody.innerHTML = sortedChampionship.length === 0 ? `<tr><td colspan="4" class="p-4 text-center text-gray-500">Nenhum dado</td></tr>` :
+                    sortedChampionship.map((u, i) => `
+                        <tr class="border-b border-gray-800/60 hover:bg-gray-950/40">
+                            <td class="p-4 font-bold text-emerald-400">#${i + 1}</td>
+                            <td class="p-4 text-white">${u.fullName} <span class="text-gray-400 text-xs">(${u.psnXboxId})</span></td>
+                            <td class="p-4 text-center">${u.racesCount}</td>
+                            <td class="p-4 text-right font-black text-white">${u.totalChampionshipPoints.toFixed(1)} pts</td>
+                        </tr>
+                    `).join('');
+            }
+        }
 
         onAuthStateChanged(auth, async (user) => {
             currentUser = user;
@@ -1277,15 +1245,15 @@
             const badgeEl = document.getElementById('admin-announcement-badge');
             const contentEl = document.getElementById('admin-announcement-content');
             const mediaInput = document.getElementById('admin-announcement-media');
-
+            
             const title = titleEl ? titleEl.value.trim() : '';
             const badge = badgeEl ? badgeEl.value : '';
             const content = contentEl ? contentEl.value.trim() : '';
 
             const saveDocToFirebase = async (mediaUrl, mediaType, mediaName) => {
                 try {
-                    await addDoc(collection(db, "announcements"), {
-                        title, badge, content, mediaUrl, mediaType, mediaName, createdAt: new Date().toISOString()
+                    await addDoc(collection(db, "announcements"), { 
+                        title, badge, content, mediaUrl, mediaType, mediaName, createdAt: new Date().toISOString() 
                     });
                     showToast('Aviso publicado com sucesso!');
                     if (titleEl) titleEl.value = '';
@@ -1298,11 +1266,11 @@
             if (mediaInput && mediaInput.files && mediaInput.files[0]) {
                 const file = mediaInput.files[0];
                 if (file.size > 800000) {
-                    showToast("Arquivo muito grande (>800KB). Para vídeos Full HD pesados, publique sem anexo e insira o link no texto.", 'error');
+                    showToast("Arquivo muito grande (>800KB). Para vídeos Full HD, publique sem anexo.", 'error');
                     return;
                 }
                 const reader = new FileReader();
-                reader.onload = async function (uploadEvent) {
+                reader.onload = async function(uploadEvent) {
                     let type = "file";
                     if (file.type.startsWith("image/")) type = "image";
                     else if (file.type.startsWith("video/")) type = "video";
@@ -1324,14 +1292,14 @@
                 let a = d.data();
                 let isAdm = currentUser && currentUser.email === "mauro12moura@gmail.com";
                 let del = isAdm ? `<button onclick="deleteAnnouncement('${d.id}')" class="text-red-400 text-xs cursor-pointer"><i class="fa-solid fa-trash"></i> Excluir</button>` : '';
-
+                
                 let mediaElement = "";
                 if (a.mediaType === "image") {
-                    mediaElement = `<div class="mt-3"><img src="${a.mediaUrl}" class="max-h-72 w-full object-cover rounded-lg border border-gray-800 cursor-pointer hover:opacity-90 transition" onclick="window.open(this.src)" title="Clique para ampliar"></div>`;
+                    mediaElement = `<div class="mt-3"><img src="${a.mediaUrl}" class="max-h-72 w-full object-cover rounded-lg border border-gray-800 cursor-pointer hover:opacity-90 transition" onclick="window.open(this.src)"></div>`;
                 } else if (a.mediaType === "video") {
                     mediaElement = `<div class="mt-3"><video src="${a.mediaUrl}" controls class="max-h-72 w-full rounded-lg border border-gray-800"></video></div>`;
                 } else if (a.mediaType === "file") {
-                    mediaElement = `<div class="mt-3 p-3 bg-gray-950 rounded-lg border border-gray-800 flex items-center justify-between text-xs"><span class="text-emerald-400"><i class="fa-solid fa-paperclip mr-2"></i> ${a.mediaName}</span><a href="${a.mediaUrl}" download="${a.mediaName}" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded text-[10px] font-bold">Baixar Arquivo</a></div>`;
+                    mediaElement = `<div class="mt-3 p-3 bg-gray-950 rounded-lg border border-gray-800 flex items-center justify-between text-xs"><span class="text-emerald-400"><i class="fa-solid fa-paperclip mr-2"></i> ${a.mediaName}</span><a href="${a.mediaUrl}" download="${a.mediaName}" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded text-[10px] font-bold">Baixar</a></div>`;
                 }
 
                 html += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow-md"><span class="bg-orange-950 text-orange-400 text-[10px] font-bold px-2.5 py-0.5 rounded">${a.badge}</span><h3 class="text-lg font-bold text-white mt-2">${a.title}</h3><p class="text-xs text-gray-300 mt-2 whitespace-pre-line">${a.content}</p>${mediaElement}<div class="mt-4 pt-3 border-t border-gray-800 flex justify-end">${del}</div></div>`;
@@ -1340,38 +1308,54 @@
         }
 
         window.deleteAnnouncement = async (id) => {
-            await deleteDoc(doc(db, "announcements", id));
+            await deleteDoc(doc(db, "announcements", id)); 
             showToast("Aviso excluído com sucesso!");
-            await loadAnnouncements();
+            await loadAnnouncements(); 
         };
 
-        // VISUALIZAÇÃO E GESTÃO COMPLETA DOS PILOTOS CADASTRADOS (PAINEL ADM)
         async function loadAdminPilots() {
             const box = document.getElementById('admin-pilots-list');
             const adminPilotSelect = document.getElementById('admin-pilot-to-add');
-
+            
             const snap = await getDocs(collection(db, "users"));
             allSystemUsers = [];
             snap.forEach(d => {
                 allSystemUsers.push({ id: d.id, ...d.data() });
             });
 
+            atualizarInterfaceRatingsEPerfil();
+            const { userStats, mainPositions, generalPositions } = calcularClassificacaoERatings();
+
             if (box) {
                 if (allSystemUsers.length === 0) {
                     box.innerHTML = `<p class="text-gray-500 text-xs">Nenhum piloto cadastrado.</p>`;
                 } else {
-                    let html = '<div class="grid grid-cols-1 md:grid-cols-2 gap-2">';
+                    let html = '<div class="space-y-3">';
                     allSystemUsers.forEach(u => {
+                        let uStat = userStats[u.id] || { ratingMain: 0, ratingGeneral: 0, racesCount: 0 };
+                        let mPos = mainPositions[u.id] || '--';
+                        let gPos = generalPositions[u.id] || '--';
+
                         html += `
-                            <div class="p-3 bg-gray-900 rounded-lg border border-gray-800 flex flex-col gap-1 text-xs">
-                                <div class="flex justify-between items-center">
-                                    <strong class="text-white text-sm"><i class="fa-solid fa-user text-emerald-400 mr-1"></i> ${u.fullName || 'Sem Nome'}</strong>
-                                    <span class="text-[10px] bg-orange-950 text-orange-400 px-2 py-0.5 rounded font-mono">${u.psnXboxId || 'Sem ID'}</span>
+                            <div class="p-4 bg-gray-900 rounded-xl border border-gray-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <strong class="text-white text-sm"><i class="fa-solid fa-user text-emerald-400 mr-1"></i> ${u.fullName || 'Sem Nome'}</strong>
+                                        <span class="text-[10px] bg-orange-950 text-orange-400 px-2 py-0.5 rounded font-mono">${u.psnXboxId || 'Sem ID'}</span>
+                                    </div>
+                                    <div class="text-gray-400 flex flex-wrap gap-x-4 gap-y-1 mt-1">
+                                        <span><i class="fa-solid fa-envelope mr-1 text-gray-500"></i> ${u.email || '--'}</span>
+                                        <span><i class="fa-solid fa-phone mr-1 text-gray-500"></i> ${u.phone || '--'}</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-3 mt-2 text-[11px]">
+                                        <span class="text-orange-400 font-semibold">Rating Principal: ${uStat.ratingMain.toFixed(1)} (Pos: #${mPos})</span>
+                                        <span class="text-emerald-400 font-semibold">Rating Geral: ${uStat.ratingGeneral.toFixed(1)} (Pos: #${gPos})</span>
+                                        <span class="text-gray-300">Etapas: ${uStat.racesCount}</span>
+                                    </div>
                                 </div>
-                                <div class="text-gray-400 flex justify-between items-center pt-1 border-t border-gray-800/60">
-                                    <span><i class="fa-solid fa-envelope mr-1 text-gray-500"></i> ${u.email || '--'}</span>
-                                    <span><i class="fa-solid fa-phone mr-1 text-gray-500"></i> ${u.phone || '--'}</span>
-                                </div>
+                                <button onclick="abrirHistoricoPiloto('${u.id}')" class="bg-blue-600/20 text-blue-400 border border-blue-600/40 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-lg font-bold transition cursor-pointer">
+                                    <i class="fa-solid fa-file-lines mr-1"></i> Ver Histórico & Resultados
+                                </button>
                             </div>`;
                     });
                     html += '</div>';
@@ -1384,12 +1368,81 @@
             }
         }
 
+        window.abrirHistoricoPiloto = (userId) => {
+            const { userStats, mainPositions, generalPositions } = calcularClassificacaoERatings();
+            const uStat = userStats[userId];
+            if (!uStat) return;
+
+            document.getElementById('history-modal-title').innerHTML = `<i class="fa-solid fa-user-shield text-emerald-400 mr-2"></i> ${uStat.fullName}`;
+            document.getElementById('history-modal-subtitle').textContent = `PSN/Xbox: ${uStat.psnXboxId} | Email: ${uStat.email} | Tel: ${uStat.phone}`;
+
+            let participationsHtml = '';
+            if (uStat.participations.length === 0) {
+                participationsHtml = `<p class="text-gray-500 text-center py-4">Este piloto ainda não participou de nenhuma etapa/evento.</p>`;
+            } else {
+                participationsHtml = uStat.participations.map(p => `
+                    <div class="bg-gray-950 p-3 rounded-lg border border-gray-800 flex justify-between items-center text-xs">
+                        <div>
+                            <strong class="text-white block">${p.raceName}</strong>
+                            <span class="text-gray-400 text-[10px]">Categoria: ${p.tier} | Pts Obtidos: ${p.points.toFixed(1)} ${p.penalty ? '<span class="text-red-400 font-bold ml-2">[PUNIDO - BLOQUEIA DESCARTE]</span>' : ''}</span>
+                        </div>
+                        <span class="text-emerald-400 font-bold">Participou</span>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('history-modal-content').innerHTML = `
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-gray-950 p-3 rounded-lg border border-orange-500/30">
+                        <span class="text-[10px] text-orange-400 font-bold uppercase block">Rating Principal</span>
+                        <span class="text-xl font-black text-white">${uStat.ratingMain.toFixed(1)}</span>
+                        <span class="text-xs text-orange-300 block">Posição: #${mainPositions[userId] || '--'}</span>
+                    </div>
+                    <div class="bg-gray-950 p-3 rounded-lg border border-emerald-500/30">
+                        <span class="text-[10px] text-emerald-400 font-bold uppercase block">Rating Geral VRT</span>
+                        <span class="text-xl font-black text-white">${uStat.ratingGeneral.toFixed(1)}</span>
+                        <span class="text-xs text-emerald-300 block">Posição: #${generalPositions[userId] || '--'}</span>
+                    </div>
+                </div>
+                <h4 class="font-bold text-white text-xs uppercase mb-2">Histórico de Participações e Eventos (${uStat.participations.length}):</h4>
+                <div class="space-y-2 max-h-48 overflow-y-auto">
+                    ${participationsHtml}
+                </div>
+            `;
+            togglePilotHistoryModal(true);
+        };
+
+        window.verConfiguracoesCorrida = (raceId) => {
+            const r = activeRacesData.find(item => item.id === raceId);
+            if (!r) return;
+
+            document.getElementById('settings-modal-title').innerHTML = `<i class="fa-solid fa-flag text-emerald-400 mr-2"></i> ${r.track}`;
+            document.getElementById('settings-modal-content').innerHTML = `
+                <div class="space-y-2 text-xs">
+                    <p><strong>Simulador:</strong> ${r.simulator || '--'}</p>
+                    <p><strong>Tipo / Categoria:</strong> ${r.tier || '4fun'}</p>
+                    <p><strong>Pontuação Dobrada (2x):</strong> ${r.doublePoints ? '<span class="text-orange-400 font-bold">Sim</span>' : 'Não'}</p>
+                    <p><strong>Data/Horário:</strong> ${r.date ? new Date(r.date).toLocaleString('pt-BR') : '--'}</p>
+                    <p><strong>Vagas Limite:</strong> ${r.maxSlots || 30}</p>
+                    <p><strong>Treino Livre:</strong> ${r.fp || 30} min | <strong>Qualifying:</strong> ${r.q || 15} min | <strong>Corrida:</strong> ${r.duration || 60} min</p>
+                    <p><strong>Pilotos Inscritos:</strong> ${r.pilots ? r.pilots.length : 0}</p>
+                </div>
+            `;
+            toggleRaceSettingsModal(true);
+        };
+
         window.criarCampeonatoCompleto = async () => {
             const tierEl = document.getElementById('champ-tier');
             const nameEl = document.getElementById('champ-name');
             const simEl = document.getElementById('champ-simulator');
             const slotsEl = document.getElementById('champ-slots');
             const roundsEl = document.getElementById('champ-rounds');
+            
+            const pointsTable = getPointsTableValues('champ-points-grid');
+            const ptsPole = parseFloat(document.getElementById('champ-pts-pole').value) || 2;
+            const ptsFL = parseFloat(document.getElementById('champ-pts-fl').value) || 1;
+            const ptsProAm = parseFloat(document.getElementById('champ-pts-proam').value) || 1;
+            const ptsAm = parseFloat(document.getElementById('champ-pts-am').value) || 1;
 
             const tier = tierEl ? tierEl.value : 'Principal';
             const name = nameEl ? nameEl.value.trim() : '';
@@ -1398,9 +1451,9 @@
             const roundsCount = roundsEl ? parseInt(roundsEl.value) || 3 : 3;
 
             if (!name) { showToast('Informe o nome do campeonato.', 'error'); return; }
-            const ratingWeight = tier === 'Principal' ? 1.0 : 0.5;
+            const ratingWeight = getWeightByTier(tier);
             try {
-                await addDoc(collection(db, "championships"), { name, tier, ratingWeight, simulator, maxSlots, rounds: roundsCount });
+                await addDoc(collection(db, "championships"), { name, tier, ratingWeight, simulator, maxSlots, rounds: roundsCount, pointsTable, ptsPole, ptsFL, ptsProAm, ptsAm });
                 for (let i = 1; i <= roundsCount; i++) {
                     const track = document.getElementById(`round-${i}-track`)?.value || 'Monza';
                     const date = document.getElementById(`round-${i}-date`)?.value || new Date().toISOString();
@@ -1408,31 +1461,21 @@
                     const fp = document.getElementById(`round-${i}-fp`)?.value || '30';
                     const q = document.getElementById(`round-${i}-q`)?.value || '15';
                     const duration = document.getElementById(`round-${i}-duration`)?.value || '60';
-                    const timeprog = document.getElementById(`round-${i}-timeprog`)?.value || '1x';
                     const weather = document.getElementById(`round-${i}-weather`)?.value || 'Sol';
                     const temp = document.getElementById(`round-${i}-temp`)?.value || '25°C';
                     const bop = document.getElementById(`round-${i}-bop`)?.value || 'Sim';
-
-                    const pitReq = document.getElementById(`round-${i}-pit-req`)?.value || '0';
-                    const pitType = document.getElementById(`round-${i}-pit-type`)?.value || 'Pneus';
-                    const pitWindow = document.getElementById(`round-${i}-pit-window`)?.value || 'Não';
-                    const pit25s = document.getElementById(`round-${i}-pit-25s`)?.value || 'Não';
-
-                    const category = document.getElementById(`round-${i}-category`)?.value || 'GT3';
-                    let selectedCars = [];
-                    if (category === "Marca Única") {
-                        document.querySelectorAll(`.round-${i}-car-checkbox:checked`).forEach(cb => selectedCars.push(cb.value));
-                    }
+                    const doublePoints = document.getElementById(`round-${i}-double`)?.value === 'true';
 
                     await addDoc(collection(db, "races"), {
-                        track: `[${tier}] ${name} - Etapa ${i}: ${track}`, date, simulator, maxSlots, tier, ratingWeight, simulatorType: simulator,
-                        vtime, fp, q, duration, timeprog, weather, temp, bop, pitReq, pitType, pitWindow, pit25s, category, selectedCars,
+                        track: `[${tier}] ${name} - Etapa ${i}: ${track} ${doublePoints ? '(2x)' : ''}`, date, simulator, maxSlots, tier, ratingWeight, simulatorType: simulator, 
+                        vtime, fp, q, duration, weather, temp, bop, doublePoints, pointsTable, ptsPole, ptsFL, ptsProAm, ptsAm,
                         registrationsOpen: true, pilots: [], results: []
                     });
                 }
-                showToast('Campeonato criado com sucesso!');
-                await loadChampionships();
+                showToast('Campeonato criado com sucesso!'); 
+                await loadChampionships(); 
                 await loadRaces();
+                await loadAdminPilots();
             } catch (err) { showToast('Erro: ' + err.message, 'error'); }
         };
 
@@ -1447,21 +1490,13 @@
             const q = document.getElementById('fun-q')?.value || '15';
             const duration = document.getElementById('fun-r')?.value || '60';
             const vtime = document.getElementById('fun-vtime')?.value || '12:00';
-            const timeprog = document.getElementById('fun-timeprog')?.value || '1x';
-            const weather = document.getElementById('fun-weather')?.value || 'Sol';
-            const temp = document.getElementById('fun-temp')?.value || '25°C';
-            const bop = document.getElementById('fun-bop')?.value || 'Sim';
-
-            const pitReq = document.getElementById('fun-pit-req')?.value || '0';
-            const pitType = document.getElementById('fun-pit-type')?.value || 'Pneus';
-            const pitWindow = document.getElementById('fun-pit-window')?.value || 'Não';
-            const pit25s = document.getElementById('fun-pit-25s')?.value || 'Não';
-
-            const category = document.getElementById('fun-category')?.value || 'GT3';
-            let selectedCars = [];
-            if (category === "Marca Única") {
-                document.querySelectorAll('#fun-cars-checkboxes input:checked').forEach(cb => selectedCars.push(cb.value));
-            }
+            
+            const pointsTable = getPointsTableValues('fun-points-grid');
+            const ptsPole = parseFloat(document.getElementById('fun-pts-pole').value) || 2;
+            const ptsFL = parseFloat(document.getElementById('fun-pts-fl').value) || 1;
+            const ptsProAm = parseFloat(document.getElementById('fun-pts-proam').value) || 1;
+            const ptsAm = parseFloat(document.getElementById('fun-pts-am').value) || 1;
+            const doublePoints = document.getElementById('fun-double')?.value === 'true';
 
             const name = nameEl ? nameEl.value.trim() : '';
             const simulator = simEl ? simEl.value : '';
@@ -1470,14 +1505,16 @@
             const date = dateEl ? dateEl.value : '';
 
             if (!name || !date) { showToast('Preencha os campos obrigatórios do 4fun.', 'error'); return; }
+            const ratingWeight = getWeightByTier("4fun"); 
             try {
                 await addDoc(collection(db, "races"), {
-                    track: `4fun: ${name} (${track})`, date, simulator, maxSlots, tier: "4fun", ratingWeight: 0.3, simulatorType: simulator,
-                    fp, q, duration, vtime, timeprog, weather, temp, bop, pitReq, pitType, pitWindow, pit25s, category, selectedCars,
+                    track: `4fun: ${name} (${track}) ${doublePoints ? '(2x)' : ''}`, date, simulator, maxSlots, tier: "4fun", ratingWeight, simulatorType: simulator, 
+                    fp, q, duration, vtime, doublePoints, pointsTable, ptsPole, ptsFL, ptsProAm, ptsAm,
                     registrationsOpen: true, pilots: [], results: []
                 });
-                showToast('Evento 4fun publicado com sucesso!');
+                showToast('Evento 4fun publicado com sucesso!'); 
                 await loadRaces();
+                await loadAdminPilots();
             } catch (err) { showToast('Erro: ' + err.message, 'error'); }
         };
 
@@ -1490,8 +1527,12 @@
             snap.forEach(d => {
                 let item = d.data();
                 let isAdm = currentUser && currentUser.email === "mauro12moura@gmail.com";
-                let del = isAdm ? `<button onclick="deleteChampionship('${d.id}')" class="text-red-400 text-xs cursor-pointer"><i class="fa-solid fa-trash"></i> Excluir</button>` : '';
-                h += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between"><div><h3 class="text-xl font-bold text-white">${item.name}</h3><p class="text-xs text-gray-400 mt-1">${item.simulator} | ${item.rounds} Etapas</p></div><div class="mt-4 pt-3 border-t border-gray-800 flex justify-end">${del}</div></div>`;
+                let adminActions = isAdm ? `
+                    <div class="flex gap-2">
+                        <button onclick="editarCampeonato('${d.id}')" class="bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white px-2.5 py-1 rounded text-xs cursor-pointer"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteChampionship('${d.id}')" class="bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white px-2.5 py-1 rounded text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                    </div>` : '';
+                h += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between"><div><h3 class="text-xl font-bold text-white">${item.name}</h3><p class="text-xs text-gray-400 mt-1">${item.simulator} | ${item.rounds} Etapas (${item.tier})</p></div><div class="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center">${adminActions}</div></div>`;
             });
             c.innerHTML = h;
         }
@@ -1502,35 +1543,45 @@
             await loadChampionships();
         };
 
+        window.editarCampeonato = (id) => {
+            showToast("Para editar o campeonato, ajuste as etapas correspondentes na aba de Corridas/Etapas.", "success");
+        };
+
         async function loadRaces() {
             const c = document.getElementById('races-list');
             const adminSelect = document.getElementById('admin-race-select');
+            const adminResSelect = document.getElementById('admin-results-race-select');
             if (!c) return;
             const snap = await getDocs(collection(db, "races"));
             activeRacesData = [];
-
-            if (snap.empty) {
-                c.innerHTML = `<div class="col-span-2 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhum evento.</div>`;
+            
+            if (snap.empty) { 
+                c.innerHTML = `<div class="col-span-2 text-gray-500 text-center py-6 bg-gray-900 rounded-xl">Nenhum evento.</div>`; 
                 if (adminSelect) adminSelect.innerHTML = '<option value="">Nenhum evento disponível</option>';
-                return;
+                if (adminResSelect) adminResSelect.innerHTML = '<option value="">Nenhum evento disponível</option>';
+                return; 
             }
 
             let h = '';
-            let adminSelectHtml = '<option value="">Selecione o evento para gerenciar...</option>';
+            let adminSelectHtml = '<option value="">Selecione o evento para gerenciar inscrições...</option>';
+            let adminResHtml = '<option value="">Selecione o evento para lançar resultados...</option>';
 
             snap.forEach(d => {
                 let rId = d.id; let r = d.data(); r.id = rId;
                 activeRacesData.push(r);
                 adminSelectHtml += `<option value="${rId}">${r.track}</option>`;
+                adminResHtml += `<option value="${rId}">${r.track}</option>`;
 
-                let pitInfo = r.pitReq && r.pitReq !== "0" ? ` | Pit: ${r.pitReq}` : '';
-                let catInfo = r.category ? ` | Cat: ${r.category}` : '';
                 let isAdm = currentUser && currentUser.email === "mauro12moura@gmail.com";
-                let delBtn = isAdm ? `<button onclick="deleteRace('${rId}')" class="bg-red-600/20 text-red-400 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer"><i class="fa-solid fa-trash mr-1"></i> Excluir</button>` : '';
-
+                let adminBtns = isAdm ? `
+                    <div class="flex gap-2">
+                        <button onclick="abrirEditaCorrida('${rId}')" class="bg-blue-600/20 text-blue-400 border border-blue-600/40 hover:bg-blue-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteRace('${rId}')" class="bg-red-600/20 text-red-400 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-3 py-2 rounded-lg cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                    </div>` : '';
+                
                 let pilotsCount = r.pilots ? r.pilots.length : 0;
                 let userAlreadyEnrolled = currentUser && r.pilots && r.pilots.some(p => p.uid === currentUser.uid);
-
+                
                 let registerBtn = '';
                 if (userAlreadyEnrolled) {
                     registerBtn = `<button onclick="cancelarInscricaoPiloto('${rId}')" class="bg-red-600/20 text-red-400 border border-red-600/40 hover:bg-red-600 hover:text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Cancelar Inscrição</button>`;
@@ -1538,16 +1589,149 @@
                     registerBtn = `<button onclick="inscreverPilotoLogado('${rId}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Inscrever-se (${pilotsCount}/${r.maxSlots || 30})</button>`;
                 }
 
-                h += `<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between"><div><span class="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded">${r.simulator}</span><h3 class="text-lg font-bold text-white mt-2">${r.track}</h3><p class="text-xs text-gray-400 mt-1">${r.date ? new Date(r.date).toLocaleString('pt-BR') : '--'}</p><p class="text-[11px] text-orange-400 mt-1">Clima: ${r.weather || 'Sol'} (${r.temp || '25°C'}) | Vagas: ${pilotsCount}/${r.maxSlots || 30}${pitInfo}${catInfo}</p></div><div class="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center"><div class="flex gap-2">${registerBtn}</div>${delBtn}</div></div>`;
+                h += `
+                    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded">${r.simulator} (${r.tier || '4fun'})</span>
+                            <h3 class="text-lg font-bold text-white mt-2">${r.track}</h3>
+                            <p class="text-xs text-gray-400 mt-1">${r.date ? new Date(r.date).toLocaleString('pt-BR') : '--'}</p>
+                            <p class="text-[11px] text-orange-400 mt-1">Vagas: ${pilotsCount}/${r.maxSlots || 30}</p>
+                            <button onclick="verConfiguracoesCorrida('${rId}')" class="mt-2 text-xs text-blue-400 hover:underline inline-flex items-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-circle-info"></i> Ver Configurações da Pista
+                            </button>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-800 flex justify-between items-center">
+                            <div class="flex gap-2">${registerBtn}</div>
+                            ${adminBtns}
+                        </div>
+                    </div>`;
             });
             c.innerHTML = h;
-            if (adminSelect) {
-                const currentVal = adminSelect.value;
-                adminSelect.innerHTML = adminSelectHtml;
-                if (currentVal) adminSelect.value = currentVal;
-                carregarPilotosInscritosAdmin();
-            }
+            if (adminSelect) adminSelect.innerHTML = adminSelectHtml;
+            if (adminResSelect) adminResSelect.innerHTML = adminResHtml;
+            atualizarInterfaceRatingsEPerfil();
         }
+
+        window.abrirEditaCorrida = (raceId) => {
+            const r = activeRacesData.find(item => item.id === raceId);
+            if (!r) return;
+            document.getElementById('edit-race-id').value = r.id;
+            document.getElementById('edit-race-track').value = r.track;
+            document.getElementById('edit-race-date').value = r.date ? r.date.substring(0, 16) : '';
+            document.getElementById('edit-race-slots').value = r.maxSlots || 30;
+            toggleEditRaceModal(true);
+        };
+
+        window.salvarEdicaoCorrida = async (e) => {
+            e.preventDefault();
+            const raceId = document.getElementById('edit-race-id').value;
+            const track = document.getElementById('edit-race-track').value.trim();
+            const date = document.getElementById('edit-race-date').value;
+            const maxSlots = parseInt(document.getElementById('edit-race-slots').value) || 30;
+
+            try {
+                await setDoc(doc(db, "races", raceId), { track, date, maxSlots }, { merge: true });
+                showToast("Corrida/Etapa atualizada com sucesso!");
+                toggleEditRaceModal(false);
+                loadRaces();
+            } catch (err) { showToast("Erro ao atualizar: " + err.message, 'error'); }
+        };
+
+        window.carregarResultadosEtapaAdmin = () => {
+            const select = document.getElementById('admin-results-race-select');
+            const container = document.getElementById('admin-results-container');
+            if (!select || !container) return;
+            const raceId = select.value;
+            if (!raceId) {
+                container.innerHTML = `<p class="text-gray-500 text-xs">Selecione uma etapa acima...</p>`;
+                return;
+            }
+
+            const r = activeRacesData.find(item => item.id === raceId);
+            if (!r || !r.pilots || r.pilots.length === 0) {
+                container.innerHTML = `<p class="text-gray-500 text-xs">Nenhum piloto inscrito nesta etapa.</p>`;
+                return;
+            }
+
+            let html = `<p class="text-xs text-gray-400 mb-2">Informe a posição de chegada, marque bônus e punições:</p><div class="space-y-2">`;
+            r.pilots.forEach((p, idx) => {
+                let existingRes = r.results && r.results.find(res => res.uid === p.uid) || {};
+                html += `
+                    <div class="bg-gray-900 p-3 rounded border border-gray-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+                        <div>
+                            <strong class="text-white">${p.fullName}</strong> <span class="text-orange-400 font-mono">(${p.psnXboxId})</span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <div>
+                                <label class="text-[9px] text-gray-400 uppercase block">Posição</label>
+                                <input type="number" min="1" max="40" id="res-pos-${p.uid}" value="${existingRes.position || (idx + 1)}" class="w-16 bg-gray-950 border border-gray-800 rounded p-1 text-white text-center">
+                            </div>
+                            <label class="flex items-center gap-1 cursor-pointer" title="Pole Position">
+                                <input type="checkbox" id="res-pole-${p.uid}" ${existingRes.pole ? 'checked' : ''} class="rounded bg-gray-950 text-emerald-600"> Pole
+                            </label>
+                            <label class="flex items-center gap-1 cursor-pointer" title="Melhor Volta">
+                                <input type="checkbox" id="res-fl-${p.uid}" ${existingRes.fastLap ? 'checked' : ''} class="rounded bg-gray-950 text-emerald-600"> Volta
+                            </label>
+                            <label class="flex items-center gap-1 cursor-pointer text-emerald-400" title="Melhor PRO-AM">
+                                <input type="checkbox" id="res-proam-${p.uid}" ${existingRes.proAm ? 'checked' : ''} class="rounded bg-gray-950 text-emerald-600"> PRO-AM
+                            </label>
+                            <label class="flex items-center gap-1 cursor-pointer text-emerald-400" title="Melhor AM">
+                                <input type="checkbox" id="res-am-${p.uid}" ${existingRes.am ? 'checked' : ''} class="rounded bg-gray-950 text-emerald-600"> AM
+                            </label>
+                            <label class="flex items-center gap-1 cursor-pointer text-red-400 font-bold" title="Punição (Bloqueia Descarte)">
+                                <input type="checkbox" id="res-pen-${p.uid}" ${existingRes.penalty ? 'checked' : ''} class="rounded bg-gray-950 text-red-600"> Punição
+                            </label>
+                        </div>
+                    </div>`;
+            });
+            html += `</div><button onclick="salvarResultadosEtapa('${raceId}')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded text-xs transition cursor-pointer mt-3">Salvar Resultados e Pontuações</button>`;
+            container.innerHTML = html;
+        };
+
+        window.salvarResultadosEtapa = async (raceId) => {
+            const r = activeRacesData.find(item => item.id === raceId);
+            if (!r || !r.pilots) return;
+
+            let pointsTable = r.pointsTable || [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
+            let ptsPole = r.ptsPole || 2;
+            let ptsFL = r.ptsFL || 1;
+            let ptsProAm = r.ptsProAm || 1;
+            let ptsAm = r.ptsAm || 1;
+            let mult = r.doublePoints ? 2 : 1;
+
+            let results = [];
+            r.pilots.forEach(p => {
+                let pos = parseInt(document.getElementById(`res-pos-${p.uid}`).value) || 99;
+                let pole = document.getElementById(`res-pole-${p.uid}`).checked;
+                let fastLap = document.getElementById(`res-fl-${p.uid}`).checked;
+                let proAm = document.getElementById(`res-proam-${p.uid}`).checked;
+                let am = document.getElementById(`res-am-${p.uid}`).checked;
+                let penalty = document.getElementById(`res-pen-${p.uid}`).checked;
+
+                let basePts = ((pos > 0 && pos <= pointsTable.length) ? pointsTable[pos - 1] : 0) * mult;
+                let extraPts = (pole ? ptsPole : 0) + (fastLap ? ptsFL : 0) + (proAm ? ptsProAm : 0) + (am ? ptsAm : 0);
+                let totalPoints = basePts + extraPts;
+
+                results.push({
+                    uid: p.uid,
+                    fullName: p.fullName,
+                    psnXboxId: p.psnXboxId,
+                    position: pos,
+                    pole,
+                    fastLap,
+                    proAm,
+                    am,
+                    penalty,
+                    totalPoints
+                });
+            });
+
+            try {
+                await setDoc(doc(db, "races", raceId), { results }, { merge: true });
+                showToast("Resultados salvos e pontuações calculadas com sucesso!");
+                await loadRaces();
+            } catch (err) { showToast("Erro ao salvar resultados: " + err.message, 'error'); }
+        };
 
         window.inscreverPilotoLogado = async (raceId) => {
             if (!currentUser || !currentUserProfile) { showToast("Faça login para se inscrever.", "error"); return; }
@@ -1556,7 +1740,7 @@
             if (!raceSnap.exists()) return;
             let rData = raceSnap.data();
             let pilots = rData.pilots || [];
-
+            
             if (pilots.some(p => p.uid === currentUser.uid)) {
                 showToast("Você já está inscrito nesta etapa!", "error");
                 return;
@@ -1576,6 +1760,7 @@
             await setDoc(raceRef, { pilots }, { merge: true });
             showToast("Inscrição realizada com sucesso!");
             loadRaces();
+            loadAdminPilots();
         };
 
         window.cancelarInscricaoPiloto = async (raceId) => {
@@ -1589,9 +1774,9 @@
             await setDoc(raceRef, { pilots }, { merge: true });
             showToast("Inscrição cancelada com sucesso!");
             loadRaces();
+            loadAdminPilots();
         };
 
-        // FUNÇÕES DE GESTÃO DE INSCRIÇÕES PELO ADMIN
         window.carregarPilotosInscritosAdmin = () => {
             const select = document.getElementById('admin-race-select');
             const listDiv = document.getElementById('admin-enrolled-pilots-list');
@@ -1655,6 +1840,7 @@
             await setDoc(raceRef, { pilots }, { merge: true });
             showToast("Piloto inscrito com sucesso pela administração!");
             await loadRaces();
+            loadAdminPilots();
             carregarPilotosInscritosAdmin();
         };
 
@@ -1668,6 +1854,7 @@
             await setDoc(raceRef, { pilots }, { merge: true });
             showToast("Piloto removido do evento com sucesso!");
             await loadRaces();
+            loadAdminPilots();
             carregarPilotosInscritosAdmin();
         };
 
@@ -1675,6 +1862,7 @@
             await deleteDoc(doc(db, "races", id));
             showToast("Etapa/Evento excluído com sucesso!");
             await loadRaces();
+            loadAdminPilots();
         };
 
         window.openProtestModal = () => {
@@ -1686,11 +1874,6 @@
             const modal = document.getElementById('protest-modal');
             if (modal) modal.classList.toggle('hidden', !show);
         };
-
-        window.processarResultadosACCJson = async () => {
-            showToast('Súmula .json processada e grid calculado instantaneamente.');
-        };
     </script>
 </body>
-
 </html>
